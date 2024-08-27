@@ -1,5 +1,6 @@
 import { AuthRouter } from '@/features/Auth'
 import { Layout } from '@/widgets'
+import { MainDashboard } from '@/widgets/MainDashboard/MainDashboard'
 import { useRoutes } from 'react-router'
 
 export const MyRoutes = () => {
@@ -7,7 +8,12 @@ export const MyRoutes = () => {
 		{
 			path: '',
 			element: <Layout />,
-			children: [],
+			children: [
+				{
+					path: '/',
+					element: <MainDashboard/>
+				}
+			],
 		},
 		AuthRouter,
 	])
