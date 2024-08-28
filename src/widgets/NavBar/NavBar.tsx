@@ -1,25 +1,18 @@
-import { AppBar, Toolbar, IconButton, Box } from "@mui/material";
-import profileIcon from '../../shared/assets/svg/profile.svg'
+import { Toolbar, Box, } from "@mui/material";
+import profileIcon from '../../shared/assets/svg/profile.svg';
+import { StyledAppBar, ProfileIconButton, StartTypography } from '../style';
 
 export const NavBar = () => {
   return (
-    <AppBar
-      position="static"
-      sx={{
-        height: "90px",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-        justifyContent: "center",
-        backgroundColor: "#ffffff",
-        color: "#000000",
-      }}
-    >
+    <StyledAppBar position="static">
       <Toolbar>
-        <Box flexGrow={1}></Box>
-
-        <IconButton edge="end" color="inherit">
-          <img src={profileIcon} />
-        </IconButton>
+        <StartTypography variant="h6" sx={{ flexGrow: 1 }}>
+          ORT.kg
+        </StartTypography>
+        <ProfileIconButton edge="end" color="inherit">
+          <img src={profileIcon} alt="Profile" />
+        </ProfileIconButton>
       </Toolbar>
-    </AppBar>
+    </StyledAppBar>
   );
 };
