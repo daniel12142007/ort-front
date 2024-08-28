@@ -1,4 +1,4 @@
-import { Toolbar, Box, } from "@mui/material";
+import { Toolbar } from "@mui/material";
 import profileIcon from '../../shared/assets/svg/profile.svg';
 import { StyledAppBar, ProfileIconButton, StartTypography } from '../style';
 

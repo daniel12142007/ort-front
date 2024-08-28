@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Grid } from "@mui/material";
-import { SideBar,} from "../index";
-import { NavBar } from '@/widgets'
-import { Page } from "../Type";
+import { SideBar, NavBar } from "@/widgets";
+import { Page } from "@/shared/ui/types";
 
 export const Layout = () => {
   const [selectedPage, setSelectedPage] = useState<Page>("constructor");

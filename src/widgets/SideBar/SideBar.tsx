@@ -5,13 +5,21 @@ import constructureSvg from '../../shared/assets/svg/constucture.svg';
 import testingSvg from '../../shared/assets/svg/testing.svg';
 import userSvg from '../../shared/assets/svg/user.svg';
 import { SideBarContainer, StyledListItemButton, Icon } from '../style';
-import { NavItem, SideBarProps } from "../Type";
+import { NavItem, Page } from "@/shared/ui/types";
+
+
+
+export interface SideBarProps {
+  selected: Page;
+  onSelect: (page: Page) => void;
+}
 
 const navItems: NavItem[] = [
   { label: "Конструктор теста", icon: constructureSvg, value: "constructor", path: "/" },
-  { label: "Тестирование", icon: testingSvg, value: "testing", path: "/" },
+  { label: "Тестирование", icon: testingSvg, value: "testing", path: "/testing" },
   { label: "Пользователь", icon: userSvg, value: "user", path: "/user" },
 ];
+
 
 export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
   return (
