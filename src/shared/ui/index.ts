@@ -1,3 +1,4 @@
-import { LoaderDots } from './LoaderDots'
+import { LoaderDots } from "./LoaderDots";
+import { UploadUI } from "./Upload";
 
-export { LoaderDots }
+export { LoaderDots, UploadUI };
