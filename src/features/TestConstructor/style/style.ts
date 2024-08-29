@@ -217,3 +217,19 @@ export const InputText = styled.textarea`
   border-radius: 5px;
   padding: 10px;
 `;
+
+export const TestListStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 40px;
+`;
+export const TestBlockStyle = styled.div`
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px;
+  }
+`;
