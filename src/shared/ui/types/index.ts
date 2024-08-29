@@ -13,3 +13,12 @@ export interface CommonForm {
 export interface Status {
 	status: 'idle' | 'loading' | 'success' | 'error'
 }
+
+export type Page = "constructor" | "testing" | "user";
+
+export interface NavItem {
+  label: string;
+  icon: string;
+  value: Page;
+  path: string;
+}
