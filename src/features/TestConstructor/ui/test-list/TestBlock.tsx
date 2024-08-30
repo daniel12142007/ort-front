@@ -5,8 +5,8 @@ const TestBlock = () => {
     <TestBlockStyle>
       <div>
         <div>
-          <h2>Вопрос: 1</h2>
-          <h3>
+          <h2 style={{ fontSize: "26px" }}>Вопрос: 1</h2>
+          <h3 style={{ fontSize: "20px" }}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, laborum. Sequi, reiciendis velit. Unde vitae
             inventore adipisci aliquid iure praesentium dolor veritatis tempora magni, architecto corrupti sit sapiente, quasi
             iusto quidem! Eligendi ad ea, veniam necessitatibus quod deleniti cumque illum.
