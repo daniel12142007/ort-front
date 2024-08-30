@@ -76,73 +76,77 @@
 // 		</div>
 // 	)
 // }
-import React, { useState } from 'react'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
-import { CommonForm } from './types'
-import { FormInput, Label } from '@/features/Auth/style/style'
+import React, { useState } from "react";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { CommonForm } from "./types";
+import { FormInput, Label } from "@/features/Auth/style/style";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 interface PasswordInputProps extends CommonForm {
-	id?: string
-	label?: string
-	placeholder?: string
-	type: string
+  id?: string;
+  label?: string;
+  placeholder?: string;
+  type: string;
+  register: UseFormRegisterReturn;
 }
 
 export const MyPasswordInput: React.FC<PasswordInputProps> = ({
-	id,
-	type,
-	value,
-	onChange,
-	placeholder,
-	label,
-	...props
+  id,
+  type,
+  value,
+  onChange,
+  placeholder,
+  label,
+  register,
+  ...props
 }) => {
-	const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
 
-	const togglePasswordVisibility = () => {
-		setShowPassword(!showPassword)
-	}
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-	return (
-		<div style={{ position: 'relative', marginTop: '25px' }}>
-			<Label htmlFor={id}>{label}</Label>
-			<FormInput
-				type={showPassword ? 'text' : 'password'}
-				id={id}
-				value={value}
-				onChange={onChange}
-				placeholder={placeholder}
-				{...props}
-			/>
-			<span
-				onClick={togglePasswordVisibility}
-				style={{
-					position: 'absolute',
-					right: '10px',
-					top: '71%', // Adjust this to better center the icon
-					transform: 'translateY(-50%)',
-					cursor: 'pointer',
-					userSelect: 'none',
-					display: 'flex',
-					alignItems: 'center',
-					height: '100%', // Make sure it takes up the full height of the input
-				}}
-			>
-				{showPassword ? (
-					<VisibilityIcon
-						sx={{
-							color: '#E1E1E1',
-						}}
-					/>
-				) : (
-					<VisibilityOffIcon
-						sx={{
-							color: '#E1E1E1',
-						}}
-					/>
-				)}
-			</span>
-		</div>
-	)
-}
+  return (
+    <div style={{ position: "relative", marginTop: "25px" }}>
+      <Label htmlFor={id}>{label}</Label>
+      <FormInput
+        type={showPassword ? "text" : "password"}
+        id={id}
+        value={value}
+        // onChange={onChange}
+        placeholder={placeholder}
+        {...register}
+        {...props}
+      />
+      <span
+        onClick={togglePasswordVisibility}
+        style={{
+          position: "absolute",
+          right: "10px",
+          top: "71%", // Adjust this to better center the icon
+          transform: "translateY(-50%)",
+          cursor: "pointer",
+          userSelect: "none",
+          display: "flex",
+          alignItems: "center",
+          height: "100%", // Make sure it takes up the full height of the input
+        }}
+      >
+        {showPassword ? (
+          <VisibilityIcon
+            sx={{
+              color: "#E1E1E1",
+            }}
+          />
+        ) : (
+          <VisibilityOffIcon
+            sx={{
+              color: "#E1E1E1",
+            }}
+          />
+        )}
+      </span>
+    </div>
+  );
+};
