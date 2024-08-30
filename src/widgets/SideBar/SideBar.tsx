@@ -13,7 +13,7 @@ export interface SideBarProps {
 }
 
 const navItems: NavItem[] = [
-  { label: "Конструктор теста", icon: constructureSvg, value: "constructor", path: "/test-constructor" },
+  { label: "Конструктор теста", icon: constructureSvg, value: "constructor", path: "/" },
   { label: "Тестирование", icon: testingSvg, value: "testing", path: "/testing" },
   { label: "Пользователь", icon: userSvg, value: "user", path: "/user" },
 ];

@@ -4,7 +4,7 @@ import CreateTest from "./ui/create-test/CreateTest";
 import TestList from "./ui/test-list";
 
 export const TestConstructorRouter = {
-  path: "test-constructor/",
+  path: "",
   element: <Outlet />,
   children: [
     {

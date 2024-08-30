@@ -10,10 +10,7 @@ export const MyRoutes = () => {
       path: "",
       element: <Layout />,
       children: [
-        {
-          path: "/",
-          element: <MainDashboard />,
-        },
+        TestConstructorRouter,
         {
           path: "/testing",
           element: <MainDashboard />,
@@ -22,7 +19,6 @@ export const MyRoutes = () => {
           path: "/user",
           element: <MainDashboard />,
         },
-        TestConstructorRouter,
       ],
     },
     AuthRouter,
