@@ -3,11 +3,34 @@ import { ListItemButton } from "@mui/material";
 import { AppBar, IconButton, Typography } from "@mui/material";
 
 export const SideBarContainer = styled("div")`
-  width: 297px;
+  grid-area: menu;
   height: 100%;
   background-color: ${({ theme }) => theme.palette.background.paper};
   padding: ${({ theme }) => theme.spacing(2)};
-  margin-top: 30px;
+`;
+
+export const GridContainer = styled("div")`
+  display: grid;
+  grid-template-areas:
+    "header header header header"
+    "menu main main main"
+    "menu main main main";
+    "menu main main main";
+  background-color: #a5b4c2;
+  height: 100vh;
+
+  grid-template-rows: 80px auto;
+  grid-template-columns: 270px auto;
+
+  & > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 30px;
+  }
+`;
+
+export const Content = styled("div")`
+  margin: 30px;
+  grid-area: main;
 `;
 
 export const StyledListItemButton = styled(ListItemButton)<{ selected: boolean }>`
@@ -27,7 +50,7 @@ export const Icon = styled("img")<{ selected: boolean }>`
   transition: filter 0.3s ease;
 `;
 export const StyledAppBar = styled(AppBar)`
-  height: 90px;
+  grid-area: header;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   justify-content: center;
   background-color: #ffffff;
@@ -36,7 +59,7 @@ export const StyledAppBar = styled(AppBar)`
 
 export const ProfileIconButton = styled(IconButton)`
   img {
-    width: 40px; 
+    width: 40px;
     height: 40px;
   }
 `;
@@ -46,6 +69,6 @@ export const StartTypography = styled(Typography)`
   color: #000;
   display: flex;
   justify-content: start;
-  color: #4285B4;
+  color: #4285b4;
   font: Roboto;
 `;

@@ -20,9 +20,16 @@ const CreateTest: React.FC = () => {
   };
 
   return (
-    <ContainerStyle style={{ border: "1px solid red" }}>
+    <ContainerStyle>
       <Title>
         <h1>{itemType}</h1>
+        <ButtonContainer>
+          <AddButton onClick={() => setTestArray(defaultQuestion)}>
+            <AddIcon color="white" size={18} />
+            Добавить еще
+          </AddButton>
+          <AddButton onClick={onSubmit}>Сохранить</AddButton>
+        </ButtonContainer>
       </Title>
 
       <TaskList>
@@ -30,14 +37,6 @@ const CreateTest: React.FC = () => {
           <TestBlock key={index} index={index + 1} data={obj} update={update} />
         ))}
       </TaskList>
-
-      <ButtonContainer>
-        <AddButton onClick={() => setTestArray(defaultQuestion)}>
-          <AddIcon color="white" size={18} />
-          Добавить еще
-        </AddButton>
-        <AddButton onClick={onSubmit}>Сохранить</AddButton>
-      </ButtonContainer>
     </ContainerStyle>
   );
 };

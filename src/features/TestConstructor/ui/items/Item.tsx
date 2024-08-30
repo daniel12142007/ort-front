@@ -9,7 +9,7 @@ interface Props {
 const Item: React.FC<Props> = ({ name }) => {
   const navigate = useNavigate();
   const create = () => {
-    navigate(`/test-constructor/create-test/${name}`);
+    navigate(`/test-list/${name}`);
   };
   return <ItemBox onClick={create}>{name}</ItemBox>;
 };

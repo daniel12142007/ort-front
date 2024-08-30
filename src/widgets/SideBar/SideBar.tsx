@@ -1,13 +1,11 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { List, ListItemIcon, ListItemText } from "@mui/material";
-import constructureSvg from '../../shared/assets/svg/constucture.svg';
-import testingSvg from '../../shared/assets/svg/testing.svg';
-import userSvg from '../../shared/assets/svg/user.svg';
-import { SideBarContainer, StyledListItemButton, Icon } from '../style';
+import constructureSvg from "../../shared/assets/svg/constucture.svg";
+import testingSvg from "../../shared/assets/svg/testing.svg";
+import userSvg from "../../shared/assets/svg/user.svg";
+import { SideBarContainer, StyledListItemButton, Icon } from "../style";
 import { NavItem, Page } from "@/shared/ui/types";
-
-
 
 export interface SideBarProps {
   selected: Page;
@@ -20,7 +18,6 @@ const navItems: NavItem[] = [
   { label: "Пользователь", icon: userSvg, value: "user", path: "/user" },
 ];
 
-
 export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
   return (
     <SideBarContainer>
@@ -30,7 +27,7 @@ export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
             key={item.value}
             to={item.path}
             onClick={() => onSelect(item.value)}
-            style={{ textDecoration: 'none', color: 'inherit' }}
+            style={{ textDecoration: "none", color: "inherit" }}
           >
             <StyledListItemButton selected={selected === item.value}>
               <ListItemIcon>

@@ -64,28 +64,24 @@ const TestBlock: React.FC<Props> = ({ index, data, update }) => {
         <span>{index}.</span>
 
         <div>
-          <div>
-            {files.main_image ? (
-              <>
-                <ImageBlock size={80}>
-                  <img src={getUrl(files.main_image)} alt="file" />
-                  <DeleteImage top={1} right={1} onClick={() => handleFileChange("main_image", null)}>
-                    <AddIcon color="white" />
-                  </DeleteImage>
-                </ImageBlock>
-              </>
-            ) : (
-              <UploadUI setFile={(e) => handleFileChange("main_image", e)} />
-            )}
-          </div>
-          <div>
-            <InputText
-              style={{ width: "800px" }}
-              placeholder="Вопрос"
-              value={data.question}
-              onChange={(e) => onSave({ ...data, question: e.target.value })}
-            />
-          </div>
+          {files.main_image ? (
+            <>
+              <ImageBlock size={80}>
+                <img src={getUrl(files.main_image)} alt="file" />
+                <DeleteImage top={1} right={1} onClick={() => handleFileChange("main_image", null)}>
+                  <AddIcon color="white" />
+                </DeleteImage>
+              </ImageBlock>
+            </>
+          ) : (
+            <UploadUI setFile={(e) => handleFileChange("main_image", e)} />
+          )}
+          <InputText
+            style={{ width: "800px" }}
+            placeholder="Вопрос"
+            value={data.question}
+            onChange={(e) => onSave({ ...data, question: e.target.value })}
+          />
         </div>
       </TestQuestion>
       <TestOptions>
