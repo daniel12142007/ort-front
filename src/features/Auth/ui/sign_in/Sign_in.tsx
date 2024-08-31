@@ -12,7 +12,8 @@ import { toast } from "react-toastify";
 export const SignIn = () => {
   const navigate = useNavigate();
   const signIn = useAuthStore((state) => state.signIn);
-  const notify = (message: string) => toast(message);
+  const notify = (message: string, type: "success" | "error") => toast[type](message);
+
   const [isLoading, setLoading] = useState<boolean>(false);
   const {
     handleSubmit,
@@ -33,7 +34,7 @@ export const SignIn = () => {
       if (status === "error") {
         setError("password", { type: "custom", message: message });
       }
-      notify(message);
+      notify(message, status);
       setLoading(false);
     } catch (err) {
       setError("password", { type: "custom", message: "Неверный логин или пароль." });
