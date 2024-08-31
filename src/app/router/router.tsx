@@ -3,12 +3,17 @@ import { Layout } from "@/widgets";
 import { MainDashboard } from "@/widgets/MainDashboard/MainDashboard";
 import { useRoutes } from "react-router";
 import { TestConstructorRouter } from "@/features/TestConstructor";
+import ProtectedRoute from "@/shared/ui/ProtectedRoute";
 
 export const MyRoutes = () => {
   return useRoutes([
     {
       path: "",
-      element: <Layout />,
+      element: (
+        <ProtectedRoute>
+          <Layout />
+        </ProtectedRoute>
+      ),
       children: [
         TestConstructorRouter,
         {

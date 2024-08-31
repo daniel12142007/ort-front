@@ -4,7 +4,6 @@ import TokenService from "@/utils";
 import { NavigateFunction } from "react-router-dom";
 import { LoginReq } from "../../type";
 import { api } from "../../api";
-import axios from "axios";
 
 interface AuthStoreState {
   token: string;
@@ -31,18 +30,3 @@ export const useAuthStore = create<AuthStoreState>(() => ({
     }
   },
 }));
-
-// Интерцептор для добавления токена авторизации к каждому исходящему запросу,
-// если токен существует, и обработки ошибок запроса.
-axios.interceptors.request.use(
-  (config) => {
-    const token = TokenService.getToken();
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);

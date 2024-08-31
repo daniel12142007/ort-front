@@ -8,7 +8,6 @@ import { LoginReq } from "../../type";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../model/store";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export const SignIn = () => {
   const navigate = useNavigate();
