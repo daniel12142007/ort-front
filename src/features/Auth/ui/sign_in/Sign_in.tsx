@@ -4,32 +4,42 @@ import { LoaderDots } from "@/shared/ui";
 import { MyInput } from "@/shared/ui/MyInput";
 import { MyPasswordInput } from "@/shared/ui/MyPasswordInput";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AdminSignInState } from "../../type";
-import { signIn } from "../../api";
+import { LoginReq } from "../../type";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../model/store";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const SignIn = () => {
   const navigate = useNavigate();
+  const signIn = useAuthStore((state) => state.signIn);
+  const notify = (message: string) => toast(message);
   const [isLoading, setLoading] = useState<boolean>(false);
   const {
     handleSubmit,
     register,
     setError,
     formState: { errors },
-  } = useForm<AdminSignInState>({
+  } = useForm<LoginReq>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit: SubmitHandler<AdminSignInState> = async (data) => {
+  const onSubmit: SubmitHandler<LoginReq> = async (data) => {
     setLoading(true);
-    const { status, message } = await signIn({ data, navigate });
-    if (status === "error" && message) {
-      setError("password", { type: "custom", message: message });
+    try {
+      const { status, message } = await signIn(data, navigate);
+      if (status === "error") {
+        setError("password", { type: "custom", message: message });
+      }
+      notify(message);
+      setLoading(false);
+    } catch (err) {
+      setError("password", { type: "custom", message: "Неверный логин или пароль." });
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
