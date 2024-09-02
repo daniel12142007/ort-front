@@ -1,14 +1,24 @@
+import { useEffect } from "react";
 import { TitleHead, ItemsList } from "../style/style";
 import Item from "./items/Item";
+import { useItemStore } from "./model/UseItemStore";
 
 const ItemList = () => {
+  const items = useItemStore((state) => state.items); // Получаем предметы из zustand
+  const fetchItems = useItemStore((state) => state.fetchItems); // Получаем функцию для загрузки данных
+
+  // Загружаем предметы при монтировании компонента
+  useEffect(() => {
+    fetchItems();
+  }, [fetchItems]);
+
   return (
     <div>
       <TitleHead>
         <h1>Предметы</h1>
       </TitleHead>
       <ItemsList>
-        {itemsArray.map((title, i) => (
+        {items.map((title, i) => (
           <Item name={title} key={i} />
         ))}
       </ItemsList>
@@ -17,15 +27,3 @@ const ItemList = () => {
 };
 
 export default ItemList;
-
-const itemsArray = [
-  "Кыргызский язык",
-  "Русский язык",
-  "Кыргызская литература",
-  "Русская литература",
-  "Английский язык",
-  "Математика",
-  "История",
-  "Биология",
-  "Физика",
-];
