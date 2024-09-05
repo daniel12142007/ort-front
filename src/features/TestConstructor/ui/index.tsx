@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { TitleHead, ItemsList } from "../style/style";
 import Item from "./items/Item";
-import { useItemStore } from "./model/UseItemStore";
+import { useStore } from "../model/store"; 
 
 const ItemList = () => {
-  const items = useItemStore((state) => state.items); // Получаем предметы из zustand
-  const fetchItems = useItemStore((state) => state.fetchItems); // Получаем функцию для загрузки данных
+  const items = useStore((state) => state.items); 
+  const fetchItems = useStore((state) => state.fetchItems); 
 
-  // Загружаем предметы при монтировании компонента
+
   useEffect(() => {
     fetchItems();
   }, [fetchItems]);
