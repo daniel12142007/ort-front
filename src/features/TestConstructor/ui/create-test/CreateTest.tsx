@@ -4,7 +4,7 @@ import { ContainerStyle, AddButton, ButtonContainer, Title, TaskList } from "../
 import TestBlock from "./TestBlock";
 import { AddIcon } from "@/shared/ui/icon";
 import { TestState } from "../../type";
-import { useStore, defaultQuestion } from "../model/store";
+import { useStore, defaultQuestion } from "../../model/store";
 
 const CreateTest: React.FC = () => {
   const { itemType } = useParams();

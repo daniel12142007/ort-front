@@ -24,3 +24,8 @@ export type OptionsInputState = {
   c: string;
   d: string;
 };
+
+export interface SubjectReq {
+  id: number;
+  subjectName: string;
+}

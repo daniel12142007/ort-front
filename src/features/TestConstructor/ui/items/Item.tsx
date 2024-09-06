@@ -7,6 +7,7 @@ interface Props {
 }
 
 const Item: React.FC<Props> = ({ name }) => {
+  console.log(name); // Проверим, что выводится имя предмета
   const navigate = useNavigate();
   const create = () => {
     navigate(`/test-list/${name}`);
