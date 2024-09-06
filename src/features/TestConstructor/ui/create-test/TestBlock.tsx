@@ -1,19 +1,21 @@
 import React from "react";
 import { TestBlockUI, TestQuestion, TestOptions, ImageBlock, InputText, DeleteImage } from "../../style/style";
 import OptionBlock from "./OptionBlock";
-import { TestState } from "../../type";
+import { TestFileState } from "../../type";
 import { UploadUI } from "@/shared/ui";
 import { AddIcon } from "@/shared/ui/icon";
 import { InputProps, OptionsInputState } from "../../type";
 
 interface Props {
   index: number;
-  data: TestState;
-  update: (e: TestState) => void;
+  data: TestFileState;
+  update: (e: TestFileState) => void;
+  subject: number;
+  valid: (e: boolean) => void;
 }
 
-const TestBlock: React.FC<Props> = ({ index, data, update }) => {
-  const [correct, setCorrect] = React.useState<string>("");
+const TestBlock: React.FC<Props> = ({ index, data, update, subject, valid }) => {
+  const [correct, setCorrect] = React.useState<string>("a");
 
   const [files, setFiles] = React.useState<InputProps>({
     main_image: null,
@@ -33,15 +35,16 @@ const TestBlock: React.FC<Props> = ({ index, data, update }) => {
     setFiles((prev) => ({ ...prev, [key]: file }));
   };
 
-  const onSave = (data: TestState) => {
+  const onSave = (data: TestFileState) => {
+    valid(data.questionRequest.description.length > 0 && data.optionRequests.every((x) => x.description.length > 0));
     update({
       ...data,
-      imageQuestion: files.main_image!,
-      options: [
-        { option: optionsInput.a, imageOption: files.a_image!, isTrue: correct == "a" ? true : false },
-        { option: optionsInput.b, imageOption: files.b_image!, isTrue: correct == "b" ? true : false },
-        { option: optionsInput.c, imageOption: files.c_image!, isTrue: correct == "c" ? true : false },
-        { option: optionsInput.d, imageOption: files.d_image!, isTrue: correct == "d" ? true : false },
+      questionRequest: { imageQuestion: files.main_image, description: data.questionRequest.description, subjectId: subject },
+      optionRequests: [
+        { description: optionsInput.b, imageOption: files.b_image!, isCorrect: correct == "b" ? true : false },
+        { description: optionsInput.a, imageOption: files.a_image!, isCorrect: correct == "a" ? true : false },
+        { description: optionsInput.c, imageOption: files.c_image!, isCorrect: correct == "c" ? true : false },
+        { description: optionsInput.d, imageOption: files.d_image!, isCorrect: correct == "d" ? true : false },
       ],
     });
   };
@@ -79,8 +82,8 @@ const TestBlock: React.FC<Props> = ({ index, data, update }) => {
           <InputText
             style={{ width: "800px" }}
             placeholder="Вопрос"
-            value={data.question}
-            onChange={(e) => onSave({ ...data, question: e.target.value })}
+            value={data.questionRequest.description}
+            onChange={(e) => onSave({ ...data, questionRequest: { ...data.questionRequest, description: e.target.value } })}
           />
         </div>
       </TestQuestion>

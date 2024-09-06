@@ -94,7 +94,7 @@ export const ItemsList = styled.div`
 
 export const ItemBox = styled.div`
   padding: 10px 15px;
-  border: 2px solid rgb(0, 0, 0, 0.6);
+  border: 2px solid rgba(0, 0, 0, 0.6);
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -103,15 +103,46 @@ export const ItemBox = styled.div`
   cursor: pointer;
   font-size: 20px;
   width: auto;
-
   font-weight: 500;
 
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
   &:hover {
-    background-color: "#f5f5f5";
+    background-color: #f5f5f5;
   }
 
   &:active {
     background-color: #c2c2c2;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 0;
+    transition: 0.3s ease;
+    z-index: -1;
+  }
+
+  &::before {
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #4285b4 10%, #aed6f5 30%, #f5f5f5 50%);
+  }
+
+  &::after {
+    top: 0;
+    right: 0;
+    background-image: linear-gradient(to left, #4285b4 10%, #aed6f5 30%, #f5f5f5 50%);
+  }
+  &:hover::before {
+    width: 25%;
+  }
+  &:hover::after {
+    width: 25%;
   }
 `;
 
@@ -234,6 +265,11 @@ export const InputText = styled.textarea`
   background-color: #f0f0f0;
   border-radius: 5px;
   padding: 10px;
+
+  &::placeholder {
+    color: gray;
+    fontfamily: Italic;
+  }
 `;
 
 export const TestListStyle = styled.div`
@@ -242,7 +278,7 @@ export const TestListStyle = styled.div`
   gap: 10px;
   padding: 20px 40px;
   overflow: auto;
-  max-height: 500px;
+  max-height: 67vh;
 `;
 export const TestBlockStyle = styled.div`
   & > div {

@@ -1,16 +1,13 @@
 import { TestBlockStyle } from "../../style/style";
+import { QuestionReq } from "../../type";
 
-const TestBlock = () => {
+const TestBlock = ({ data }: { data: QuestionReq }) => {
   return (
     <TestBlockStyle>
       <div>
         <div>
-          <h2 style={{ fontSize: "26px" }}>Вопрос: 1</h2>
-          <h3 style={{ fontSize: "20px" }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, laborum. Sequi, reiciendis velit. Unde vitae
-            inventore adipisci aliquid iure praesentium dolor veritatis tempora magni, architecto corrupti sit sapiente, quasi
-            iusto quidem! Eligendi ad ea, veniam necessitatibus quod deleniti cumque illum.
-          </h3>
+          <h2 style={{ fontSize: "26px" }}>Вопрос: {data.questionId}</h2>
+          <h3 style={{ fontSize: "20px" }}>{data.description}</h3>
         </div>
         <div>
           <button>Редактировать</button>
@@ -18,10 +15,12 @@ const TestBlock = () => {
         </div>
       </div>
       <div>
-        <div>fasfa</div>
-        <div>fasfa</div>
-        <div>fasfa</div>
-        <div>fasfa</div>
+        {data.optionsResponse.map((item, i) => (
+          <div key={i}>
+            <div>{item.description}</div>
+            <input type="checkbox" checked={item.correct} readOnly />
+          </div>
+        ))}
       </div>
     </TestBlockStyle>
   );

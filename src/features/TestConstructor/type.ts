@@ -1,14 +1,46 @@
-export interface TestState {
+export interface TestFileState {
   id: number;
-  question: string;
-  imageQuestion?: File;
-  options: OptionState[];
+  questionRequest: QuestionRequestFileState;
+  optionRequests: OptionFileState[];
+}
+interface QuestionRequestFileState {
+  subjectId: number;
+  description: string;
+  imageQuestion?: File | null;
+}
+interface OptionFileState {
+  description: string;
+  imageOption?: File;
+  isCorrect: boolean;
 }
 
+export interface TestState {
+  questionRequest: QuestionRequestState;
+  optionRequests: OptionState[];
+}
+interface QuestionRequestState {
+  subjectId: number;
+  description: string;
+}
 interface OptionState {
-  option: string;
-  imageOption?: File;
-  isTrue: boolean;
+  description: string;
+  isCorrect: boolean;
+}
+
+export interface QuestionReq {
+  questionId: number;
+  subjectId: number;
+  description: string;
+  image: string;
+  optionsResponse: OptionReq[];
+}
+
+export interface OptionReq {
+  id: number;
+  questionId: number;
+  correct: boolean;
+  description: string;
+  image: string;
 }
 
 export type InputProps = {
@@ -24,3 +56,8 @@ export type OptionsInputState = {
   c: string;
   d: string;
 };
+
+export interface GetQuestionsListResponse {
+  status: string;
+  message: string;
+}

@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
   name: string;
+  index: number;
 }
 
-const Item: React.FC<Props> = ({ name }) => {
+const Item: React.FC<Props> = ({ name, index }) => {
   const navigate = useNavigate();
   const create = () => {
-    navigate(`/test-list/${name}`);
+    navigate(`/test-list/${index}`);
   };
   return <ItemBox onClick={create}>{name}</ItemBox>;
 };
