@@ -20,5 +20,5 @@ export interface NavItem {
   label: string;
   icon: string;
   value: Page;
-  path: string;
+  path: any;
 }

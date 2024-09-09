@@ -51,7 +51,7 @@ export const useStore = create<StoreState>((set) => ({
   fetchItems: async () => {
     try {
       const response = await api.getSubjects();
-      console.log("API Response:", response.data);
+      // console.log("API Response:", response.data);
       if (Array.isArray(response.data)) {
         const itemNames = response.data.map((subject: SubjectReq) => subject.subjectName);
         set({ items: itemNames });
