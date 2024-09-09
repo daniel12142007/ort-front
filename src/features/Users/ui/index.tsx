@@ -1,12 +1,12 @@
 import searchSVG from "../../../shared/assets/svg/search.svg";
 import deleteSVG from "../../../shared/assets/svg/delete.svg";
 import { CircularProgress } from "@mui/material";
-import { UserBox, Image, SearchInput, NavBlock, Flexing, NamesBlock, MainBlock,Name,DetailName,Email,DeleteImage, DetailBlock, Role, Circular } from "../style/style";
+import { UserBox, Image, SearchInput, NavBlock, Flexing, NamesBlock, MainBlock, Name, DetailName, Email, DeleteImage, DetailBlock, Role, Circular } from "../style/style";
 import { userStore } from "../model/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const UserList = () => {
-
+  const [searchTerm, setSearchTerm] = useState("");
   const { user, isLoading, fetchUser } = userStore((state) => ({
     user: state.user,
     isLoading: state.isLoading,
@@ -21,11 +21,20 @@ export const UserList = () => {
     return <Circular><CircularProgress /></Circular>;
   }
 
+  const filteredUsers = user?.filter(u => 
+    u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    u.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <UserBox>
       <NavBlock>
         <Flexing>
-          <SearchInput placeholder="поиск" />
+          <SearchInput
+            placeholder="Поиск по имени или email"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
           <Image src={searchSVG} />
         </Flexing>
       </NavBlock>
@@ -36,21 +45,20 @@ export const UserList = () => {
         <DetailName>Действия</DetailName>
       </DetailBlock>
       <MainBlock>
-        {user && user.length > 0 ? (
-          user.map((user) => (
-            <NamesBlock>
-                <Name>{user.name}</Name>
-                <Email>{user.email}</Email>
-                <Role>KAI TECH</Role>
-                <DeleteImage>
-                    <Image src={deleteSVG} />
-                </DeleteImage>
+        {filteredUsers && filteredUsers.length > 0 ? (
+          filteredUsers.map((user) => (
+            <NamesBlock key={user.id}>
+              <Name>{user.name}</Name>
+              <Email>{user.email}</Email>
+              <Role>KAI TECH</Role>
+              <DeleteImage>
+                <Image src={deleteSVG} />
+              </DeleteImage>
             </NamesBlock>
           ))
         ) : (
-            <div>Пока нет данных</div>
-        )
-        }
+          <div>Пока нет данных</div>
+        )}
       </MainBlock>
     </UserBox>
   );
