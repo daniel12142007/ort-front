@@ -1,16 +1,22 @@
+import { useEffect } from "react";
 import { TitleHead, ItemsList } from "../style/style";
 import Item from "./items/Item";
+import { useStore } from "../model/store";
 
 const ItemList = () => {
-  const sentence = "I love React";
-  const array = sentence.split(" ").filter((word) => word !== " ");
+  const items = useStore((state) => state.items);
+  const fetchItems = useStore((state) => state.fetchItems);
+
+  useEffect(() => {
+    fetchItems();
+  }, [fetchItems]);
   return (
     <div>
       <TitleHead>
         <h1>Предметы</h1>
       </TitleHead>
       <ItemsList>
-        {itemsArray.map((title, i) => (
+        {items.map((title, i) => (
           <Item name={title} index={i + 1} key={i} />
         ))}
       </ItemsList>
@@ -19,15 +25,3 @@ const ItemList = () => {
 };
 
 export default ItemList;
-
-export const itemsArray = [
-  "Кыргызский язык",
-  "Кыргызская литература",
-  "Математика",
-  "История",
-  "физика",
-  "Русский язык",
-  "Русская литература",
-  "Английский язык",
-  "Биология  ",
-];

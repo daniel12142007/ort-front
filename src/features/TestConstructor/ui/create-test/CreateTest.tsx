@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ContainerStyle, AddButton, ButtonContainer, Title, TaskList } from "../../style/style";
 import TestBlock from "./TestBlock";
 import { AddIcon } from "@/shared/ui/icon";
-import { TestFileState } from "../../type";
+import { TestState } from "../../type";
 import { useStore, defaultQuestion } from "../model/store";
 
 const CreateTest: React.FC = () => {

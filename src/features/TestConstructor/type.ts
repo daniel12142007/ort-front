@@ -61,3 +61,7 @@ export interface GetQuestionsListResponse {
   status: string;
   message: string;
 }
+export interface SubjectReq {
+  id: number;
+  subjectName: string;
+}

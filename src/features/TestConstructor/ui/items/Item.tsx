@@ -9,6 +9,7 @@ interface Props {
 
 const Item: React.FC<Props> = ({ name, index }) => {
   const navigate = useNavigate();
+
   const create = () => {
     navigate(`/test-list/${index}`);
   };

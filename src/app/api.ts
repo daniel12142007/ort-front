@@ -1,7 +1,7 @@
 import TokenService from "@/utils";
 import axios from "axios";
 
-const base_url = "http://localhost:8080/";
+const base_url = "http://192.168.68.122:8080/";
 
 export const apiRoot = axios.create({
   baseURL: base_url,
