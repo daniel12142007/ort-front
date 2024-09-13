@@ -4,6 +4,7 @@ import { MainDashboard } from "@/widgets/MainDashboard/MainDashboard";
 import { useRoutes } from "react-router";
 import { TestConstructorRouter } from "@/features/TestConstructor";
 import ProtectedRoute from "@/shared/ui/ProtectedRoute";
+import { UsersRouter } from "@/features/Users/route";
 
 export const MyRoutes = () => {
   return useRoutes([
@@ -20,10 +21,7 @@ export const MyRoutes = () => {
           path: "/testing",
           element: <MainDashboard />,
         },
-        {
-          path: "/user",
-          element: <MainDashboard />,
-        },
+        UsersRouter,
       ],
     },
     AuthRouter,
