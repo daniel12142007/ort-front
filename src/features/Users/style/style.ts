@@ -14,9 +14,9 @@ export const Flexing = styled("div")`
     align-items: center;
     width: 325px;
     height: 42px;
-    border: 1px solid #A5B4C3;
     border-radius: 5px;
     padding: 10px;
+    background-color: #ffffff;
 `
 
 export const Image = styled("img")`
@@ -29,25 +29,28 @@ export const SearchInput = styled("input")`
     height; 100%;
     border: none;
     outline: none;
-    background-color: #EEF0F4;
+    background-color: #ffffff;
+`
+export const SBlock = styled("div")`
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 30px;
+    margin-top: 17px;
 `
 
 export const NavBlock = styled("div")`
     display: flex;
     justify-content: space-between;
-    // border: 1px solid blue;
-    margin: 10px;
 `
 export const DetailBlock = styled("div")`
-    width: 94%;
-    margin: 30px;
+    width: 100%;
+    // margin: 30px;
     height: 50px;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px dotted black;
     padding-left: 10px;
     padding-right: 10px;
-    // border: 1px solid blue;
 `
 export const NamesBlock = styled("div")`
     width: 100%;
@@ -55,6 +58,7 @@ export const NamesBlock = styled("div")`
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid rgb(200, 200, 200);
+    margin-top: 15px;
 `
 export const DetailName = styled("div")`
     font-family: Montserrat;
@@ -91,11 +95,26 @@ export const DeleteImage = styled("div")`
 
 export const MainBlock = styled("div")`
     overflow-y: scroll;
-    width: 95%;
-    margin-left: 30px;
+    width: 100%;
     height: 510px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 
+      /* Стили для прокрутки */
+    scrollbar-width: thin; /* тонкий скроллбар для Firefox */
+    scrollbar-color: #c4c4c4 transparent; /* цвет для Firefox */
+
+    &::-webkit-scrollbar {
+        width: 6px; /* ширина скроллбара для Chrome, Safari и др. */
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #c4c4c4; /* цвет для ползунка скроллбара */
+        border-radius: 4px; /* скругленные углы */
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent; /* прозрачный фон для трека скроллбара */
+    }
 `

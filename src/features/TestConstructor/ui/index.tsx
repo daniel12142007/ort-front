@@ -15,7 +15,7 @@ const ItemList = () => {
   return (
     <div>
       <TitleHead>
-        <h1>Предметы</h1>
+        <p>Предметы</p>
       </TitleHead>
       <ItemsList>
         {items.map((title, i) => (
