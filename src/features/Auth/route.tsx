@@ -7,7 +7,7 @@ export const AuthRouter = {
 	children: [
 		{
 			path: 'auth/sign-in',
-			element: <SignIn />,
+			element: <SignIn isAdmin={false} />,
 		},
 	],
 }
