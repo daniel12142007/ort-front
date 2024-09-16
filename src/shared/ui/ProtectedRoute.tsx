@@ -3,9 +3,7 @@ import TokenService from "@/utils";
 import { ReactNode } from "react";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  const token = TokenService.getToken();
-
-  if (!token) {
+  if (!TokenService.getToken()) {
     return <Navigate to="/auth/sign-in" replace />;
   }
 

@@ -113,10 +113,6 @@ export const ItemBox = styled.div`
     background-color: #f5f5f5;
   }
 
-  &:active {
-    background-color: #c2c2c2;
-  }
-
   &::before,
   &::after {
     content: "";
@@ -280,12 +276,24 @@ export const TestListStyle = styled.div`
   overflow: auto;
   max-height: 67vh;
 `;
-export const TestBlockStyle = styled.div`
-  & > div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f5f5f5;
-    padding: 10px;
+
+export const NotQuestion = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+
+  h1 {
+    font-size: 48px;
+  }
+  p {
+    font-size: 20px;
+    padding: 10px 200px;
+    line-height: 1.5em;
+    height: 3em;
+    word-break: break-word;
+    text-align: center;
   }
 `;

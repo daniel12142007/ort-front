@@ -1,37 +1,34 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { CreateButton, TitleHead, TestListStyle } from "../../style/style";
+import { CreateButton, TitleHead, TestListStyle, NotQuestion } from "../../style/style";
 import { AddIcon } from "@/shared/ui/icon";
 import TestBlock from "./TestBlock";
-import { useStore } from "../model/store";
+import { useStore } from "../../model/store";
 import { GetQuestionsListResponse } from "../../type";
-import { itemsArray } from "..";
 
 const TestList = () => {
   const navigate = useNavigate();
   const { itemId } = useParams();
   const [status, setStatus] = useState<GetQuestionsListResponse>({ status: "", message: "" });
-  const { getQuestionsList, questionsList } = useStore();
+  const { fetchSubjects, questionsList, subjects, getQuestionsList } = useStore();
+
+  const subject = subjects.find((subject) => subject.id === Number(itemId));
+  const questionList = questionsList.map((item, i) => <TestBlock key={i} data={item} />);
 
   useEffect(() => {
-    getItem();
+    fetchSubjects();
+    getItem(Number(itemId));
   }, []);
 
-  const getItem = async () => {
-    const subject = itemsArray.find((_, index) => index + 1 === Number(itemId));
-    setStatus(await getQuestionsList(subject!));
+  const getItem = async (subjectId: number) => {
+    const status = await getQuestionsList(subjectId);
+    setStatus(status);
   };
-
-  const filterQuestionsList = (subjectId: number) => {
-    return questionsList.filter((item) => item.subjectId === subjectId);
-  };
-
-  const questionList = filterQuestionsList(Number(itemId)).map((item, i) => <TestBlock key={i} data={item} />);
 
   return (
     <div>
       <TitleHead>
-        <h1>{itemId}</h1>
+        <h1>{subject?.subjectName}</h1>
         <CreateButton onClick={() => navigate(`create-test`)}>
           <span>Добавить</span>
           <AddIcon color="black" size={18} />
@@ -39,14 +36,10 @@ const TestList = () => {
       </TitleHead>
       <TestListStyle>
         {status.status === "error" ? (
-          <div>
+          <NotQuestion>
             <h1>{status.message}</h1>
-            <p>Похоже вы еще не добавили ни одного вопроса. Добавте вопрос</p>
-            <CreateButton onClick={() => navigate(`create-test`)}>
-              <span>Добавить</span>
-              <AddIcon color="black" size={18} />
-            </CreateButton>
-          </div>
+            <p>Похоже вы еще не добавили ни одного тестового вопроса, для этого добавте вопрос</p>
+          </NotQuestion>
         ) : (
           questionList
         )}

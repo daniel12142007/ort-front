@@ -7,14 +7,13 @@ import { AddIcon } from "@/shared/ui/icon";
 import { InputProps, OptionsInputState } from "../../type";
 
 interface Props {
-  index: number;
   data: TestFileState;
   update: (e: TestFileState) => void;
   subject: number;
   valid: (e: boolean) => void;
 }
 
-const TestBlock: React.FC<Props> = ({ index, data, update, subject, valid }) => {
+const TestBlock: React.FC<Props> = ({ data, update, subject, valid }) => {
   const [correct, setCorrect] = React.useState<string>("a");
 
   const [files, setFiles] = React.useState<InputProps>({
@@ -36,15 +35,15 @@ const TestBlock: React.FC<Props> = ({ index, data, update, subject, valid }) => 
   };
 
   const onSave = (data: TestFileState) => {
-    valid(data.questionRequest.description.length > 0 && data.optionRequests.every((x) => x.description.length > 0));
+    valid(data.questionImageRequest.description.length > 0 && data.optionImageRequests.every((x) => x.description.length > 0));
     update({
       ...data,
-      questionRequest: { imageQuestion: files.main_image, description: data.questionRequest.description, subjectId: subject },
-      optionRequests: [
-        { description: optionsInput.b, imageOption: files.b_image!, isCorrect: correct == "b" ? true : false },
-        { description: optionsInput.a, imageOption: files.a_image!, isCorrect: correct == "a" ? true : false },
-        { description: optionsInput.c, imageOption: files.c_image!, isCorrect: correct == "c" ? true : false },
-        { description: optionsInput.d, imageOption: files.d_image!, isCorrect: correct == "d" ? true : false },
+      questionImageRequest: { image: files.main_image, description: data.questionImageRequest.description, subjectId: subject },
+      optionImageRequests: [
+        { description: optionsInput.b, image: files.b_image!, isCorrect: correct == "b" ? true : false },
+        { description: optionsInput.a, image: files.a_image!, isCorrect: correct == "a" ? true : false },
+        { description: optionsInput.c, image: files.c_image!, isCorrect: correct == "c" ? true : false },
+        { description: optionsInput.d, image: files.d_image!, isCorrect: correct == "d" ? true : false },
       ],
     });
   };
@@ -64,7 +63,7 @@ const TestBlock: React.FC<Props> = ({ index, data, update, subject, valid }) => 
   return (
     <TestBlockUI>
       <TestQuestion>
-        <span>{index}.</span>
+        <span>{data.id}.</span>
 
         <div>
           {files.main_image ? (
@@ -79,11 +78,18 @@ const TestBlock: React.FC<Props> = ({ index, data, update, subject, valid }) => 
           ) : (
             <UploadUI setFile={(e) => handleFileChange("main_image", e)} />
           )}
+          <div style={{ display: "flex", flexDirection: "column", padding: 0 }}>
+            <button>x</button>
+            <button>y</button>
+            <button>z</button>
+          </div>
           <InputText
             style={{ width: "800px" }}
             placeholder="Вопрос"
-            value={data.questionRequest.description}
-            onChange={(e) => onSave({ ...data, questionRequest: { ...data.questionRequest, description: e.target.value } })}
+            value={data.questionImageRequest.description}
+            onChange={(e) =>
+              onSave({ ...data, questionImageRequest: { ...data.questionImageRequest, description: e.target.value } })
+            }
           />
         </div>
       </TestQuestion>

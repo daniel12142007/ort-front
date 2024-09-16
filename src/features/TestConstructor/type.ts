@@ -1,16 +1,16 @@
 export interface TestFileState {
   id: number;
-  questionRequest: QuestionRequestFileState;
-  optionRequests: OptionFileState[];
+  questionImageRequest: QuestionRequestFileState;
+  optionImageRequests: OptionFileState[];
 }
-interface QuestionRequestFileState {
+export interface QuestionRequestFileState {
   subjectId: number;
   description: string;
-  imageQuestion?: File | null;
+  image?: File | null;
 }
-interface OptionFileState {
+export interface OptionFileState {
   description: string;
-  imageOption?: File;
+  image?: File;
   isCorrect: boolean;
 }
 
@@ -24,6 +24,21 @@ interface QuestionRequestState {
 }
 interface OptionState {
   description: string;
+  isCorrect: boolean;
+}
+
+export interface TestFileTextState {
+  questionImageRequest: QuestionRequestFileTextState;
+  optionImageRequests: OptionFileTextState[];
+}
+export interface QuestionRequestFileTextState {
+  subjectId: number;
+  description: string;
+  image: string | undefined;
+}
+export interface OptionFileTextState {
+  description: string;
+  image: string | undefined;
   isCorrect: boolean;
 }
 
