@@ -1,22 +1,16 @@
 import { Box, styled } from "@mui/material"
 
 export const UserBox = styled(Box)`
-    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    flex-grow: 1;
 `
 export const Circular = styled("div")`
     display: flex;
     justify-content: center;
     margin-top: 300px;
-`
-
-export const Flexing = styled("div")`
-    display:flex;
-    align-items: center;
-    width: 325px;
-    height: 42px;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #ffffff;
 `
 
 export const Image = styled("img")`
@@ -35,12 +29,18 @@ export const SBlock = styled("div")`
     background-color: #ffffff;
     border-radius: 8px;
     padding: 30px;
+    flex-grow: 1;
     margin-top: 17px;
 `
 
 export const NavBlock = styled("div")`
-    display: flex;
-    justify-content: space-between;
+    display:flex;
+    align-items: center;
+    width: 325px;
+    height: 42px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #ffffff;
 `
 export const DetailBlock = styled("div")`
     width: 100%;
@@ -91,12 +91,12 @@ export const DeleteImage = styled("div")`
     display: flex;
     justify-content: end;
     padding-right: 15px;
+    cursor: pointer;
 `
 
 export const MainBlock = styled("div")`
     overflow-y: scroll;
     width: 100%;
-    height: 510px;
     display: flex;
     flex-direction: column;
     gap: 10px;

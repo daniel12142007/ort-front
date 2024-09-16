@@ -8,4 +8,3 @@ export interface UserRes {
     userInfoId: number;
     role: string;
 }
-

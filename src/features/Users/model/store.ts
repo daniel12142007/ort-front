@@ -3,6 +3,7 @@ import { api } from "../api";
 import { UserRes } from "../type";
 
 interface UserState {
+  deleteUser: any;
   user: UserRes[] | null;
   isLoading: boolean;
   error: string | null;
@@ -24,4 +25,13 @@ export const userStore = create<UserState>((set) => ({
       set({ error: "Something went wrong", isLoading: false });
     }
   },
+
+  deleteUser: async (id: number) => {
+    try{
+      await api.deleteUser(id);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  }
 }));
+
