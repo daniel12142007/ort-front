@@ -23,14 +23,16 @@ export const GridContainer = styled("div")`
   grid-template-columns: 270px auto;
 
   & > div {
-    background-color: rgba(255, 255, 255, 0.8);
-    font-size: 30px;
+    // background-color: rgba(255, 255, 255, 0.8);
+    font-size: 24px;
+    font-weight: 500;
   }
 `;
 
 export const Content = styled("div")`
-  margin: 30px;
+  margin: 40px;
   grid-area: main;
+  flex-grow: 1;
 `;
 
 export const StyledListItemButton = styled(ListItemButton)<{ selected: boolean }>`
