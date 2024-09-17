@@ -1,16 +1,17 @@
 import searchSVG from "../../../shared/assets/svg/search.svg";
 import deleteSVG from "../../../shared/assets/svg/delete.svg";
 import { CircularProgress } from "@mui/material";
-import { UserBox, Image, SearchInput, NavBlock, Flexing, NamesBlock, MainBlock, Name, DetailName, Email, DeleteImage, DetailBlock, Role, Circular, SBlock } from "../style/style";
+import { UserBox, Image, SearchInput, NavBlock, NamesBlock, MainBlock, Name, DetailName, Email, DeleteImage, DetailBlock, Role, Circular, SBlock } from "../style/style";
 import { userStore } from "../model/store";
 import { useEffect, useState } from "react";
 
 export const UserList = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { user, isLoading, fetchUser } = userStore((state) => ({
+  const { user, isLoading, fetchUser, deleteUser } = userStore((state) => ({
     user: state.user,
     isLoading: state.isLoading,
-    fetchUser: state.fetchUser
+    fetchUser: state.fetchUser,
+    deleteUser: state.deleteUser,
   }));
 
   useEffect(() => {
@@ -21,6 +22,11 @@ export const UserList = () => {
     return <Circular><CircularProgress /></Circular>;
   }
 
+  const handleDeleteUSer = async (id: number) => {
+    await deleteUser(id);
+    await fetchUser();
+  }
+
   const filteredUsers = user?.filter(u => 
     u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     u.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -29,14 +35,12 @@ export const UserList = () => {
   return (
     <UserBox>
       <NavBlock>
-        <Flexing>
           <SearchInput
             placeholder="Поиск по имени или email"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <Image src={searchSVG} />
-        </Flexing>
       </NavBlock> 
       <SBlock>
         <DetailBlock>
@@ -52,7 +56,7 @@ export const UserList = () => {
                 <Name>{user.name}</Name>
                 <Email>{user.email}</Email>
                 <Role>KAI TECH</Role>
-                <DeleteImage>
+                <DeleteImage onClick={() => handleDeleteUSer(user.id)}>
                   <Image src={deleteSVG} />
                 </DeleteImage>
               </NamesBlock>
