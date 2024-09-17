@@ -5,6 +5,7 @@ import { TestFileState } from "../../type";
 import { UploadUI } from "@/shared/ui";
 import { AddIcon } from "@/shared/ui/icon";
 import { InputProps, OptionsInputState } from "../../type";
+import { FullImageView } from "@/shared/ui";
 
 interface Props {
   data: TestFileState;
@@ -69,7 +70,7 @@ const TestBlock: React.FC<Props> = ({ data, update, subject, valid }) => {
           {files.main_image ? (
             <>
               <ImageBlock size={80}>
-                <img src={getUrl(files.main_image)} alt="file" />
+                <FullImageView src={getUrl(files.main_image)} width={80} height={80} />
                 <DeleteImage top={1} right={1} onClick={() => handleFileChange("main_image", null)}>
                   <AddIcon color="white" />
                 </DeleteImage>
@@ -78,11 +79,6 @@ const TestBlock: React.FC<Props> = ({ data, update, subject, valid }) => {
           ) : (
             <UploadUI setFile={(e) => handleFileChange("main_image", e)} />
           )}
-          <div style={{ display: "flex", flexDirection: "column", padding: 0 }}>
-            <button>x</button>
-            <button>y</button>
-            <button>z</button>
-          </div>
           <InputText
             style={{ width: "800px" }}
             placeholder="Вопрос"

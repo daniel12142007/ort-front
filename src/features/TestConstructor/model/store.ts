@@ -7,14 +7,12 @@ import { toast } from "react-toastify";
 interface StoreState {
   testArray: TestFileState[];
   subjects: SubjectReq[];
-  items: string[];
   loading: boolean;
 
   setTestArray: (question: TestFileState) => void;
   updateQuestion: (question: TestFileState) => void;
 
   fetchSubjects: () => Promise<void>;
-  fetchItems: () => Promise<void>;
 
   questionsList: QuestionReq[];
 
@@ -37,7 +35,6 @@ export const useStore = create<StoreState>((set) => ({
   testArray: [defaultQuestion],
   questionsList: [],
   subjects: [],
-  items: [],
   loading: false,
 
   setTestArray: (question) =>
@@ -90,20 +87,6 @@ export const useStore = create<StoreState>((set) => ({
       }
     } catch (err) {
       console.error(err);
-    }
-  },
-
-  fetchItems: async () => {
-    try {
-      const response = await api.getSubjects();
-      if (Array.isArray(response.data)) {
-        const itemNames = response.data.map((subject: SubjectReq) => subject.subjectName);
-        set({ items: itemNames });
-      } else {
-        console.error("Ошибка: полученные данные не являются массивом.");
-      }
-    } catch (error) {
-      console.error("Ошибка при загрузке предметов:", error);
     }
   },
 }));

@@ -104,34 +104,6 @@ export const ItemBox = styled.div`
   &:hover {
     background-color: #f5f5f5;
   }
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 0;
-    transition: 0.3s ease;
-    z-index: -1;
-  }
-
-  &::before {
-    top: 0;
-    left: 0;
-    background-image: linear-gradient(to right, #4285b4 10%, #aed6f5 30%, #f5f5f5 50%);
-  }
-
-  &::after {
-    top: 0;
-    right: 0;
-    background-image: linear-gradient(to left, #4285b4 10%, #aed6f5 30%, #f5f5f5 50%);
-  }
-  &:hover::before {
-    width: 25%;
-  }
-  &:hover::after {
-    width: 25%;
-  }
 `;
 export const Paragraph = styled.p`
   font-size: 20px;
@@ -181,14 +153,14 @@ export const TestQuestion = styled.div`
 
   & > div {
     display: flex;
-    height: 100px;
     gap: 10px;
     & > div {
-      padding: 10px;
+      padding: 5px;
       background-color: #f0f0f0;
       display: flex;
+      gap: 10px;
       border: 1px solid gray;
-      border-radius: 5px;
+      overflow: hidden;
     }
   }
 `;
@@ -279,7 +251,6 @@ export const TestListStyle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 20px 40px;
   overflow: auto;
   max-height: 67vh;
 `;

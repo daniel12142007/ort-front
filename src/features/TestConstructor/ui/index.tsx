@@ -4,20 +4,19 @@ import Item from "./items/Item";
 import { useStore } from "../model/store";
 
 const ItemList = () => {
-  const items = useStore((state) => state.items);
-  const fetchItems = useStore((state) => state.fetchItems);
+  const { subjects, fetchSubjects } = useStore();
 
   useEffect(() => {
-    fetchItems();
-  }, [fetchItems]);
+    fetchSubjects();
+  }, []);
   return (
     <div>
       <TitleHead>
         <p>Предметы</p>
       </TitleHead>
       <ItemsList>
-        {items.map((title, i) => (
-          <Item name={title} index={i + 1} key={i} />
+        {subjects.map((obj, i) => (
+          <Item {...obj} key={i} />
         ))}
       </ItemsList>
     </div>

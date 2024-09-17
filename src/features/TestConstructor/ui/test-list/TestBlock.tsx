@@ -1,27 +1,39 @@
 import { styled } from "@mui/material";
 import { QuestionReq } from "../../type";
-import FullImageView from "@/shared/ui/FullImageView";
+import { FullImageView } from "@/shared/ui";
+import React from "react";
 
-const TestBlock = ({ data }: { data: QuestionReq }) => {
+interface Props {
+  data: QuestionReq;
+  index: number;
+}
+
+const TestBlock: React.FC<Props> = ({ data, index }) => {
+  const [hover, setHover] = React.useState(false);
   return (
-    <TestBlockStyle>
+    <TestBlockStyle onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <QuestionBlock>
         <TestQuest>
-          {data.image && <FullImageView src={data.image} width={70} height={70} />}
-          <div>
-            <h2 style={{ fontSize: "26px" }}>Вопрос: {data.questionId}</h2>
-            <h3 style={{ fontSize: "20px" }}>{data.description}</h3>
-          </div>
+          {data.image && (
+            <ImageVisible visible={hover}>
+              <FullImageView src={data.image} width={40} height={40} />
+            </ImageVisible>
+          )}
+          <h3 style={{ fontSize: "20px" }}>{`${index}. ${data.description}`}</h3>
         </TestQuest>
-        <div>
-          <button>Редактировать</button>
-          <button>Удалить</button>
-        </div>
+        <ActionButtons>
+          <button>
+            <img style={{ width: "20px", height: "20px" }} src="/src/shared/assets/svg/edit.svg" />
+          </button>
+          <button>
+            <img style={{ width: "20px", height: "20px" }} src="/src/shared/assets/svg/delete.svg" />
+          </button>
+        </ActionButtons>
       </QuestionBlock>
-      <OptionContainer>
+      <OptionContainer hover={hover}>
         {data.optionsResponse.map((item, i) => (
           <OptionStyle active={item.correct} key={i}>
-            {data.image && <FullImageView src={item.image} width={50} height={50} />}
+            {data.image && <FullImageView src={item.image} width={40} height={40} />}
             <p>{item.description}</p>
           </OptionStyle>
         ))}
@@ -33,16 +45,16 @@ const TestBlock = ({ data }: { data: QuestionReq }) => {
 export default TestBlock;
 
 const TestBlockStyle = styled("div")({
+  userSelect: "none",
   display: "flex",
   flexDirection: "column",
-  gap: "10px",
   backgroundColor: "#fff",
   borderRadius: "10px",
-  padding: "20px",
+  padding: "10px",
 });
 
 const QuestionBlock = styled("div")({
-  backgroundColor: "#4285b4",
+  backgroundColor: "#eee",
   padding: "10px",
   borderRadius: "10px",
   display: "flex",
@@ -51,16 +63,30 @@ const QuestionBlock = styled("div")({
 });
 const TestQuest = styled("div")({
   display: "flex",
-  gap: "10px",
 });
+const ImageVisible = styled("div")<{ visible: boolean }>(({ visible }) => ({
+  transition: "all 0.5s",
+  width: visible ? "40px" : 0,
+  height: visible ? "40px" : 0,
+  marginRight: visible ? "10px" : 0,
+  overflow: "hidden",
+  fontSize: "10px",
+}));
 
-const OptionContainer = styled("div")({
+const OptionContainer = styled("div")<{ hover: boolean }>(({ hover }) => ({
   display: "flex",
   justifyContent: "space-between",
   gap: "10px",
-});
+  overflow: "hidden",
+  transition: "all 0.5s",
+
+  marginTop: hover ? "10px" : "0",
+  height: hover ? "70px" : 0,
+}));
+
 const OptionStyle = styled("div")<{ active: boolean }>(({ active }) => ({
-  backgroundColor: active ? "#00ffc8" : "#ff7f7f",
+  backgroundColor: active ? "#4285b4" : "#eee",
+  color: active ? "#fff" : "#000",
   borderRadius: "10px",
   padding: "10px",
   display: "flex",
@@ -73,3 +99,21 @@ const OptionStyle = styled("div")<{ active: boolean }>(({ active }) => ({
     fontWeight: active ? "bold" : "normal",
   },
 }));
+
+const ActionButtons = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  gap: "20px",
+  button: {
+    border: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    transition: "all 0.5s",
+    opacity: 0.7,
+
+    "&:hover": {
+      opacity: 1,
+      transform: "scale(1.3)",
+    },
+  },
+});

@@ -7,11 +7,11 @@ interface Props {
   height: number;
 }
 
-const index: React.FC<Props> = ({ src, width, height }) => {
+export const FullImageView: React.FC<Props> = ({ src, width, height }) => {
   const [active, setActive] = React.useState(false);
   function replaceUrl(imageUrl: string | null | undefined): string {
-    const oldUrlPart = "http://192.168.68.105:8080";
-    const newUrlPart = "http://192.168.68.107:8080";
+    const oldUrlPart = "http://";
+    const newUrlPart = "https://ort-365ceab257f6.herokuapp.com/";
 
     if (typeof imageUrl === "string" && imageUrl.includes(oldUrlPart)) {
       return imageUrl.replace(oldUrlPart, newUrlPart);
@@ -23,20 +23,18 @@ const index: React.FC<Props> = ({ src, width, height }) => {
   return (
     <>
       <ImageBlcok width={width} height={height}>
-        <Image src={src} alt="full" onClick={() => setActive(!active)} />
+        <Image src={src} alt="image" onClick={() => setActive(!active)} />
       </ImageBlcok>
       {active && (
         <ImageControl onClick={() => setActive(!active)}>
           <div>
-            <Image src={src} alt="full" />
+            <Image src={src} alt="image" />
           </div>
         </ImageControl>
       )}
     </>
   );
 };
-
-export default index;
 
 const ImageControl = styled("div")({
   width: "100%",

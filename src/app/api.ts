@@ -21,3 +21,16 @@ apiRoot.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+// Интерцептор для обработки ошибок ответа.
+apiRoot.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      TokenService.removeToken();
+    }
+    return Promise.reject(error);
+  }
+);

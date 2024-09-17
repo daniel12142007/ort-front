@@ -13,7 +13,7 @@ const TestList = () => {
   const { fetchSubjects, questionsList, subjects, getQuestionsList } = useStore();
 
   const subject = subjects.find((subject) => subject.id === Number(itemId));
-  const questionList = questionsList.map((item, i) => <TestBlock key={i} data={item} />);
+  const questionList = questionsList.map((item, i) => <TestBlock key={i} data={item} index={i + 1} />);
 
   useEffect(() => {
     fetchSubjects();

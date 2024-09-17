@@ -40,7 +40,6 @@ const CreateTest: React.FC = () => {
             </div>
             {!valid && <p style={{ fontSize: "16px", color: "red", fontWeight: "bold" }}>Заполните все поля</p>}
           </div>
-          {/* <button onClick={() => setLoad(!load)}>{load ? "stop" : "start"}</button> */}
         </ButtonContainer>
       </Title>
 
