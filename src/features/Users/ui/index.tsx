@@ -61,7 +61,7 @@ export const UserList = () => {
                 <DetailNameBlock onClick={() => handleUserClick(user.id)}>
                   <Name>{user.name}</Name>
                   <Email>{user.email}</Email>
-                  <Role>KAI - TECH</Role>
+                  <Role>kai - tech</Role>
                 </DetailNameBlock>
                 <DeleteImage >
                   <Image onClick={() => handleDeleteUSer(user.id)} src={deleteSVG} />

@@ -94,6 +94,7 @@ export const Role = styled("div")`
     width: 35%;
     display: flex;
     justify-content: center;
+    text-transform: uppercase;
 `
 
 export const DeleteImage = styled("div")`
