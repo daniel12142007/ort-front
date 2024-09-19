@@ -3,6 +3,6 @@ import { SubjectReq } from "./type";
 
 export const api = {
     getSubjects: () => {
-        return apiRoot.get<SubjectReq>('/api/subjects/list/of/subjects')
+        return apiRoot.get<SubjectReq[]>('/api/subjects/list/of/subjects')
     }
 };
