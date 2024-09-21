@@ -1,23 +1,25 @@
 import { useState } from "react"
 import {
-  AuthButton,
+  Background,
   Btn,
-  Container,
   Flex,
-  FormStyled,
-  LogInContainer,
+  FormWrapper,
+  Logo,
   Title,
+  ForgotPasswordLink,
+  Form,
 } from "../../style/style"
 import { LoaderDots } from "@/shared/ui"
 import { MyInput } from "@/shared/ui/MyInput"
 import { MyPasswordInput } from "@/shared/ui/MyPasswordInput"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { LoginReq } from "../../type"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useAuthStore } from "../model/store"
 import { toast } from "react-toastify"
+import logo from "../../../../shared/assets/icon/logo.svg"
 
-export const SignIn = ({ isAdmin }) => {
+export const SignIn = () => {
   const navigate = useNavigate()
   const signIn = useAuthStore((state) => state.signIn)
   const notify = (message: string, type: "success" | "error") =>
@@ -41,7 +43,7 @@ export const SignIn = ({ isAdmin }) => {
     try {
       const { status, message } = await signIn(data, navigate)
       if (status === "error") {
-        setError("password", { type: "custom", message: message })
+        setError("password", { type: "custom", message })
       }
       notify(message, status)
       setLoading(false)
@@ -55,44 +57,43 @@ export const SignIn = ({ isAdmin }) => {
   }
 
   return (
-    <div style={{ backgroundColor: "#407BFF", height: "250px" }}>
-      <div></div>
-      <Container>
-        <LogInContainer>
-          <Title>Вход</Title>
-          <FormStyled onSubmit={handleSubmit(onSubmit)}>
-            <MyInput
-              register={register("email")}
-              name="email"
-              label="Логин*"
-              type="email"
-            />
-            {errors.email && (
-              <p style={{ color: "red" }}>{errors.email.message}</p>
-            )}
+    <Background>
+      <Logo src={logo} alt="Company Logo" />
+      <FormWrapper>
+        <Title>Авторизация</Title>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <MyInput
+            register={register("email")}
+            name="email"
+            label="Логин*"
+            type="email"
+          />
+          {errors.email && (
+            <p style={{ color: "red" }}>{errors.email.message}</p>
+          )}
 
-            <MyPasswordInput
-              register={register("password")}
-              name="password"
-              label="Пароль*"
-              type="password"
-            />
-            {errors.password && (
-              <p style={{ color: "red" }}>{errors.password.message}</p>
-            )}
-            {isAdmin ? (
-              <AuthButton fullWidth type="submit">
-                {isLoading ? <LoaderDots /> : "Войти"}
-              </AuthButton>
-            ) : (
-              <Flex>
-                <Btn>{isLoading ? <LoaderDots /> : "Войти"}</Btn>
-                <Btn>Регистрация</Btn>
-              </Flex>
-            )}
-          </FormStyled>
-        </LogInContainer>
-      </Container>
-    </div>
+          <MyPasswordInput
+            register={register("password")}
+            name="password"
+            label="Пароль*"
+            type="password"
+          />
+          {errors.password && (
+            <p style={{ color: "red" }}>{errors.password.message}</p>
+          )}
+
+          <Link to="/auth/forgot-password">
+            <ForgotPasswordLink>Забыли пароль?</ForgotPasswordLink>
+          </Link>
+
+          <Flex>
+            <>
+              <Btn>{isLoading ? <LoaderDots /> : "Войти"}</Btn>
+              <Btn>Регистрация</Btn>
+            </>
+          </Flex>
+        </Form>
+      </FormWrapper>
+    </Background>
   )
 }
