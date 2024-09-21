@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { userStore } from "../model/store";
-import { DetailBlocks, FirstBlock, FlexBox, AboutImage, Student, ResultBtn, SecondBlock, Information, Info, Surname, NameInfo, ThirdBlock, Button, CircleImg, Circular } from "../style/style";
+import { userStore } from "../../model/store";
+import { DetailBlocks, FirstBlock, FlexBox, AboutImage, Student, ResultBtn, SecondBlock, Information, Info, Surname, NameInfo, ThirdBlock, Button, CircleImg, Circular } from "../../style/style";
 import { CircularProgress } from "@mui/material";
 
 

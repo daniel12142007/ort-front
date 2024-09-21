@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import searchSVG from "../../../shared/assets/svg/search.svg";
-import deleteSVG from "../../../shared/assets/svg/delete.svg";
+import searchSVG from "../../../../shared/assets/svg/search.svg";
+import deleteSVG from "../../../../shared/assets/svg/delete.svg";
 import { CircularProgress } from "@mui/material";
-import { UserBox, Image, SearchInput, NavBlock, NamesBlock, MainBlock, Name, DetailName, Email, DeleteImage, DetailBlock, Role, Circular, SBlock, DetailNameBlock } from "../style/style";
-import { userStore } from "../model/store";
+import { UserBox, Image, SearchInput, NavBlock, NamesBlock, MainBlock, Name, DetailName, Email, DeleteImage, DetailBlock, Role, Circular, SBlock, DetailNameBlock } from "../../style/style";
+import { userStore } from "../../model/store";
 import { useEffect, useState } from "react";
 
 export const UserList = () => {

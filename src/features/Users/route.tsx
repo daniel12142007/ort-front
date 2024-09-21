@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import { UserList } from "./ui";
-import { UserDetail } from "./ui/userDetail";
+import { UserList } from "./ui/list";
+import { UserDetail } from "./ui/details/userDetail";
 
 
 export const UsersRouter = {
