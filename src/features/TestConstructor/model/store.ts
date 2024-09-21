@@ -1,14 +1,12 @@
 import { create } from "zustand";
 import { api } from "../api"; 
-import { SubjectReq, TestState } from "../type";
+import { TestState, SubjectReq } from "../type";
 
 interface StoreState {
   testArray: TestState[];
-  subjects: string[];
-  items: string[];
+  subjects: SubjectReq[]
   setTestArray: (question: TestState) => void;
   updateQuestion: (question: TestState) => void;
-  fetchSubjects: () => void;
   fetchItems: () => void;
 }
 
@@ -26,7 +24,6 @@ export const defaultQuestion: TestState = {
 export const useStore = create<StoreState>((set) => ({
   testArray: [defaultQuestion],
   subjects: [],
-  items: [],
   
   setTestArray: (question: TestState) =>
     set((state) => ({
@@ -38,26 +35,11 @@ export const useStore = create<StoreState>((set) => ({
       testArray: state.testArray.map((x) => (x.id === question.id ? question : x))
     })),
 
-  fetchSubjects: async () => {
-    const response = await api.getSubjects();
-    if (Array.isArray(response.data)) {
-      const subjects = response.data.map((subject: SubjectReq) => subject.subjectName);
-      set({ subjects });
-    } else {
-      console.error("Ошибка: полученные данные не являются массивом.");
-    }
-  },
-
   fetchItems: async () => {
     try {
       const response = await api.getSubjects();
-      // console.log("API Response:", response.data);
-      if (Array.isArray(response.data)) {
-        const itemNames = response.data.map((subject: SubjectReq) => subject.subjectName);
-        set({ items: itemNames });
-      } else {
-        console.error("Ошибка: полученные данные не являются массивом.");
-      }
+      const subjects: SubjectReq[] = response.data;
+        set({ subjects});
     } catch (error) {
       console.error("Ошибка при загрузке предметов:", error);
     }

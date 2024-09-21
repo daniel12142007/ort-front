@@ -28,4 +28,5 @@ export type OptionsInputState = {
 export interface SubjectReq {
   id: number;
   subjectName: string;
+  questionCount: number;
 }
