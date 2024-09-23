@@ -6,6 +6,7 @@ export const TitleHead = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 20px;
+
   h1 {
     font-size: 36px;
   }
@@ -86,7 +87,9 @@ export const AddButton = styled(Button)`
 
 export const ItemsList = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  width: 1200px;
+  justify-content: center;
   gap: 15px;
   padding: 10px 0px;
 `;
@@ -98,6 +101,7 @@ export const Grid = styled.div`
 `
 
 export const ItemBox = styled.div`
+width: 550px;
   padding: 13px 13px;
   border-radius: 5px;
   display: flex;

@@ -15,8 +15,7 @@ export const GridContainer = styled("div")`
     "header header header header"
     "menu main main main"
     "menu main main main";
-    "menu main main main";
-  background-color: #a5b4c2;
+  background-color: #B0C4DEDE;
   height: 100vh;
 
   grid-template-rows: 80px auto;
