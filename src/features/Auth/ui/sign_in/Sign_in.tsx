@@ -1,20 +1,31 @@
-import { useState } from "react";
-import { AuthButton, Container, FormStyled, LogInContainer, Title } from "../../style/style";
-import { LoaderDots } from "@/shared/ui";
-import { MyInput } from "@/shared/ui/MyInput";
-import { MyPasswordInput } from "@/shared/ui/MyPasswordInput";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { LoginReq } from "../../type";
-import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../model/store";
-import { toast } from "react-toastify";
+import { useState } from "react"
+import {
+  Background,
+  Btn,
+  Flex,
+  FormWrapper,
+  Logo,
+  Title,
+  ForgotPasswordLink,
+  Form,
+} from "../../style/style"
+import { LoaderDots } from "@/shared/ui"
+import { MyInput } from "@/shared/ui/MyInput"
+import { MyPasswordInput } from "@/shared/ui/MyPasswordInput"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { LoginReq } from "../../type"
+import { Link, useNavigate } from "react-router-dom"
+import { useAuthStore } from "../model/store"
+import { toast } from "react-toastify"
+import logo from "../../../../shared/assets/icon/logo.svg"
 
 export const SignIn = () => {
-  const navigate = useNavigate();
-  const signIn = useAuthStore((state) => state.signIn);
-  const notify = (message: string, type: "success" | "error") => toast[type](message);
+  const navigate = useNavigate()
+  const signIn = useAuthStore((state) => state.signIn)
+  const notify = (message: string, type: "success" | "error") =>
+    toast[type](message)
 
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false)
   const {
     handleSubmit,
     register,
@@ -25,39 +36,64 @@ export const SignIn = () => {
       email: "",
       password: "",
     },
-  });
+  })
 
   const onSubmit: SubmitHandler<LoginReq> = async (data) => {
-    setLoading(true);
+    setLoading(true)
     try {
-      const { status, message } = await signIn(data, navigate);
+      const { status, message } = await signIn(data, navigate)
       if (status === "error") {
-        setError("password", { type: "custom", message: message });
+        setError("password", { type: "custom", message })
       }
-      notify(message, status);
-      setLoading(false);
+      notify(message, status)
+      setLoading(false)
     } catch (err) {
-      setError("password", { type: "custom", message: "Неверный логин или пароль." });
-      setLoading(false);
+      setError("password", {
+        type: "custom",
+        message: "Неверный логин или пароль.",
+      })
+      setLoading(false)
     }
-  };
+  }
 
   return (
-    <Container>
-      <LogInContainer>
-        <Title>Вход</Title>
-        <FormStyled onSubmit={handleSubmit(onSubmit)}>
-          <MyInput register={register("email")} name="email" label="Логин*" type="email" />
-          {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
+    <Background>
+      <Logo src={logo} alt="Company Logo" />
+      <FormWrapper>
+        <Title>Авторизация</Title>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <MyInput
+            register={register("email")}
+            name="email"
+            label="Логин*"
+            type="email"
+          />
+          {errors.email && (
+            <p style={{ color: "red" }}>{errors.email.message}</p>
+          )}
 
-          <MyPasswordInput register={register("password")} name="password" label="Пароль*" type="password" />
-          {errors.password && <p style={{ color: "red" }}>{errors.password.message}</p>}
+          <MyPasswordInput
+            register={register("password")}
+            name="password"
+            label="Пароль*"
+            type="password"
+          />
+          {errors.password && (
+            <p style={{ color: "red" }}>{errors.password.message}</p>
+          )}
 
-          <AuthButton fullWidth type="submit">
-            {isLoading ? <LoaderDots /> : "Войти"}
-          </AuthButton>
-        </FormStyled>
-      </LogInContainer>
-    </Container>
-  );
-};
+          <Link to="/auth/forgot-password">
+            <ForgotPasswordLink>Забыли пароль?</ForgotPasswordLink>
+          </Link>
+
+          <Flex>
+            <>
+              <Btn>{isLoading ? <LoaderDots /> : "Войти"}</Btn>
+              <Btn>Регистрация</Btn>
+            </>
+          </Flex>
+        </Form>
+      </FormWrapper>
+    </Background>
+  )
+}

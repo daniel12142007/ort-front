@@ -1,0 +1,14 @@
+.node_modules
+.build
+.dist
+.public
+.public/asssets
+./package.json
+./package-lock.json
+public
+package.json
+package-lock.json
+*.min.css
+.prettierrc
+index.html
+README.md

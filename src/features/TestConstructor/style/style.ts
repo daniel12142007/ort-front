@@ -90,6 +90,12 @@ export const ItemsList = styled.div`
   gap: 15px;
   padding: 10px 0px;
 `;
+export const Grid = styled.div`
+  width: auto;
+  display: grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap: 20px;
+`
 
 export const ItemBox = styled.div`
   padding: 13px 13px;
@@ -98,7 +104,6 @@ export const ItemBox = styled.div`
   align-items: center;
   transition: 0.2s;
   cursor: pointer;
-  width: auto;
   background-color: #ffffff;
   justify-content: space-between;
   &:hover {
@@ -111,7 +116,7 @@ export const Paragraph = styled.p`
 `;
 export const BoxQuestion = styled.div`
   display: flex;
-  width: 200px;
+  width: 160px;
   justify-content: space-between;
   align-items: center;
   color: #949494;

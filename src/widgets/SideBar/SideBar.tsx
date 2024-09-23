@@ -1,8 +1,7 @@
-import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { FC, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { List, ListItemIcon, ListItemText } from "@mui/material";
 import constructureSvg from "../../shared/assets/svg/constucture.svg";
-import testingSvg from "../../shared/assets/svg/testing.svg";
 import userSvg from "../../shared/assets/svg/user.svg";
 import { SideBarContainer, StyledListItemButton, Icon } from "../style";
 import { NavItem, Page } from "@/shared/ui/types";
@@ -14,11 +13,19 @@ export interface SideBarProps {
 
 const navItems: NavItem[] = [
   { label: "Конструктор теста", icon: constructureSvg, value: "constructor", path: "/" },
-  { label: "Тестирование", icon: testingSvg, value: "testing", path: "/testing" },
   { label: "Пользователь", icon: userSvg, value: "user", path: "/user" },
 ];
 
 export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const currentItem = navItems.find((item) => item.path === location.pathname);
+    if (currentItem) {
+      onSelect(currentItem.value);
+    }
+  }, [location.pathname, onSelect]);
+
   return (
     <SideBarContainer>
       <List>
