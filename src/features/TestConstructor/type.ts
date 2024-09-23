@@ -7,6 +7,7 @@ export interface QuestionRequestFileState {
   subjectId: number;
   description: string;
   image?: File | null;
+  
 }
 export interface OptionFileState {
   description: string;
