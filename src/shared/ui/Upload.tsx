@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import uploadIcon from "@/shared/assets/icon/upload.svg";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -29,10 +29,14 @@ export const UploadUI: React.FC<Props> = ({ setFile }) => {
         backgroundColor: "#f0f0f0",
         color: "#000000",
         boxShadow: "none",
-        width: "130px",
+        width: "80px",
         height: "80px",
         padding: "10px 20px",
         textAlign: "center",
+        "& .css-1d6wzja-MuiButton-startIcon": {
+          marginRight: "0",
+          marginLeft: "0",
+        },
 
         "&:hover": {
           backgroundColor: "#d9d9d9",
@@ -42,9 +46,8 @@ export const UploadUI: React.FC<Props> = ({ setFile }) => {
       role={undefined}
       variant="contained"
       tabIndex={-1}
-      startIcon={<CloudUploadIcon />}
+      startIcon={<img style={{ width: "30px", height: "30px" }} src={uploadIcon} alt="upload" />}
     >
-      Загрузить файл
       <VisuallyHiddenInput type="file" onChange={handleChange} multiple />
     </Button>
   );

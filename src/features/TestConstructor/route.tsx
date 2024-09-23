@@ -12,11 +12,11 @@ export const TestConstructorRouter = {
       element: <TestConstructor />,
     },
     {
-      path: "test-list/:itemType",
+      path: "test-list/:itemId",
       element: <TestList />,
     },
     {
-      path: "test-list/:itemType/create-test",
+      path: "test-list/:itemId/create-test",
       element: <CreateTest />,
     },
   ],

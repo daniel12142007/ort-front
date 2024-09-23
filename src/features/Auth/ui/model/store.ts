@@ -15,7 +15,9 @@ export const useAuthStore = create<AuthStoreState>(() => ({
 
   signIn: async (data, navigate) => {
     try {
+      TokenService.removeToken();
       const res = await api.signIn(data);
+      console.log(res);
       if (res.status === 200) {
         TokenService.setToken(res.data.token);
         navigate("/");

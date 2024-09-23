@@ -1,27 +1,23 @@
 import { useEffect } from "react";
-import { TitleHead, ItemsList, Grid } from "../style/style";
+import { TitleHead, ItemsList } from "../style/style";
 import Item from "./items/Item";
 import { useStore } from "../model/store";
 
 const ItemList = () => {
-  const subjects = useStore((state) => state.subjects); 
-  const fetchItems = useStore((state) => state.fetchItems);
+  const { subjects, fetchSubjects } = useStore();
 
   useEffect(() => {
-    fetchItems();
-  }, [fetchItems]);
-
+    fetchSubjects();
+  }, []);
   return (
     <div>
       <TitleHead>
         <p>Предметы</p>
       </TitleHead>
       <ItemsList>
-        <Grid>
-          {subjects.map((subject) => (
-            <Item key={subject.id} subject={subject} /> 
-          ))}
-        </Grid>
+        {subjects.map((obj, i) => (
+          <Item {...obj} key={i} />
+        ))}
       </ItemsList>
     </div>
   );

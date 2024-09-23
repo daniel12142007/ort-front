@@ -107,28 +107,24 @@ export const ItemBox = styled.div`
   background-color: #ffffff;
   justify-content: space-between;
   &:hover {
-    background-color: "#f5f5f5";
-  }
-
-  &:active {
-    background-color: #c2c2c2;
+    background-color: #f5f5f5;
   }
 `;
 export const Paragraph = styled.p`
   font-size: 20px;
   font-weight: 400;
-`
+`;
 export const BoxQuestion = styled.div`
   display: flex;
   width: 160px;
   justify-content: space-between;
   align-items: center;
   color: #949494;
-`
+`;
 export const Question = styled.p`
   font-size: 16px;
   font-weight: 500;
-`
+`;
 
 export const ContainerStyle = styled(Container)`
   background-color: white;
@@ -162,14 +158,14 @@ export const TestQuestion = styled.div`
 
   & > div {
     display: flex;
-    height: 100px;
     gap: 10px;
     & > div {
-      padding: 10px;
+      padding: 5px;
       background-color: #f0f0f0;
       display: flex;
+      gap: 10px;
       border: 1px solid gray;
-      border-radius: 5px;
+      overflow: hidden;
     }
   }
 `;
@@ -249,22 +245,38 @@ export const InputText = styled.textarea`
   background-color: #f0f0f0;
   border-radius: 5px;
   padding: 10px;
+
+  &::placeholder {
+    color: gray;
+    fontfamily: Italic;
+  }
 `;
 
 export const TestListStyle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 20px 40px;
   overflow: auto;
-  max-height: 500px;
+  max-height: 67vh;
 `;
-export const TestBlockStyle = styled.div`
-  & > div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f5f5f5;
-    padding: 10px;
+
+export const NotQuestion = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+
+  h1 {
+    font-size: 48px;
+  }
+  p {
+    font-size: 20px;
+    padding: 10px 200px;
+    line-height: 1.5em;
+    height: 3em;
+    word-break: break-word;
+    text-align: center;
   }
 `;

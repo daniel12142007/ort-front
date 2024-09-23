@@ -1,19 +1,21 @@
 import React from "react";
 import { TestBlockUI, TestQuestion, TestOptions, ImageBlock, InputText, DeleteImage } from "../../style/style";
 import OptionBlock from "./OptionBlock";
-import { TestState } from "../../type";
+import { TestFileState } from "../../type";
 import { UploadUI } from "@/shared/ui";
 import { AddIcon } from "@/shared/ui/icon";
 import { InputProps, OptionsInputState } from "../../type";
+import { FullImageView } from "@/shared/ui";
 
 interface Props {
-  index: number;
-  data: TestState;
-  update: (e: TestState) => void;
+  data: TestFileState;
+  update: (e: TestFileState) => void;
+  subject: number;
+  valid: (e: boolean) => void;
 }
 
-const TestBlock: React.FC<Props> = ({ index, data, update }) => {
-  const [correct, setCorrect] = React.useState<string>("");
+const TestBlock: React.FC<Props> = ({ data, update, subject, valid }) => {
+  const [correct, setCorrect] = React.useState<string>("a");
 
   const [files, setFiles] = React.useState<InputProps>({
     main_image: null,
@@ -33,15 +35,16 @@ const TestBlock: React.FC<Props> = ({ index, data, update }) => {
     setFiles((prev) => ({ ...prev, [key]: file }));
   };
 
-  const onSave = (data: TestState) => {
+  const onSave = (data: TestFileState) => {
+    valid(data.questionImageRequest.description.length > 0 && data.optionImageRequests.every((x) => x.description.length > 0));
     update({
       ...data,
-      imageQuestion: files.main_image!,
-      options: [
-        { option: optionsInput.a, imageOption: files.a_image!, isTrue: correct == "a" ? true : false },
-        { option: optionsInput.b, imageOption: files.b_image!, isTrue: correct == "b" ? true : false },
-        { option: optionsInput.c, imageOption: files.c_image!, isTrue: correct == "c" ? true : false },
-        { option: optionsInput.d, imageOption: files.d_image!, isTrue: correct == "d" ? true : false },
+      questionImageRequest: { image: files.main_image, description: data.questionImageRequest.description, subjectId: subject },
+      optionImageRequests: [
+        { description: optionsInput.b, image: files.b_image!, isCorrect: correct == "b" ? true : false },
+        { description: optionsInput.a, image: files.a_image!, isCorrect: correct == "a" ? true : false },
+        { description: optionsInput.c, image: files.c_image!, isCorrect: correct == "c" ? true : false },
+        { description: optionsInput.d, image: files.d_image!, isCorrect: correct == "d" ? true : false },
       ],
     });
   };
@@ -61,13 +64,13 @@ const TestBlock: React.FC<Props> = ({ index, data, update }) => {
   return (
     <TestBlockUI>
       <TestQuestion>
-        <span>{index}.</span>
+        <span>{data.id}.</span>
 
         <div>
           {files.main_image ? (
             <>
               <ImageBlock size={80}>
-                <img src={getUrl(files.main_image)} alt="file" />
+                <FullImageView src={getUrl(files.main_image)} width={80} height={80} />
                 <DeleteImage top={1} right={1} onClick={() => handleFileChange("main_image", null)}>
                   <AddIcon color="white" />
                 </DeleteImage>
@@ -79,8 +82,10 @@ const TestBlock: React.FC<Props> = ({ index, data, update }) => {
           <InputText
             style={{ width: "800px" }}
             placeholder="Вопрос"
-            value={data.question}
-            onChange={(e) => onSave({ ...data, question: e.target.value })}
+            value={data.questionImageRequest.description}
+            onChange={(e) =>
+              onSave({ ...data, questionImageRequest: { ...data.questionImageRequest, description: e.target.value } })
+            }
           />
         </div>
       </TestQuestion>
