@@ -1,30 +1,35 @@
-import { FC, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { List, ListItemIcon, ListItemText } from "@mui/material";
-import constructureSvg from "../../shared/assets/svg/constucture.svg";
-import userSvg from "../../shared/assets/svg/user.svg";
-import { SideBarContainer, StyledListItemButton, Icon } from "../style";
-import { NavItem, Page } from "@/shared/ui/types";
+import { FC, useEffect } from "react"
+import { NavLink, useLocation } from "react-router-dom"
+import { List, ListItemIcon, ListItemText } from "@mui/material"
+import constructureSvg from "../../shared/assets/svg/constucture.svg"
+import userSvg from "../../shared/assets/svg/user.svg"
+import { SideBarContainer, StyledListItemButton, Icon } from "../style"
+import { NavItem, Page } from "@/shared/ui/types"
 
 export interface SideBarProps {
-  selected: Page;
-  onSelect: (page: Page) => void;
+  selected: Page
+  onSelect: (page: Page) => void
 }
 
 const navItems: NavItem[] = [
-  { label: "Конструктор теста", icon: constructureSvg, value: "constructor", path: "/" },
-  { label: "Пользователь", icon: userSvg, value: "user", path: "/user" },
-];
+  {
+    label: "Конструктор теста",
+    icon: constructureSvg,
+    value: "constructor",
+    path: "/admin",
+  },
+  { label: "Пользователь", icon: userSvg, value: "user", path: "/admin/users" },
+]
 
 export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
-  const location = useLocation();
+  const location = useLocation()
 
   useEffect(() => {
-    const currentItem = navItems.find((item) => item.path === location.pathname);
+    const currentItem = navItems.find((item) => item.path === location.pathname)
     if (currentItem) {
-      onSelect(currentItem.value);
+      onSelect(currentItem.value)
     }
-  }, [location.pathname, onSelect]);
+  }, [location.pathname, onSelect])
 
   return (
     <SideBarContainer>
@@ -38,7 +43,11 @@ export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
           >
             <StyledListItemButton selected={selected === item.value}>
               <ListItemIcon>
-                <Icon src={item.icon} selected={selected === item.value} alt={item.label} />
+                <Icon
+                  src={item.icon}
+                  selected={selected === item.value}
+                  alt={item.label}
+                />
               </ListItemIcon>
               <ListItemText primary={item.label} />
             </StyledListItemButton>
@@ -46,5 +55,5 @@ export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
         ))}
       </List>
     </SideBarContainer>
-  );
-};
+  )
+}

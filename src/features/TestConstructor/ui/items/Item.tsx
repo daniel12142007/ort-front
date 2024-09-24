@@ -1,15 +1,15 @@
-import React from "react";
-import { BoxQuestion, ItemBox, Paragraph, Question } from "../../style/style";
-import { useNavigate } from "react-router-dom";
-import nextSVG from "../../../../shared/assets/svg/next.svg";
-import { SubjectReq } from "../../type";
+import React from "react"
+import { BoxQuestion, ItemBox, Paragraph, Question } from "../../style/style"
+import { useNavigate } from "react-router-dom"
+import nextSVG from "../../../../shared/assets/svg/next.svg"
+import { SubjectReq } from "../../type"
 
 const Item: React.FC<SubjectReq> = ({ subjectName, id }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const create = () => {
-    navigate(`/test-list/${id}`);
-  };
+    navigate(`/admin/test-list/${id}`)
+  }
   return (
     <ItemBox onClick={create}>
       <Paragraph>{subjectName}</Paragraph>
@@ -18,7 +18,7 @@ const Item: React.FC<SubjectReq> = ({ subjectName, id }) => {
         <img src={nextSVG} alt="next" />
       </BoxQuestion>
     </ItemBox>
-  );
-};
+  )
+}
 
-export default Item;
+export default Item
