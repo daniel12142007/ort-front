@@ -1,13 +1,13 @@
-import { create } from "zustand";
-import TokenService from "@/utils";
+import { create } from "zustand"
+import TokenService from "@/utils"
 
-import { NavigateFunction } from "react-router-dom";
-import { LoginReq } from "../../type";
-import { api } from "../../api";
+import { NavigateFunction } from "react-router-dom"
+import { LoginReq } from "../../type"
+import { api } from "../../api"
 
 interface AuthStoreState {
-  token: string;
-  signIn: (data: LoginReq, navigate: NavigateFunction) => Promise<any>;
+  token: string
+  signIn: (data: LoginReq, navigate: NavigateFunction) => Promise<any>
 }
 
 export const useAuthStore = create<AuthStoreState>(() => ({
@@ -15,20 +15,22 @@ export const useAuthStore = create<AuthStoreState>(() => ({
 
   signIn: async (data, navigate) => {
     try {
-      TokenService.removeToken();
-      const res = await api.signIn(data);
-      console.log(res);
+      TokenService.removeToken()
+      const res = await api.signIn(data)
+      console.log(res)
       if (res.status === 200) {
-        TokenService.setToken(res.data.token);
-        navigate("/");
-        return { status: "success", message: "Аутентификация прошла успешно" };
+        TokenService.setToken(res.data.token)
+        if (res.data.role === "ADMIN") {
+          navigate("/admin")
+        }
+        return { status: "success", message: "Аутентификация прошла успешно" }
       }
-      return { status: "error", message: "Произошла ошибка, попробуйте снова." };
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
-        return { status: "error", message: "Неверный логин или пароль" };
+        return { status: "error", message: "Неверный логин или пароль" }
       }
-      return { status: "error", message: "Произошла ошибка, попробуйте снова." };
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
     }
   },
-}));
+}))
