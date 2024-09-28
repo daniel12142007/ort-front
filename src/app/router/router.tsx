@@ -5,6 +5,7 @@ import { TestConstructorRouter } from "@/features/TestConstructor"
 import ProtectedRoute from "@/shared/ui/ProtectedRoute"
 import { UsersRouter } from "@/features/Users/route"
 import { Lending } from "@/pages/landing"
+import { UserRoute } from "@/pages/user"
 
 export const MyRoutes = () => {
   return useRoutes([
@@ -21,6 +22,7 @@ export const MyRoutes = () => {
       ),
       children: [TestConstructorRouter, UsersRouter],
     },
+    UserRoute,
     AuthRouter,
   ])
 }
