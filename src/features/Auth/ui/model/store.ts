@@ -22,6 +22,8 @@ export const useAuthStore = create<AuthStoreState>(() => ({
         TokenService.setToken(res.data.token)
         if (res.data.role === "ADMIN") {
           navigate("/admin")
+        } else if (res.data.role === "USER") {
+          navigate("/user")
         }
         return { status: "success", message: "Аутентификация прошла успешно" }
       }
