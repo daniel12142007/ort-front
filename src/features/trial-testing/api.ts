@@ -13,7 +13,7 @@ export const api = {
   postAnswer: (answer: AnswerState) => {
     const { questionId, optionId, testId } = answer
     return apiRoot.post(
-      `api/options/answer/${questionId}/${optionId}/${testId}'`,
+      `api/options/answer/${questionId}/${optionId}/${testId}`,
     )
   },
   getResult: (resultTestId: number) => {

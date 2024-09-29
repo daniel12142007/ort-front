@@ -1,4 +1,3 @@
-import styled from "@emotion/styled"
 import React from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -32,21 +31,23 @@ const SubjectTest: React.FC<Props> = React.memo(
 
     if (time === 0) {
       alert("К сажелению время закончилась")
-      navigate("/main/trial-testing/finish")
+      navigate("/main/trial-testing/finish/")
     }
 
     return (
       <div>
-        <div>
-          <Progress time={time} totalTime={totalTime}>
-            <div />
-          </Progress>
-          <Timer>
-            <span>{new Date(time).toISOString().slice(14, 19)}</span>
-            <span>
-              {currentQuestion}/{questionCount}
-            </span>
-          </Timer>
+        <div className="w-full bg-white rounded-lg h-3 overflow-hidden">
+          <div
+            className="h-full  bg-[#00ff37] rounded-lg transition-all duration-1000"
+            style={{ width: `${(time / totalTime) * 100}%` }}
+          />
+        </div>
+
+        <div className="flex justify-evenly items-center mt-3 text-sm">
+          <span>{new Date(time).toISOString().slice(14, 19)}</span>
+          <span>
+            {currentQuestion}/{questionCount}
+          </span>
         </div>
       </div>
     )
@@ -54,30 +55,3 @@ const SubjectTest: React.FC<Props> = React.memo(
 )
 
 export default SubjectTest
-
-const Progress = styled.div<{ time: number; totalTime: number }>`
-  background-color: #fff;
-  border-radius: 10px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 1200px;
-  height: 13px;
-  overflow: hidden;
-
-  & > div {
-    border-radius: 10px;
-    width: ${({ time, totalTime }) => `${(time / totalTime) * 100}%`};
-    height: 100%;
-    background-color: #00ff37;
-    transition: width 1s linear; // Добавляем плавную анимацию
-  }
-`
-const Timer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 1200px;
-  margin-top: 10px;
-  font-size: 24px;
-`

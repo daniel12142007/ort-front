@@ -1,15 +1,22 @@
 import styled from "@emotion/styled"
 import { useQuestionStore } from "../../store/questionStore"
 import React from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 const TestFinish = () => {
-  const { getTestResult } = useQuestionStore()
+  const { getTestResult, testResult } = useQuestionStore()
   const { testId } = useParams()
+
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     getTestResult(Number(testId))
   }, [])
+  console.log(testResult)
+
+  const nav = () => {
+    navigate("/main/trial-testing")
+  }
 
   return (
     <TestFinishStyle>
@@ -34,16 +41,16 @@ const TestFinish = () => {
       <Polaris>
         <div>
           <span />
-          <p>Правильные ответы: 0</p>
+          <p>Правильные ответы: {testResult?.correct}</p>
         </div>
         <div>
           <span />
-          <p>Неправильные ответы: 0</p>
+          <p>Неправильные ответы: {testResult?.notCorrect}</p>
         </div>
       </Polaris>
       <Buttons>
-        <button>Просмотр</button>
-        <button>Закрыть</button>
+        <button onClick={() => console.log("view")}>Просмотр</button>
+        <button onClick={nav}>Закрыть</button>
       </Buttons>
     </TestFinishStyle>
   )
@@ -140,11 +147,11 @@ const Buttons = styled.div`
   width: 100%;
   gap: 20px;
 
-  & > button:nth-child(1) {
+  & > button:nth-of-type(1) {
     background-color: #3e5ecf;
     color: #fff;
   }
-  & > button:nth-child(2) {
+  & > button:nth-of-type(2) {
     background-color: #eee;
     color: #000;
   }

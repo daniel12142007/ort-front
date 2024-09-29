@@ -1,23 +1,26 @@
-import { ItemButtonContainer, ItemButtonStyle, TestButton } from "../styles"
-
 import mathematicIcon from "@/shared/assets/icon/mathematic.svg"
-// import kyrgyzIcon from "@/shared/assets/icon/kyrgyz.svg"
-// import analogyIcon from "@/shared/assets/icon/mathematic.svg"
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useSubjectStore } from "../store/subjectStore"
 
 export const TrialTesting = () => {
   const navigate = useNavigate()
-  const [active, setActive] = React.useState<number>()
+  const [active, setActive] = React.useState<{
+    id: number
+    subjectName: string
+  }>()
   const { fetchSubjects, subjects, loading, count } = useSubjectStore()
 
   React.useEffect(() => {
-    fetchSubjects()
+    if (subjects.length === 0) {
+      fetchSubjects()
+    }
   }, [])
 
   const nav = () => {
-    navigate(`/main/trial-testing/${active}`)
+    navigate(`${active?.subjectName}`, {
+      state: { active },
+    })
   }
 
   const subjectList = subjects.map((subject, i) => (
@@ -26,14 +29,14 @@ export const TrialTesting = () => {
       title={subject.subjectName}
       icon={mathematicIcon}
       iconColor="#9cc5e4"
-      active={active === subject.id}
-      onClick={() => setActive(subject.id)}
+      active={active?.id === subject.id}
+      onClick={() => setActive(subject)}
     />
   ))
 
   return (
-    <ItemButtonContainer>
-      <div>
+    <div className="flex flex-col gap-4 items-center p-5">
+      <div className="grid grid-cols-3 gap-4 md:grid-cols-2">
         {loading ? (
           <div>Loading...</div>
         ) : count === 0 ? (
@@ -42,10 +45,14 @@ export const TrialTesting = () => {
           subjectList
         )}
       </div>
-      <TestButton disabled={!active} onClick={nav}>
+      <button
+        className="bg-blue-500 text-white px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-blue-300"
+        disabled={!active}
+        onClick={nav}
+      >
         Перейти к тесту
-      </TestButton>
-    </ItemButtonContainer>
+      </button>
+    </div>
   )
 }
 
@@ -57,17 +64,19 @@ const ItemButton: React.FC<{
   onClick: (e: string) => void
 }> = ({ title, icon, iconColor, active, onClick }) => {
   return (
-    <ItemButtonStyle
-      active={active}
+    <div
+      className={`flex items-center bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer gap-3 ${
+        active &&
+        "transform translate-y-[1px] shadow-[0px_0px_15px_1px_rgba(0,0,0,0.3)] shadow-purple-400"
+      }`}
       onClick={() => onClick(title)}
-      iconColor={iconColor}
     >
-      <div>
-        <img src={icon} alt="itemIcon" />
+      <div className={`bg-[${iconColor}] w-[30%] h-full `}>
+        <img src={icon} alt="itemIcon" className="w-full h-full" />
       </div>
       <div>
-        <p>{title}</p>
+        <p className="font-semibold h-full">{title}</p>
       </div>
-    </ItemButtonStyle>
+    </div>
   )
 }

@@ -26,3 +26,11 @@ export interface AnswerState {
   optionId: number
   testId: number
 }
+
+export interface TestResultState {
+  testId: number
+  percent: number
+  correct: number
+  notCorrect: number
+  sumQuestion: number
+}

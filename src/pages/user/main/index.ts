@@ -1,1 +1,0 @@
-export { MainPageRoute } from "./route"

@@ -13,11 +13,7 @@ const routeName: Record<string, string> = {
 
 export function BreadCrumbs() {
   const location = useLocation()
-
-  // Разделяем путь и фильтруем пустые значения
   const locate = location.pathname.split("/").filter((item) => item !== "")
-
-  // Формируем полные пути для ссылок
   const pathArray = locate.map((_, index) => {
     return "/" + locate.slice(0, index + 1).join("/")
   })

@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { api } from "../api"
-import { QuestionState, AnswerState } from "../types"
+import { QuestionState, AnswerState, TestResultState } from "../types"
 
 interface storeState {
   loading: boolean
@@ -8,6 +8,7 @@ interface storeState {
   count: number
   fetchQuestions: (subjectId: number, limit: number) => Promise<void>
 
+  testResult: TestResultState | null
   setMyAnswer: (answer: AnswerState) => Promise<void>
   getTestResult: (resultTestId: number) => Promise<void>
 }
@@ -33,6 +34,7 @@ export const useQuestionStore = create<storeState>((set) => ({
 
   setMyAnswer: async (answer) => {
     try {
+      console.log(answer)
       const res = await api.postAnswer(answer)
       console.log(res)
     } catch (err) {
@@ -40,10 +42,13 @@ export const useQuestionStore = create<storeState>((set) => ({
     }
   },
 
+  testResult: null,
   getTestResult: async (resultTestId) => {
     try {
       const response = await api.getResult(resultTestId)
-      console.log(response)
+      if (response.status === 200) {
+        set({ testResult: response.data })
+      }
     } catch (err) {
       console.log(err)
     }

@@ -1,24 +1,25 @@
 import { Outlet } from "react-router-dom"
 import { TrialTestingRoute } from "@/features/trial-testing"
-import { MainPageRoute } from "./main"
+import { MainPage } from "./main/MainPage"
 import { BreadCrumbs } from "@/shared/ui"
+import { Header } from "@/widgets/Header/Header"
 
 export const UserRoute = {
-  path: "/main",
+  path: "main",
   element: (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "50px 20px",
-        backgroundColor: "#e0f6ff",
-        height: "100vh",
-      }}
-    >
+    <div className="flex flex-col min-h-screen items-center gap-2 bg-[#e0f6ff]">
+      <Header />
       <BreadCrumbs />
-      <Outlet />
+      <div className="flex-grow w-full">
+        <Outlet />
+      </div>
     </div>
   ),
-  children: [MainPageRoute, TrialTestingRoute],
+  children: [
+    {
+      path: "",
+      element: <MainPage />,
+    },
+    TrialTestingRoute,
+  ],
 }
