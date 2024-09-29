@@ -1,26 +1,33 @@
-import { useEffect } from "react";
-import { TitleHead, ItemsList } from "../style/style";
-import Item from "./items/Item";
-import { useStore } from "../model/store";
+import { useEffect } from "react"
+import { TitleHead, ItemsList } from "../style/style"
+import Item from "./items/Item"
+import { useSubjectStore } from "@/features/trial-testing/store/subjectStore"
 
 const ItemList = () => {
-  const { subjects, fetchSubjects } = useStore();
+  const { subjects, fetchSubjects, loading, count } = useSubjectStore()
 
   useEffect(() => {
-    fetchSubjects();
-  }, []);
+    fetchSubjects()
+  }, [])
+
+  const subjectList = subjects.map((obj, i) => <Item {...obj} key={i} />)
   return (
     <div>
       <TitleHead>
         <p>Предметы</p>
       </TitleHead>
       <ItemsList>
-        {subjects.map((obj, i) => (
-          <Item {...obj} key={i} />
-        ))}
+        {loading ? (
+          <div>Loading...</div>
+        ) : count === 0 ? (
+          <div>Не удалось найти предметы</div>
+        ) : (
+          subjectList
+        )}
+        {}
       </ItemsList>
     </div>
-  );
-};
+  )
+}
 
-export default ItemList;
+export default ItemList

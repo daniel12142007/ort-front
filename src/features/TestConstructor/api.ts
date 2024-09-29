@@ -1,23 +1,19 @@
-import { apiRoot } from "@/app/api";
-import { SubjectReq, TestFileState } from "./type";
-import { uploadImageAndGetUrl, notImage } from "./model/image.service";
+import { apiRoot } from "@/app/api"
+import { SubjectReq, TestFileState } from "./type"
+import { uploadImageAndGetUrl, notImage } from "./model/image.service"
 
 export const api = {
   createTest: async (question: TestFileState) => {
     if (question.questionImageRequest.image) {
-      const questionImageUrl = await uploadImageAndGetUrl(question);
-      return apiRoot.post("api/question/save-with-image", questionImageUrl);
+      const questionImageUrl = await uploadImageAndGetUrl(question)
+      return apiRoot.post("api/question/save-with-image", questionImageUrl)
     }
-    const questionNoImage = notImage(question);
-    return apiRoot.post("api/question/save", questionNoImage);
+    const questionNoImage = notImage(question)
+    return apiRoot.post("api/question/save", questionNoImage)
   },
 
   getQuestions: (subjectId: number) => {
-    return apiRoot.get(`api/question/getAllQuestionsBySubject/${subjectId}`);
-  },
-
-  getSubjects: () => {
-    return apiRoot.get<SubjectReq>("/api/subjects/list/of/subjects");
+    return apiRoot.get(`api/question/getAllQuestionsBySubject/${subjectId}`)
   },
 
   upload: (file: File) => {
@@ -28,7 +24,7 @@ export const api = {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }
-    );
+      },
+    )
   },
-};
+}

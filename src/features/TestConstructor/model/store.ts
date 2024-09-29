@@ -1,23 +1,15 @@
 import { create } from "zustand"
 import { api } from "../api"
-import {
-  GetQuestionsListResponse,
-  QuestionReq,
-  SubjectReq,
-  TestFileState,
-} from "../type"
+import { GetQuestionsListResponse, QuestionReq, TestFileState } from "../type"
 import { NavigateFunction } from "react-router-dom"
 import { toast } from "react-toastify"
 
 interface StoreState {
   testArray: TestFileState[]
-  subjects: SubjectReq[]
   loading: boolean
 
   setTestArray: (question: TestFileState) => void
   updateQuestion: (question: TestFileState) => void
-
-  fetchSubjects: () => Promise<void>
 
   questionsList: QuestionReq[]
 
@@ -39,7 +31,6 @@ export const defaultQuestion: TestFileState = {
 export const useStore = create<StoreState>((set) => ({
   testArray: [defaultQuestion],
   questionsList: [],
-  subjects: [],
   loading: false,
 
   setTestArray: (question) =>
@@ -89,16 +80,5 @@ export const useStore = create<StoreState>((set) => ({
       }
     }
     set({ loading: false })
-  },
-
-  fetchSubjects: async () => {
-    try {
-      const response = await api.getSubjects()
-      if (Array.isArray(response.data)) {
-        set({ subjects: response.data })
-      }
-    } catch (err) {
-      console.error(err)
-    }
   },
 }))
