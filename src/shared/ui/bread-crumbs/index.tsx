@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography"
 const routeName: Record<string, string> = {
   "": "Главная",
   main: "Главная",
-  "trial-testing": "Тестирование",
+  "trial-testing": "Пробный тест",
   "information-block": "Общая информация",
   testing: "Пробный тест",
 }

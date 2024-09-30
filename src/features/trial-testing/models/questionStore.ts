@@ -9,7 +9,7 @@ interface storeState {
   fetchQuestions: (subjectId: number, limit: number) => Promise<void>
 
   testResult: TestResultState | null
-  setMyAnswer: (answer: AnswerState) => Promise<void>
+  setMyAnswer: (answer: AnswerState) => Promise<string>
   getTestResult: (resultTestId: number) => Promise<void>
 }
 
@@ -34,11 +34,14 @@ export const useQuestionStore = create<storeState>((set) => ({
 
   setMyAnswer: async (answer) => {
     try {
-      console.log(answer)
       const res = await api.postAnswer(answer)
-      console.log(res)
+      if (res.status === 200) {
+        return "success"
+      }
+      return "error"
     } catch (err) {
       console.log(err)
+      return "error"
     }
   },
 

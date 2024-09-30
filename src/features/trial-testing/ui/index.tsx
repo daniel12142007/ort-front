@@ -1,7 +1,7 @@
 import mathematicIcon from "@/shared/assets/icon/mathematic.svg"
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { useSubjectStore } from "../store/subjectStore"
+import { useSubjectStore } from "../models/subjectStore"
 
 export const TrialTesting = () => {
   const navigate = useNavigate()
@@ -66,12 +66,11 @@ const ItemButton: React.FC<{
   return (
     <div
       className={`flex items-center bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer gap-3 ${
-        active &&
-        "transform translate-y-[1px] shadow-[0px_0px_15px_1px_rgba(0,0,0,0.3)] shadow-purple-400"
+        active && "transform translate-y-[1px] shadow-[2px_2px_10px_0px_purple]"
       }`}
       onClick={() => onClick(title)}
     >
-      <div className={`bg-[${iconColor}] w-[30%] h-full `}>
+      <div className={`bg-[${iconColor}] w-[30%] h-full`}>
         <img src={icon} alt="itemIcon" className="w-full h-full" />
       </div>
       <div>

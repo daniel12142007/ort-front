@@ -1,7 +1,7 @@
 import React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
-import { useQuestionStore } from "../../store/questionStore"
+import { useQuestionStore } from "../../models/questionStore"
 
 import ProgressBar from "./ProgressBar"
 import { AnswerState } from "../../types"
@@ -28,8 +28,15 @@ const TestController = () => {
       setMyAnswer(myChoise)
     }
   }
-  const testFinish = () => {
-    navigate(`/main/trial-testing/finish/${myChoise?.testId}`)
+  const testFinish = async () => {
+    if (myChoise) {
+      const res = await setMyAnswer(myChoise)
+      if (res === "success") {
+        navigate("/main/trial-testing/finish", {
+          state: { resultId: myChoise?.testId },
+        })
+      }
+    }
   }
   function replaceUrl(imageUrl: string | null | undefined): string {
     const oldUrlPart = "http://"

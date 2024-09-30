@@ -9,7 +9,7 @@ import {
 import { AddIcon } from "@/shared/ui/icon"
 import TestBlock from "./TestBlock"
 import { useStore } from "../../model/store"
-import { useSubjectStore } from "@/features/trial-testing/store/subjectStore"
+import { useSubjectStore } from "@/features/trial-testing/models/subjectStore"
 import { GetQuestionsListResponse } from "../../type"
 
 const TestList = () => {

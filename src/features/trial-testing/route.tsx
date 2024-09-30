@@ -27,7 +27,7 @@ export const TrialTestingRoute = {
       ],
     },
     {
-      path: "finish/:testId",
+      path: "finish",
       element: <TestFinish />,
     },
   ],

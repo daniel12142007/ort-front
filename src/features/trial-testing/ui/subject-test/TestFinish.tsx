@@ -1,16 +1,17 @@
-import styled from "@emotion/styled"
-import { useQuestionStore } from "../../store/questionStore"
+import { useQuestionStore } from "../../models/questionStore"
 import React from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const TestFinish = () => {
+  const locate = useLocation()
   const { getTestResult, testResult } = useQuestionStore()
-  const { testId } = useParams()
 
   const navigate = useNavigate()
 
   React.useEffect(() => {
-    getTestResult(Number(testId))
+    const resultId = locate.state.resultId
+    console.log(locate)
+    getTestResult(resultId)
   }, [])
   console.log(testResult)
 
@@ -19,157 +20,108 @@ const TestFinish = () => {
   }
 
   return (
-    <TestFinishStyle>
-      <Rounded>
-        <span>40%</span>
-        <p>10 из 20</p>
-      </Rounded>
-      <Sort>
-        <div>
-          <span />
+    <div className="flex flex-col gap-8 rounded-xl items-center bg-white w-10/12 mx-auto my-5 p-5">
+      <div className="">
+        <CircleProgressBar
+          progress={testResult?.percent}
+          success={testResult?.correct}
+          total={testResult?.sumQuestion}
+        />
+      </div>
+      <div className="flex gap-10">
+        <div className="flex items-center gap-3">
+          <span className="bg-[#0dff00] w-3 h-3 rounded-full" />
           <p>Отлично</p>
         </div>
-        <div>
-          <span />
+        <div className="flex items-center gap-3">
+          <span className="bg-[#ff9d00] w-3 h-3 rounded-full" />
           <p>Хорошо</p>
         </div>
-        <div>
-          <span />
+        <div className="flex items-center gap-3">
+          <span className="bg-[#ff0000] w-3 h-3 rounded-full" />
           <p>Плохо</p>
         </div>
-      </Sort>
-      <Polaris>
-        <div>
-          <span />
+      </div>
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-4">
+          <span className="bg-[#0dff00] w-3 h-3 rounded-full" />
           <p>Правильные ответы: {testResult?.correct}</p>
         </div>
-        <div>
-          <span />
+        <div className="flex items-center gap-4">
+          <span className="bg-[#ff0000] w-3 h-3 rounded-full" />
           <p>Неправильные ответы: {testResult?.notCorrect}</p>
         </div>
-      </Polaris>
-      <Buttons>
-        <button onClick={() => console.log("view")}>Просмотр</button>
-        <button onClick={nav}>Закрыть</button>
-      </Buttons>
-    </TestFinishStyle>
+      </div>
+      <div className="flex flex-col gap-2 w-2/6">
+        <button
+          className="bg-[#407bff] px-7 py-2 rounded-lg text-white hover:bg-[#0d66ff] shadow-[0px_3px_3px_0px_rgba(0,0,0,0.3)]"
+          onClick={() => console.log("view")}
+        >
+          Просмотр
+        </button>
+        <button
+          className="border-2 border-black px-7 py-2 rounded-lg hover:bg-gray-100"
+          onClick={nav}
+        >
+          Закрыть
+        </button>
+      </div>
+    </div>
   )
 }
 
 export default TestFinish
 
-const TestFinishStyle = styled.div`
-  background-color: #fff;
-  border-radius: 10px;
-  margin: 30px;
-  padding: 20px;
-  width: 1200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
+const CircleProgressBar = ({
+  progress = 0,
+  success = 0,
+  total = 0,
+}: {
+  progress?: number
+  success?: number
+  total?: number
+}) => {
+  const radius = 50
+  const circumference = 2 * Math.PI * radius
+  const offset = circumference - (progress / 100) * circumference
 
-const Rounded = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 100%;
-  background-color: #fff;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 50px solid #3e5ecf;
-
-  & > span {
-    font-size: 30px;
-    font-weight: 600;
-  }
-  & > p {
-    font-size: 18px;
-    font-weight: 600;
-  }
-`
-
-const Sort = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  margin-top: 20px;
-  & > div {
-    display: flex;
-    align-items: center;
-    & > span {
-      width: 20px;
-      height: 20px;
-      border-radius: 100%;
-      background-color: #3e5ecf;
-    }
-    & > p {
-      font-size: 18px;
-      font-weight: 600;
-      margin-left: 10px;
-    }
-  }
-`
-
-const Polaris = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 10px;
-  margin: 40px;
-
-  & > div {
-    width: 300px;
-    display: flex;
-    align-items: center;
-    & > span {
-      width: 20px;
-      height: 20px;
-      border-radius: 100%;
-      background-color: #3e5ecf;
-    }
-    & > p {
-      font-size: 18px;
-      font-weight: 600;
-      margin-left: 10px;
-    }
-  }
-`
-
-const Buttons = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 20px;
-
-  & > button:nth-of-type(1) {
-    background-color: #3e5ecf;
-    color: #fff;
-  }
-  & > button:nth-of-type(2) {
-    background-color: #eee;
-    color: #000;
-  }
-
-  & > button {
-    padding: 7px 20px;
-    border-radius: 10px;
-    font-weight: 500;
-    font-size: 18px;
-    cursor: pointer;
-    width: 200px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-    transition: 0.2s;
-    &:active {
-      transform: scale(0.95);
-    }
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-`
+  return (
+    <div className="flex items-center justify-center">
+      <svg className="rotate-[-90deg]" width="120" height="120">
+        <circle
+          className="text-gray-300"
+          strokeWidth="10"
+          stroke="currentColor"
+          fill="transparent"
+          r={radius}
+          cx="60"
+          cy="60"
+        />
+        <circle
+          className={`${
+            progress < 33
+              ? "text-[#ff0000]"
+              : progress < 66
+              ? "text-[#ff9d00]"
+              : "text-[#0dff00]"
+          }`}
+          strokeWidth="10"
+          strokeLinecap="round"
+          stroke="currentColor"
+          fill="transparent"
+          r={radius}
+          cx="60"
+          cy="60"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+        />
+      </svg>
+      <span className="absolute text-xl flex flex-col items-center">
+        <p>{progress}%</p>
+        <p>
+          {success} из {total}
+        </p>
+      </span>
+    </div>
+  )
+}

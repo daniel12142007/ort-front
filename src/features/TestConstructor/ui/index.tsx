@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { TitleHead, ItemsList } from "../style/style"
 import Item from "./items/Item"
-import { useSubjectStore } from "@/features/trial-testing/store/subjectStore"
+import { useSubjectStore } from "@/features/trial-testing/models/subjectStore"
 
 const ItemList = () => {
   const { subjects, fetchSubjects, loading, count } = useSubjectStore()
