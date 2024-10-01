@@ -26,6 +26,7 @@ export const SearchInput = styled("input")`
     border: none;
     outline: none;
     background-color: #ffffff;
+    font-size: 15px;
 `
 export const SBlock = styled("div")`
     background-color: #ffffff;

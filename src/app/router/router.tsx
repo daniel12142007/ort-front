@@ -7,6 +7,7 @@ import { UsersRouter } from "@/features/Users/route"
 import { Lending } from "@/pages/landing"
 import { HomePage } from "@/pages/HomePage/HomePage"
 import { TestingPage } from "@/pages/Testing/TestingPage"
+import { SchoolsRouter } from "@/features/Schools"
 
 export const MyRoutes = () => {
   return useRoutes([
@@ -21,7 +22,7 @@ export const MyRoutes = () => {
           <Layout />
         </ProtectedRoute>
       ),
-      children: [TestConstructorRouter, UsersRouter],
+      children: [TestConstructorRouter, UsersRouter, SchoolsRouter],
     },
     {
       path: "user",

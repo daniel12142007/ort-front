@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import nextSVG from "../../../../shared/assets/svg/next.svg"
 import { SubjectReq } from "../../type"
 
-const Item: React.FC<SubjectReq> = ({ subjectName, id }) => {
+const Item: React.FC<SubjectReq> = ({ subjectName, id, questionCount }) => {
   const navigate = useNavigate()
 
   const create = () => {
@@ -14,7 +14,7 @@ const Item: React.FC<SubjectReq> = ({ subjectName, id }) => {
     <ItemBox onClick={create}>
       <Paragraph>{subjectName}</Paragraph>
       <BoxQuestion>
-        <Question>(1000вопр.)</Question>
+        <Question>({questionCount} вопр.)</Question>
         <img src={nextSVG} alt="next" />
       </BoxQuestion>
     </ItemBox>

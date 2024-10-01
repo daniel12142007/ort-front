@@ -14,7 +14,7 @@ export interface Status {
 	status: 'idle' | 'loading' | 'success' | 'error'
 }
 
-export type Page = "constructor" | "testing" | "user";
+export type Page = "constructor" | "school" | "user";
 
 export interface NavItem {
   label: string;

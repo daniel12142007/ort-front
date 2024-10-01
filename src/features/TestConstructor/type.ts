@@ -80,4 +80,5 @@ export interface GetQuestionsListResponse {
 export interface SubjectReq {
   id: number;
   subjectName: string;
+  questionCount: number;
 }

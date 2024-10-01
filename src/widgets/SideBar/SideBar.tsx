@@ -3,6 +3,7 @@ import { NavLink, useLocation } from "react-router-dom"
 import { List, ListItemIcon, ListItemText } from "@mui/material"
 import constructureSvg from "../../shared/assets/svg/constucture.svg"
 import userSvg from "../../shared/assets/svg/user.svg"
+import schoolSVG from '../../shared/assets/svg/school.svg'
 import { SideBarContainer, StyledListItemButton, Icon } from "../style"
 import { NavItem, Page } from "@/shared/ui/types"
 
@@ -19,6 +20,7 @@ const navItems: NavItem[] = [
     path: "/admin",
   },
   { label: "Пользователь", icon: userSvg, value: "user", path: "/admin/users" },
+  {label: "школы", icon: schoolSVG, value: "school", path: "/admin/schools"},
 ]
 
 export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {

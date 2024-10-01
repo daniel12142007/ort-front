@@ -86,12 +86,9 @@ export const AddButton = styled(Button)`
 `;
 
 export const ItemsList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 1200px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 15px;
-  padding: 10px 0px;
 `;
 export const Grid = styled.div`
   width: auto;
@@ -101,7 +98,7 @@ export const Grid = styled.div`
 `
 
 export const ItemBox = styled.div`
-width: 550px;
+  width: 100%;
   padding: 13px 13px;
   border-radius: 5px;
   display: flex;
@@ -120,7 +117,7 @@ export const Paragraph = styled.p`
 `;
 export const BoxQuestion = styled.div`
   display: flex;
-  width: 160px;
+  width: 35%;
   justify-content: space-between;
   align-items: center;
   color: #949494;
