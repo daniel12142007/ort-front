@@ -6,7 +6,7 @@ interface storeState {
   loading: boolean
   questions: QuestionState[]
   count: number
-  fetchQuestions: (subjectId: number, limit: number) => Promise<void>
+  fetchQuestions: (subjectId: number, limit: number) => Promise<number | void>
 
   testResult: TestResultState | null
   setMyAnswer: (answer: AnswerState) => Promise<string>
@@ -24,9 +24,13 @@ export const useQuestionStore = create<storeState>((set) => ({
       const response = await api.getQuestions(subjectId, limit)
       if (Array.isArray(response.data)) {
         set({ questions: response.data, count: response.data.length })
+        console.log(response)
+        return response.data.length
       }
+      return 0
     } catch (err) {
       console.log(err)
+      return 0
     } finally {
       set({ loading: false })
     }

@@ -1,26 +1,27 @@
 import mathematicIcon from "@/shared/assets/icon/mathematic.svg"
 import React from "react"
-import { useNavigate } from "react-router-dom"
 import { useSubjectStore } from "../models/subjectStore"
 
+import { useNavigateLogic } from "@/hooks/crossLogic"
+
 export const TrialTesting = () => {
-  const navigate = useNavigate()
   const [active, setActive] = React.useState<{
     id: number
     subjectName: string
   }>()
-  const { fetchSubjects, subjects, loading, count } = useSubjectStore()
+  const { subjects, count } = useSubjectStore()
+  const { navigateWithFetch, loading, testNavigate, testLoading } =
+    useNavigateLogic()
 
   React.useEffect(() => {
     if (subjects.length === 0) {
-      fetchSubjects()
+      navigateWithFetch("current")
     }
   }, [])
 
   const nav = () => {
-    navigate(`${active?.subjectName}`, {
-      state: { active },
-    })
+    if (!active) return
+    testNavigate("prev", active.id, 10, active.subjectName)
   }
 
   const subjectList = subjects.map((subject, i) => (
@@ -30,7 +31,8 @@ export const TrialTesting = () => {
       icon={mathematicIcon}
       iconColor="#9cc5e4"
       active={active?.id === subject.id}
-      onClick={() => setActive(subject)}
+      onClick={() => setActive(subject == active ? undefined : subject)}
+      disabled={subject.questionCount === 0}
     />
   ))
 
@@ -47,10 +49,10 @@ export const TrialTesting = () => {
       </div>
       <button
         className="bg-blue-500 text-white px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-blue-300"
-        disabled={!active}
+        disabled={!active || testLoading}
         onClick={nav}
       >
-        Перейти к тесту
+        {testLoading ? "Загрузка..." : "Пройти тест"}
       </button>
     </div>
   )
@@ -62,11 +64,14 @@ const ItemButton: React.FC<{
   iconColor: string
   active: boolean
   onClick: (e: string) => void
-}> = ({ title, icon, iconColor, active, onClick }) => {
+  disabled: boolean
+}> = ({ title, icon, iconColor, active, onClick, disabled }) => {
   return (
-    <div
-      className={`flex items-center bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer gap-3 ${
-        active && "transform translate-y-[1px] shadow-[2px_2px_10px_0px_purple]"
+    <button
+      disabled={disabled}
+      className={`flex items-center bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer gap-3 disabled:shadow-none disabled:bg-zinc-300 relative ${
+        active &&
+        "transform translate-y-[1px] shadow-[2px_2px_10px_0px_#407bff]"
       }`}
       onClick={() => onClick(title)}
     >
@@ -76,6 +81,6 @@ const ItemButton: React.FC<{
       <div>
         <p className="font-semibold h-full">{title}</p>
       </div>
-    </div>
+    </button>
   )
 }

@@ -6,7 +6,7 @@ interface storeState {
   subjects: SubjectReq[]
   loading: boolean
   count: number
-  fetchSubjects: () => Promise<void>
+  fetchSubjects: () => Promise<number | void>
 }
 
 export const useSubjectStore = create<storeState>((set) => ({
@@ -20,9 +20,12 @@ export const useSubjectStore = create<storeState>((set) => ({
       const response = await api.getSubjects()
       if (Array.isArray(response.data)) {
         set({ subjects: response.data, count: response.data.length })
+        return response.data.length
       }
+      return 0
     } catch (err) {
       console.error(err)
+      return 0
     } finally {
       set({ loading: false })
     }

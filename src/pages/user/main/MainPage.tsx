@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigateLogic } from "@/hooks/crossLogic"
 
 export const MainPage = () => {
-  const navigate = useNavigate()
-  const nav = () => {
-    navigate("/main/trial-testing")
-  }
+  const { navigateWithFetch, loading } = useNavigateLogic()
+
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-2xl font-semibold text-center">Добро пожаловать</h1>
@@ -16,10 +14,11 @@ export const MainPage = () => {
           Подготовка к ОРТ
         </button>
         <button
-          onClick={nav}
+          disabled={loading}
+          onClick={() => navigateWithFetch("prev")}
           className="bg-blue-500 w-52 text-white px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-500"
         >
-          Пробный тест
+          {loading ? "Загрузка..." : "Пробный тест"}
         </button>
         <button
           disabled
