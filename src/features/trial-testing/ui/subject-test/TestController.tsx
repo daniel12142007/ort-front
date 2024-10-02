@@ -1,7 +1,7 @@
 import React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
-import { useQuestionStore } from "../../models/questionStore"
+import { useTrialTestStore } from "../../models/store"
 
 import ProgressBar from "./ProgressBar"
 import { AnswerState } from "../../types"
@@ -14,7 +14,7 @@ const TestController = () => {
   const [current, setCurrent] = React.useState(0)
   const [myChoise, setChoise] = React.useState<AnswerState>()
   const { testNavigate } = useNavigateLogic()
-  const { questions, count, setMyAnswer, loading } = useQuestionStore()
+  const { questions, count, setMyAnswer, loading } = useTrialTestStore()
 
   React.useEffect(() => {
     const id = location.state?.id

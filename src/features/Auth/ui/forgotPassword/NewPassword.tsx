@@ -2,22 +2,50 @@ import AuthWrapper from "../AuthWrapper"
 import { Btn, Flex, Form, Title } from "../../style/style"
 import { useForm } from "react-hook-form"
 import { useAuthStore } from "../model/store"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { MyInput } from "@/shared/ui/MyInput"
 import { MyPasswordInput } from "@/shared/ui/MyPasswordInput"
 import { NewPasswordState } from "../../type"
+import { toast } from "react-toastify"
+import { LoaderDots } from "@/shared/ui"
+import React from "react"
 
 export const NewPassword = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const [isLoading, setLoading] = React.useState(false)
+  const notify = (message: string, type: "success" | "error") =>
+    toast[type](message)
   const fetchEmail = useAuthStore((state) => state.resetPassword)
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<NewPasswordState>({})
+  } = useForm<NewPasswordState>({
+    defaultValues: {
+      email: location.state?.email,
+      newPassword: "",
+      confirmPassword: "",
+    },
+  })
 
-  const onSubmit = (data: NewPasswordState) => {
-    fetchEmail(data, navigate)
+  const onSubmit = async (data: NewPasswordState) => {
+    setLoading(true)
+    try {
+      if (data.newPassword !== data.confirmPassword) {
+        notify("Пароли не совпадают", "error")
+        setLoading(false)
+        return
+      }
+      const { status, message } = await fetchEmail(data, navigate)
+      if (status === "success") {
+        notify(message, status)
+      }
+      setLoading(false)
+    } catch (err) {
+      notify("Неверный адрес электронной почты", "error")
+      setLoading(false)
+    }
   }
 
   return (
@@ -59,7 +87,7 @@ export const NewPassword = () => {
         )}
 
         <Flex>
-          <Btn>Срос пароля</Btn>
+          <Btn>{isLoading ? <LoaderDots /> : "Сменить пароль"}</Btn>
         </Flex>
       </Form>
     </AuthWrapper>

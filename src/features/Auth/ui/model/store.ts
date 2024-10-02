@@ -65,31 +65,44 @@ export const useAuthStore = create<AuthStoreState>(() => ({
   findEmail: async (email, navigate) => {
     try {
       const res = await api.setEmail(email)
-      console.log(res)
-      navigate("/auth/forgot-password/code", { state: { email } })
+      if (res.status === 200) {
+        navigate("/auth/forgot-password/code", { state: { email } })
+        return { status: "success", message: "Письмо отправлено" }
+      }
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
     } catch (err) {
       console.log(err)
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
     }
   },
 
   codeEmail: async (data, navigate) => {
     try {
-      console.log(data)
       const res = await api.setCode(data)
-      console.log(res)
-      navigate("/auth/forgot-password/new-password")
+      if (res.status === 200) {
+        navigate("/auth/forgot-password/new-password", {
+          state: { email: data.email },
+        })
+        return { status: "success", message: "Код принят" }
+      }
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
     } catch (err) {
       console.log(err)
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
     }
   },
 
   resetPassword: async (data, navigate) => {
     try {
       const res = await api.resetPassword(data)
-      console.log(res)
-      navigate("/auth/sign-in")
+      if (res.status === 200) {
+        navigate("/auth/sign-in")
+        return { status: "success", message: "Пароль изменен" }
+      }
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
     } catch (err) {
       console.log(err)
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
     }
   },
 }))

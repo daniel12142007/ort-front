@@ -1,6 +1,6 @@
 import mathematicIcon from "@/shared/assets/icon/mathematic.svg"
 import React from "react"
-import { useSubjectStore } from "../models/subjectStore"
+import { useTrialTestStore } from "../models/store"
 
 import { useNavigateLogic } from "@/hooks/crossLogic"
 
@@ -9,7 +9,7 @@ export const TrialTesting = () => {
     id: number
     subjectName: string
   }>()
-  const { subjects, count } = useSubjectStore()
+  const { subjects, countSub } = useTrialTestStore()
   const { navigateWithFetch, loading, testNavigate, testLoading } =
     useNavigateLogic()
 
@@ -41,7 +41,7 @@ export const TrialTesting = () => {
       <div className="grid grid-cols-3 gap-4 md:grid-cols-2">
         {loading ? (
           <div>Loading...</div>
-        ) : count === 0 ? (
+        ) : countSub === 0 ? (
           <div>Не удалось найти предметы</div>
         ) : (
           subjectList
