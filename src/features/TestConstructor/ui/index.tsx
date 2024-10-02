@@ -1,11 +1,11 @@
 import { useEffect } from "react"
 import { TitleHead, ItemsList } from "../style/style"
 import Item from "./items/Item"
-import { useSubjectStore } from "@/features/trial-testing/models/subjectStore"
+import { useTrialTestStore } from "@/features/trial-testing/models/store"
 
 const ItemList = () => {
-  const { subjects, fetchSubjects, loading, count } = useSubjectStore()
-
+  const { subjects, fetchSubjects, loadingSub, countSub } = useTrialTestStore()
+  console.log(subjects)
   useEffect(() => {
     fetchSubjects()
   }, [])
@@ -17,9 +17,9 @@ const ItemList = () => {
         <p>Предметы</p>
       </TitleHead>
       <ItemsList>
-        {loading ? (
+        {loadingSub ? (
           <div>Loading...</div>
-        ) : count === 0 ? (
+        ) : countSub === 0 ? (
           <div>Не удалось найти предметы</div>
         ) : (
           subjectList

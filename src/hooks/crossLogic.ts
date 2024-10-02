@@ -1,12 +1,10 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSubjectStore } from "@/features/trial-testing/models/subjectStore"
-import { useQuestionStore } from "@/features/trial-testing/models/questionStore"
+import { useTrialTestStore } from "@/features/trial-testing/models/store"
 
 export const useNavigateLogic = () => {
   const navigate = useNavigate()
-  const { fetchSubjects } = useSubjectStore()
-  const { fetchQuestions } = useQuestionStore()
+  const { fetchQuestions, fetchSubjects } = useTrialTestStore()
   const [loading, setLoading] = useState(false)
   const [testLoading, setTestLoading] = useState(false)
 
