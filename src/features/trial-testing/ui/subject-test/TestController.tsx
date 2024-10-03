@@ -1,23 +1,25 @@
 import React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
-import { useQuestionStore } from "../../models/questionStore"
+import { useTrialTestStore } from "../../models/store"
 
 import ProgressBar from "./ProgressBar"
 import { AnswerState } from "../../types"
+import { useNavigateLogic } from "@/hooks/crossLogic"
 
 const TestController = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { questions, count, setMyAnswer, fetchQuestions, loading } =
-    useQuestionStore()
+  const [modal, setModal] = React.useState(false)
   const [current, setCurrent] = React.useState(0)
   const [myChoise, setChoise] = React.useState<AnswerState>()
+  const { testNavigate } = useNavigateLogic()
+  const { questions, count, setMyAnswer, loading } = useTrialTestStore()
 
   React.useEffect(() => {
     const id = location.state?.id
     if (!id) navigate("/main/trial-testing")
-    fetchQuestions(Number(id), 10)
+    testNavigate("current", Number(id), 10, "testing")
   }, [])
 
   const changePage = () => {
@@ -36,6 +38,8 @@ const TestController = () => {
           state: { resultId: myChoise?.testId },
         })
       }
+    } else {
+      setModal(true)
     }
   }
   function replaceUrl(imageUrl: string | null | undefined): string {
@@ -50,7 +54,7 @@ const TestController = () => {
   }
 
   return (
-    <>
+    <div className="relative">
       {loading ? (
         <div>Loading...</div>
       ) : count === 0 ? (
@@ -161,7 +165,27 @@ const TestController = () => {
           </div>
         </div>
       )}
-    </>
+      <div
+        className={`fixed top-0 right-0 left-0 bottom-0 flex justify-center items-center bg-[rgb(0,0,0,.3)] ${
+          !modal && "hidden"
+        }`}
+      >
+        <div className="bg-white p-5 rounded-lg">
+          <h1>Вы уверены что хотите завершить тест</h1>
+          <div className="flex gap-5 items-center justify-center">
+            <button className="bg-blue-400" onClick={() => setModal(false)}>
+              Назад
+            </button>
+            <button
+              className="bg-blue-400"
+              onClick={() => navigate("/main/trial-testing")}
+            >
+              Завершить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

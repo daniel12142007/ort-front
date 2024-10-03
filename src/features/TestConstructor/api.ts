@@ -1,5 +1,5 @@
 import { apiRoot } from "@/app/api"
-import { SubjectReq, TestFileState } from "./type"
+import { TestFileState } from "./type"
 import { uploadImageAndGetUrl, notImage } from "./model/image.service"
 
 export const api = {
