@@ -1,21 +1,28 @@
-import React from "react";
-import { TestBlockUI, TestQuestion, TestOptions, ImageBlock, InputText, DeleteImage } from "../../style/style";
-import OptionBlock from "./OptionBlock";
-import { TestFileState } from "../../type";
-import { UploadUI } from "@/shared/ui";
-import { AddIcon } from "@/shared/ui/icon";
-import { InputProps, OptionsInputState } from "../../type";
-import { FullImageView } from "@/shared/ui";
+import React from "react"
+import {
+  TestBlockUI,
+  TestQuestion,
+  TestOptions,
+  ImageBlock,
+  InputText,
+  DeleteImage,
+} from "../../style/style"
+import OptionBlock from "./OptionBlock"
+import { TestFileState } from "../../type"
+import { UploadUI } from "@/shared/ui"
+import { AddIcon } from "@/shared/ui/icon"
+import { InputProps, OptionsInputState } from "../../type"
+import { FullImageView } from "@/shared/ui"
 
 interface Props {
-  data: TestFileState;
-  update: (e: TestFileState) => void;
-  subject: number;
-  valid: (e: boolean) => void;
+  data: TestFileState
+  update: (e: TestFileState) => void
+  subject: number
+  valid: (e: boolean) => void
 }
 
 const TestBlock: React.FC<Props> = ({ data, update, subject, valid }) => {
-  const [correct, setCorrect] = React.useState<string>("a");
+  const [correct, setCorrect] = React.useState<string>("a")
 
   const [files, setFiles] = React.useState<InputProps>({
     main_image: null,
@@ -23,43 +30,66 @@ const TestBlock: React.FC<Props> = ({ data, update, subject, valid }) => {
     b_image: null,
     c_image: null,
     d_image: null,
-  });
+  })
   const [optionsInput, setOptionsInput] = React.useState<OptionsInputState>({
     a: "",
     b: "",
     c: "",
     d: "",
-  });
+  })
 
   const handleFileChange = (key: string, file: File | null) => {
-    setFiles((prev) => ({ ...prev, [key]: file }));
-  };
+    setFiles((prev) => ({ ...prev, [key]: file }))
+  }
 
   const onSave = (data: TestFileState) => {
-    valid(data.questionImageRequest.description.length > 0 && data.optionImageRequests.every((x) => x.description.length > 0));
+    valid(
+      data.questionImageRequest.description.length > 0 &&
+        data.optionImageRequests.every((x) => x.description.length > 0),
+    )
     update({
       ...data,
-      questionImageRequest: { image: files.main_image, description: data.questionImageRequest.description, subjectId: subject },
+      questionImageRequest: {
+        image: files.main_image,
+        description: data.questionImageRequest.description,
+        subjectId: subject,
+      },
       optionImageRequests: [
-        { description: optionsInput.b, image: files.b_image!, isCorrect: correct == "b" ? true : false },
-        { description: optionsInput.a, image: files.a_image!, isCorrect: correct == "a" ? true : false },
-        { description: optionsInput.c, image: files.c_image!, isCorrect: correct == "c" ? true : false },
-        { description: optionsInput.d, image: files.d_image!, isCorrect: correct == "d" ? true : false },
+        {
+          description: optionsInput.b,
+          image: files.b_image!,
+          isCorrect: correct == "b" ? true : false,
+        },
+        {
+          description: optionsInput.a,
+          image: files.a_image!,
+          isCorrect: correct == "a" ? true : false,
+        },
+        {
+          description: optionsInput.c,
+          image: files.c_image!,
+          isCorrect: correct == "c" ? true : false,
+        },
+        {
+          description: optionsInput.d,
+          image: files.d_image!,
+          isCorrect: correct == "d" ? true : false,
+        },
       ],
-    });
-  };
+    })
+  }
 
   const changeOption = (key: string, value: string) => {
-    setOptionsInput((prev) => ({ ...prev, [key]: value }));
-  };
+    setOptionsInput((prev) => ({ ...prev, [key]: value }))
+  }
 
   React.useEffect(() => {
-    onSave(data);
-  }, [files, correct, optionsInput]);
+    onSave(data)
+  }, [files, correct, optionsInput])
 
   const getUrl = (file: File | null) => {
-    return file ? URL.createObjectURL(file) : "";
-  };
+    return file ? URL.createObjectURL(file) : ""
+  }
 
   return (
     <TestBlockUI>
@@ -70,8 +100,16 @@ const TestBlock: React.FC<Props> = ({ data, update, subject, valid }) => {
           {files.main_image ? (
             <>
               <ImageBlock size={80}>
-                <FullImageView src={getUrl(files.main_image)} width={80} height={80} />
-                <DeleteImage top={1} right={1} onClick={() => handleFileChange("main_image", null)}>
+                <FullImageView
+                  src={getUrl(files.main_image)}
+                  width={80}
+                  height={80}
+                />
+                <DeleteImage
+                  top={1}
+                  right={1}
+                  onClick={() => handleFileChange("main_image", null)}
+                >
                   <AddIcon color="white" />
                 </DeleteImage>
               </ImageBlock>
@@ -84,7 +122,13 @@ const TestBlock: React.FC<Props> = ({ data, update, subject, valid }) => {
             placeholder="Вопрос"
             value={data.questionImageRequest.description}
             onChange={(e) =>
-              onSave({ ...data, questionImageRequest: { ...data.questionImageRequest, description: e.target.value } })
+              onSave({
+                ...data,
+                questionImageRequest: {
+                  ...data.questionImageRequest,
+                  description: e.target.value,
+                },
+              })
             }
           />
         </div>
@@ -128,7 +172,7 @@ const TestBlock: React.FC<Props> = ({ data, update, subject, valid }) => {
         />
       </TestOptions>
     </TestBlockUI>
-  );
-};
+  )
+}
 
-export default TestBlock;
+export default TestBlock

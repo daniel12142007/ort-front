@@ -7,7 +7,6 @@ export interface QuestionRequestFileState {
   subjectId: number;
   description: string;
   image?: File | null;
-  
 }
 export interface OptionFileState {
   description: string;
@@ -44,6 +43,7 @@ export interface OptionFileTextState {
 }
 
 export interface QuestionReq {
+  id: number;
   questionId: number;
   subjectId: number;
   description: string;
@@ -81,4 +81,20 @@ export interface SubjectReq {
   id: number;
   subjectName: string;
   questionCount: number;
+}
+
+export interface QuestionUpdateState {
+  questionUpdateRequest: QuestionUpdate;
+  optionUpdateRequests: OptionUpdate[];
+}
+interface QuestionUpdate {
+  questionId: number,
+  image: string,
+  description: string,
+}
+interface OptionUpdate {
+    optionId?: number,
+    image?: string,
+    description?: string,
+    isCorrect?: boolean,
 }

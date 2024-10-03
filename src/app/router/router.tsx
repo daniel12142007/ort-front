@@ -5,8 +5,8 @@ import { TestConstructorRouter } from "@/features/TestConstructor"
 import ProtectedRoute from "@/shared/ui/ProtectedRoute"
 import { UsersRouter } from "@/features/Users/route"
 import { Lending } from "@/pages/landing"
-import { HomePage } from "@/pages/HomePage/HomePage"
-import { TestingPage } from "@/pages/Testing/TestingPage"
+
+import { UserRoute } from "@/pages/user"
 import { SchoolsRouter } from "@/features/Schools"
 
 export const MyRoutes = () => {
@@ -24,22 +24,7 @@ export const MyRoutes = () => {
       ),
       children: [TestConstructorRouter, UsersRouter, SchoolsRouter],
     },
-    {
-      path: "user",
-      element: (
-        <Layout/>
-      ),
-      children: [
-        {
-          path: "user/homePage",
-          element: <HomePage/>
-        },
-        {
-          path: "user/testingPage",
-          element: <TestingPage/>
-        }
-      ],
-    },
+    UserRoute,
     AuthRouter,
   ])
 }

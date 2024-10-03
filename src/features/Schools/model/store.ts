@@ -52,7 +52,7 @@ export const useSchoolsStore = create<SchoolsState>((set) => ({
             console.log(res);
             set((state) => ({
                 schools: state.schools.map((school) =>
-                    school.id === data.id ? res.data : school // Заменяем обновленную школу
+                    school.id === data.id ? res.data : school 
                 ),
             }));
         } catch (err) {

@@ -23,7 +23,7 @@ export const useAuthStore = create<AuthStoreState>(() => ({
         if (res.data.role === "ADMIN") {
           navigate("/admin")
         } else if (res.data.role === "USER") {
-          navigate("/user")
+          navigate("/main")
         }
         return { status: "success", message: "Аутентификация прошла успешно" }
       }

@@ -107,6 +107,7 @@ export const DeleteImage = styled("div")`
 
 export const MainBlock = styled("div")`
     overflow-y: scroll;
+    height: 500px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -126,6 +127,10 @@ export const MainBlock = styled("div")`
 
     &::-webkit-scrollbar-track {
         background: transparent; /* прозрачный фон для трека скроллбара */
+    }
+
+    @media (max-width: 1300px) and (min-width: 808px) {
+        height: 400px; /* уменьшенная высота для планшетов */
     }
 `
 export const DetailBlocks = styled("div")`

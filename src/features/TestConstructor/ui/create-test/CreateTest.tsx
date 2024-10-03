@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ContainerStyle, AddButton, ButtonContainer, Title, TaskList } from "../../style/style";
+import { ContainerStyle, AddButton, ButtonContainer, Title, TaskList, Flexing, KeyBoard } from "../../style/style";
 import TestBlock from "./TestBlock";
 import { AddIcon } from "@/shared/ui/icon";
 import { TestFileState } from "../../type";
@@ -26,7 +26,10 @@ const CreateTest: React.FC = () => {
   return (
     <ContainerStyle>
       <Title>
-        <h1>{itemId}</h1>
+        <Flexing>
+          <KeyBoard onClick={() => navigate(-1)} />
+          <h1>{itemId}</h1>
+        </Flexing>
         <ButtonContainer>
           <div>
             <div style={{ display: "flex", gap: "10px" }}>
