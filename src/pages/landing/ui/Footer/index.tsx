@@ -19,7 +19,7 @@ export function Footer() {
           <div className="w-[204px] h-[204px] rounded-full bg-[#D7E3FE0D] absolute bottom-0 left-0"></div>
           <div className="w-[121px] h-[121px] rounded-full bg-[#D7E3FE0D] absolute bottom-[60px] right-0"></div>
           <div className="text-center mt-[80px]">
-            <Link to="#">
+            <Link to="/auth/sign-up">
               <button className="bg-[#7695FF] rounded-xl text-white px-[30px] py-[6px] text-[19px]">
                 Зарегистрироваться
               </button>

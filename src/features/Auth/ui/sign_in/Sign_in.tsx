@@ -1,14 +1,5 @@
 import { useState } from "react"
-import {
-  Background,
-  Btn,
-  Flex,
-  FormWrapper,
-  Logo,
-  Title,
-  ForgotPasswordLink,
-  Form,
-} from "../../style/style"
+import { Btn, Flex, Title, ForgotPasswordLink, Form } from "../../style/style"
 import { LoaderDots } from "@/shared/ui"
 import { MyInput } from "@/shared/ui/MyInput"
 import { MyPasswordInput } from "@/shared/ui/MyPasswordInput"
@@ -17,7 +8,7 @@ import { LoginReq } from "../../type"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuthStore } from "../model/store"
 import { toast } from "react-toastify"
-import logo from "../../../../shared/assets/icon/logo.svg"
+import AuthWrapper from "../AuthWrapper"
 
 export const SignIn = () => {
   const navigate = useNavigate()
@@ -57,43 +48,38 @@ export const SignIn = () => {
   }
 
   return (
-    <Background>
-      <Logo src={logo} alt="Company Logo" />
-      <FormWrapper>
-        <Title>Авторизация</Title>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <MyInput
-            register={register("email")}
-            name="email"
-            label="Логин*"
-            type="email"
-          />
-          {errors.email && (
-            <p style={{ color: "red" }}>{errors.email.message}</p>
-          )}
+    <AuthWrapper>
+      <Title>Авторизация</Title>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <MyInput
+          register={register("email")}
+          name="email"
+          label="Логин*"
+          type="email"
+        />
+        {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
 
-          <MyPasswordInput
-            register={register("password")}
-            name="password"
-            label="Пароль*"
-            type="password"
-          />
-          {errors.password && (
-            <p style={{ color: "red" }}>{errors.password.message}</p>
-          )}
+        <MyPasswordInput
+          register={register("password")}
+          name="password"
+          label="Пароль*"
+          type="password"
+        />
+        {errors.password && (
+          <p style={{ color: "red" }}>{errors.password.message}</p>
+        )}
 
-          <Link to="/auth/forgot-password">
-            <ForgotPasswordLink>Забыли пароль?</ForgotPasswordLink>
-          </Link>
+        <Link to="/auth/forgot-password">
+          <ForgotPasswordLink>Забыли пароль?</ForgotPasswordLink>
+        </Link>
 
-          <Flex>
-            <>
-              <Btn>{isLoading ? <LoaderDots /> : "Войти"}</Btn>
-              <Btn>Регистрация</Btn>
-            </>
-          </Flex>
-        </Form>
-      </FormWrapper>
-    </Background>
+        <Flex>
+          <>
+            <Btn>{isLoading ? <LoaderDots /> : "Войти"}</Btn>
+            <Btn>Регистрация</Btn>
+          </>
+        </Flex>
+      </Form>
+    </AuthWrapper>
   )
 }
