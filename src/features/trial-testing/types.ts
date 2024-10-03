@@ -1,6 +1,8 @@
 export interface SubjectReq {
   id: number
   subjectName: string
+  questionCount: number
+  main: boolean
 }
 
 export interface QuestionState {

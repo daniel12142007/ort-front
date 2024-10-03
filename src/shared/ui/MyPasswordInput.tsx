@@ -76,19 +76,19 @@
 // 		</div>
 // 	)
 // }
-import React, { useState } from "react";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { CommonForm } from "./types";
-import { FormInput, Label } from "@/features/Auth/style/style";
-import { UseFormRegisterReturn } from "react-hook-form";
+import React, { useState } from "react"
+import VisibilityIcon from "@mui/icons-material/Visibility"
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
+import { CommonForm } from "./types"
+import { FormInput, Label } from "@/features/Auth/style/style"
+import { UseFormRegisterReturn } from "react-hook-form"
 
 interface PasswordInputProps extends CommonForm {
-  id?: string;
-  label?: string;
-  placeholder?: string;
-  type: string;
-  register: UseFormRegisterReturn;
+  id?: string
+  label?: string
+  placeholder?: string
+  type: string
+  register: UseFormRegisterReturn
 }
 
 export const MyPasswordInput: React.FC<PasswordInputProps> = ({
@@ -101,14 +101,14 @@ export const MyPasswordInput: React.FC<PasswordInputProps> = ({
   register,
   ...props
 }) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+    setShowPassword(!showPassword)
+  }
 
   return (
-    <div style={{ position: "relative", marginTop: "25px" }}>
+    <div style={{ position: "relative", marginTop: "5px" }}>
       <Label htmlFor={id}>{label}</Label>
       <FormInput
         type={showPassword ? "text" : "password"}
@@ -148,5 +148,5 @@ export const MyPasswordInput: React.FC<PasswordInputProps> = ({
         )}
       </span>
     </div>
-  );
-};
+  )
+}

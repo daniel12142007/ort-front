@@ -1,10 +1,10 @@
-import { useQuestionStore } from "../../models/questionStore"
+import { useTrialTestStore } from "../../models/store"
 import React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
 const TestFinish = () => {
   const locate = useLocation()
-  const { getTestResult, testResult } = useQuestionStore()
+  const { getTestResult, testResult } = useTrialTestStore()
 
   const navigate = useNavigate()
 

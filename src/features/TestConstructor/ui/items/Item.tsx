@@ -2,7 +2,7 @@ import React from "react"
 import { BoxQuestion, ItemBox, Paragraph, Question } from "../../style/style"
 import { useNavigate } from "react-router-dom"
 import nextSVG from "../../../../shared/assets/svg/next.svg"
-import { SubjectReq } from "../../type"
+import { SubjectReq } from "@/features/trial-testing/types"
 
 const Item: React.FC<SubjectReq> = ({ subjectName, id, questionCount }) => {
   const navigate = useNavigate()

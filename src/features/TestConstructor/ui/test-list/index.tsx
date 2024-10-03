@@ -11,7 +11,7 @@ import {
 import { AddIcon } from "@/shared/ui/icon"
 import TestBlock from "./TestBlock"
 import { useStore } from "../../model/store"
-import { useSubjectStore } from "@/features/trial-testing/models/subjectStore"
+import { useTrialTestStore } from "@/features/trial-testing/models/store"
 import { GetQuestionsListResponse } from "../../type"
 
 const TestList = () => {
@@ -22,7 +22,7 @@ const TestList = () => {
     message: "",
   })
   const { questionsList, getQuestionsList } = useStore()
-  const { subjects, fetchSubjects } = useSubjectStore()
+  const { subjects, fetchSubjects } = useTrialTestStore()
 
   const subject = subjects.find((subject) => subject.id === Number(itemId))
 

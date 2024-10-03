@@ -27,7 +27,6 @@ export const useSchoolsStore = create<SchoolsState>((set) => ({
     postSchools: async (data) => {
         try {
             const res = await api.postSchool(data);
-            console.log(res);
             set((state) => ({
                 schools: [...state.schools, res.data],
             }))
@@ -38,7 +37,6 @@ export const useSchoolsStore = create<SchoolsState>((set) => ({
     deleteSchool: async (id) => {
         try {
             const res = await api.deleteSchool(id);
-            console.log(res);
             set((state) => ({
                 schools: state.schools.filter((school) => school.id !== id),
             }))
@@ -49,7 +47,6 @@ export const useSchoolsStore = create<SchoolsState>((set) => ({
     updateSchool: async (data: SchoolRes) => {
         try {
             const res = await api.updateSchool(data);
-            console.log(res);
             set((state) => ({
                 schools: state.schools.map((school) =>
                     school.id === data.id ? res.data : school 

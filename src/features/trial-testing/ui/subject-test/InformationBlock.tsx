@@ -5,7 +5,7 @@ const InformationBlock = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const nav = () => {
-    const id = location.state?.active?.id
+    const id = location.state?.id
     navigate("testing", { state: { id } })
   }
 

@@ -2,12 +2,23 @@ import { create } from "zustand"
 import TokenService from "@/utils"
 
 import { NavigateFunction } from "react-router-dom"
-import { LoginReq } from "../../type"
+import { LoginReq, NewPasswordState, RegisterReq } from "../../type"
 import { api } from "../../api"
 
 interface AuthStoreState {
   token: string
   signIn: (data: LoginReq, navigate: NavigateFunction) => Promise<any>
+  signUp: (data: RegisterReq, navigate: NavigateFunction) => Promise<any>
+
+  findEmail: (email: string, navigate: NavigateFunction) => Promise<any>
+  codeEmail: (
+    data: { email: string; code: number },
+    navigate: NavigateFunction,
+  ) => Promise<any>
+  resetPassword: (
+    data: NewPasswordState,
+    navigate: NavigateFunction,
+  ) => Promise<any>
 }
 
 export const useAuthStore = create<AuthStoreState>(() => ({
@@ -17,7 +28,6 @@ export const useAuthStore = create<AuthStoreState>(() => ({
     try {
       TokenService.removeToken()
       const res = await api.signIn(data)
-      console.log(res)
       if (res.status === 200) {
         TokenService.setToken(res.data.token)
         if (res.data.role === "ADMIN") {
@@ -29,9 +39,69 @@ export const useAuthStore = create<AuthStoreState>(() => ({
       }
       return { status: "error", message: "Произошла ошибка, попробуйте снова." }
     } catch (err: any) {
+      console.log(err)
       if (err.response && err.response.status === 401) {
         return { status: "error", message: "Неверный логин или пароль" }
       }
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
+    }
+  },
+
+  signUp: async (data, navigate) => {
+    try {
+      console.log(data)
+      const res = await api.signUp(data)
+      if (res.status === 200) {
+        navigate("/auth/sign-in")
+      }
+      console.log(res)
+    } catch (err: any) {
+      if (err.response.data && err.response.status === 400) {
+        return err.response.data
+      }
+    }
+  },
+
+  findEmail: async (email, navigate) => {
+    try {
+      const res = await api.setEmail(email)
+      if (res.status === 200) {
+        navigate("/auth/forgot-password/code", { state: { email } })
+        return { status: "success", message: "Письмо отправлено" }
+      }
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
+    } catch (err) {
+      console.log(err)
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
+    }
+  },
+
+  codeEmail: async (data, navigate) => {
+    try {
+      const res = await api.setCode(data)
+      if (res.status === 200) {
+        navigate("/auth/forgot-password/new-password", {
+          state: { email: data.email },
+        })
+        return { status: "success", message: "Код принят" }
+      }
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
+    } catch (err) {
+      console.log(err)
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
+    }
+  },
+
+  resetPassword: async (data, navigate) => {
+    try {
+      const res = await api.resetPassword(data)
+      if (res.status === 200) {
+        navigate("/auth/sign-in")
+        return { status: "success", message: "Пароль изменен" }
+      }
+      return { status: "error", message: "Произошла ошибка, попробуйте снова." }
+    } catch (err) {
+      console.log(err)
       return { status: "error", message: "Произошла ошибка, попробуйте снова." }
     }
   },

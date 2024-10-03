@@ -104,7 +104,7 @@ export const useStore = create<StoreState>((set) => ({
       if (res.status === 200) {
         return res.data;
       } else {
-        console.log(`Ошибка при получении вопроса, статус: ${res.status}`); // Логируем статус ошибки
+        console.log(`Ошибка при получении вопроса, статус: ${res.status}`); 
       }
     } catch (err) {
       console.log("Ошибка в getQuestionById:", err);
@@ -116,15 +116,9 @@ export const useStore = create<StoreState>((set) => ({
     try {
       console.log("Обновление вопроса с данными:", data);
       const res = await api.updateQuestionById(data);
-      console.log(res);
-      // if (res.status === 200) {
-      //   set((state) => ({
-      //     testArray: state.testArray.map((q) => 
-      //       q.id === data.id ? data : q 
-      //     ),
-      //   }));
-      //   toast.success("Вопрос успешно обновлен");
-      // }
+      if(res.status === 200) {
+        toast.success("Вопрос успешно обновлен");
+      }
     } catch (err) {
       console.log(err);
       toast.error("Не удалось обновить вопрос, попробуйте снова");
