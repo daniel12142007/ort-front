@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { TrialTestingRoute } from "@/features/trial-testing"
+import { UserProfileRouter } from "@/features/user-profile"
 import { MainPage } from "./main/MainPage"
 import { BreadCrumbs } from "@/shared/ui"
 import { Header } from "@/widgets/Header/Header"
@@ -21,5 +22,6 @@ export const UserRoute = {
       element: <MainPage />,
     },
     TrialTestingRoute,
+    UserProfileRouter,
   ],
 }
