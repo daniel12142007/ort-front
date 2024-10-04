@@ -19,4 +19,7 @@ export const api = {
   getResult: (resultTestId: number) => {
     return apiRoot.get(`/api/question/result/${resultTestId}`)
   },
+  getFullResult: (testId: number) => {
+    return apiRoot.get(`/api/question/questions/${testId}`)
+  },
 }
