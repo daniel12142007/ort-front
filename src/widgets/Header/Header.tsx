@@ -22,7 +22,7 @@ export const Header = () => {
               className={({ isActive }) =>
                 isActive ? "text-black" : "text-white"
               }
-              to="/main/trainingPage"
+              to="/main/training-test"
             >
               <div className="text-[24px] font-medium">Подготовка к ОРТ</div>
             </NavLink>
