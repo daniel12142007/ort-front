@@ -62,7 +62,7 @@ export const ForgotPasswordLink = styled.div`
 export const Btn = styled.button`
   background-color: ${({ disabled }) => (disabled ? "#858fb1" : "#3E5ECF")};
   border: 1px solid ${({ disabled }) => (disabled ? "#858fb1" : "#3E5ECF")};
-  width: 50%;
+  width: 100%;
   border-radius: 10px;
   color: white;
   padding: 12px;

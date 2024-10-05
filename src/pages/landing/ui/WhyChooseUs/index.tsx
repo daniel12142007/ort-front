@@ -47,7 +47,7 @@ export function WhyChooseUs() {
           </p>
         </div>
         <div className="text-center mt-[40px]">
-          <Link to="#">
+          <Link to="/auth/sign-up">
             <button className="bg-[#7695FF] rounded-xl text-white px-[30px] py-[6px] text-[19px]">
               Зарегистрироваться
             </button>
