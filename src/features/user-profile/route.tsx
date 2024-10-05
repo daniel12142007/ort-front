@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 import Profile from "./ui/profile"
 import ArchiveList from "./ui/TestArchive/ArchiveList"
-import ArchiveBlock from "./ui/TestArchive/ArchiveBlock"
+import FullArchive from "./ui/TestArchive/FullArchive"
 
 export const UserProfileRouter = {
   path: "profile",
@@ -17,7 +17,7 @@ export const UserProfileRouter = {
     },
     {
       path: "archive/:archiveName",
-      element: <ArchiveBlock />,
+      element: <FullArchive />,
     },
   ],
 }

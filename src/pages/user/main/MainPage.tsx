@@ -1,6 +1,8 @@
 import { useNavigateLogic } from "@/hooks/crossLogic"
+import { useNavigate } from "react-router-dom"
 
 export const MainPage = () => {
+  const navigate = useNavigate()
   const { navigateWithFetch, loading } = useNavigateLogic()
 
   return (
@@ -21,10 +23,16 @@ export const MainPage = () => {
           {loading ? "Загрузка..." : "Пробный тест"}
         </button>
         <button
-          disabled
           className="bg-blue-500 w-52 text-white px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-500"
+          onClick={() => navigate("profile")}
         >
           Профиль
+        </button>
+        <button
+          className="bg-blue-500 w-52 text-white px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-500"
+          onClick={() => navigate("profile/archive")}
+        >
+          Мои архивы
         </button>
       </div>
     </div>
