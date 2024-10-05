@@ -1,5 +1,5 @@
-import { FC, useEffect } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { List, ListItemIcon, ListItemText } from "@mui/material";
 import constructureSvg from "../../shared/assets/svg/constucture.svg";
 import userSvg from "../../shared/assets/svg/user.svg";
@@ -7,7 +7,7 @@ import schoolSVG from '../../shared/assets/svg/school.svg';
 import logout from "../../shared/assets/icon/logout-3-svgrepo-com.svg";
 import { SideBarContainer, StyledListItemButton, Icon, StyledLogout, FlexBox } from "../style";
 import { NavItem, Page } from "@/shared/ui/types";
-import TokenService from "@/utils";
+import { ModalLogout } from "@/shared/ui/modalSideBar/modalLogout";
 
 export interface SideBarProps {
   selected: Page;
@@ -26,8 +26,8 @@ const navItems: NavItem[] = [
 ];
 
 export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
+  const [open, setOpen ] = useState(false)
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const currentItem = navItems.find((item) => item.path === location.pathname);
@@ -37,9 +37,9 @@ export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
   }, [location.pathname, onSelect]);
 
   const handleLogout = () => {
-    TokenService.removeToken();
-    navigate("/"); // Redirect after logging out
+    setOpen(true); // Открываем модальное окно, но пока не удаляем токен
   };
+  
 
   return (
     <SideBarContainer>
@@ -66,7 +66,7 @@ export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
           ))}
         </div>
         <StyledLogout
-          selected={selected === "logout"} // Pass the selected prop
+          selected={selected === "logout"} 
           style={{ cursor: "pointer" }}
         >
           <FlexBox onClick={handleLogout}>
@@ -74,12 +74,13 @@ export const SideBar: FC<SideBarProps> = ({ selected, onSelect }) => {
               <Icon
                 src={logout}
                 alt="выйти"
-                selected={selected === "logout"} // Pass the selected prop
+                selected={selected === "logout"} 
               />
             </ListItemIcon>
             <ListItemText primary="выйти" />
           </FlexBox>
         </StyledLogout>
+        {open && <ModalLogout onClose={() => setOpen(false)}/>}
       </List>
     </SideBarContainer>
   );

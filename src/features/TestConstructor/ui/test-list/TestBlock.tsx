@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { QuestionReq } from "../../type";
 import { FullImageView } from "@/shared/ui";
-import {ActionButtons,TestBlockStyle,QuestionBlock,OptionContainer,OptionStyle,TestQuest,} from "../../style/style";
+import { ActionButtons, TestBlockStyle, QuestionBlock, OptionContainer, OptionStyle, TestQuest } from "../../style/style";
 import { useStore } from "../../model/store";
 import UpdateModal from "./UpdateModal";
+import { ModalDelete } from "@/shared/ui/modalSideBar/ModalDelete";
 
 interface Props {
   data: QuestionReq;
@@ -13,12 +14,14 @@ interface Props {
 
 const TestBlock: React.FC<Props> = ({ data, index, refreshQuestions }) => {
   const [edit, setEdit] = useState(false);
-  const [hover, setHover] = useState(false); 
+  const [hover, setHover] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false); // Состояние для модального окна удаления
   const { deleteQuestion } = useStore();
 
-  const onDelete = async (questionId: number) => {
-    await deleteQuestion(questionId);
+  const onDelete = async () => {
+    await deleteQuestion(data.questionId);
     refreshQuestions();
+    setDeleteModalOpen(false); // Закрываем модальное окно после удаления
   };
 
   const onEdit = () => {
@@ -29,7 +32,7 @@ const TestBlock: React.FC<Props> = ({ data, index, refreshQuestions }) => {
     <>
       <TestBlockStyle>
         <QuestionBlock
-          onMouseEnter={() => setHover(true)} 
+          onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
         >
           <TestQuest>
@@ -40,13 +43,13 @@ const TestBlock: React.FC<Props> = ({ data, index, refreshQuestions }) => {
             <button onClick={onEdit}>
               <img style={{ width: "20px", height: "20px" }} src="/src/shared/assets/svg/edit.svg" />
             </button>
-            <button onClick={() => onDelete(data.questionId)}>
+            <button onClick={() => setDeleteModalOpen(true)}>
               <img style={{ width: "20px", height: "20px" }} src="/src/shared/assets/svg/delete.svg" />
             </button>
           </ActionButtons>
         </QuestionBlock>
 
-        <OptionContainer hover={hover}> 
+        <OptionContainer hover={hover}>
           {data.optionsResponse.map((item, i) => (
             <OptionStyle active={item.correct} key={i}>
               {item.image && <FullImageView src={item.image} width={40} height={40} />}
@@ -61,6 +64,13 @@ const TestBlock: React.FC<Props> = ({ data, index, refreshQuestions }) => {
           questionData={data}
           onClose={() => setEdit(false)}
           refreshQuestions={refreshQuestions}
+        />
+      )}
+
+      {deleteModalOpen && (
+        <ModalDelete
+          onConfirm={onDelete}
+          onClose={() => setDeleteModalOpen(false)}
         />
       )}
     </>
