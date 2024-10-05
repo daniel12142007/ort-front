@@ -5,6 +5,7 @@ export default {
     extend: {
       screens: {
         md: { max: "834px" },
+        sm: { max: "400px" },
       },
     },
     fontFamily: {
