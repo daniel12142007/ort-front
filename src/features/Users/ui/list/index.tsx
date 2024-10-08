@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom"
-import searchSVG from "../../../../shared/assets/svg/search.svg"
-import deleteSVG from "../../../../shared/assets/svg/delete.svg"
-import { CircularProgress } from "@mui/material"
+import { useNavigate } from "react-router-dom";
+import searchSVG from "../../../../shared/assets/svg/search.svg";
+import deleteSVG from "../../../../shared/assets/svg/delete.svg";
+import { CircularProgress } from "@mui/material";
 import {
   UserBox,
   Image,
@@ -18,45 +18,57 @@ import {
   Circular,
   SBlock,
   DetailNameBlock,
-} from "../../style/style"
-import { userStore } from "../../model/store"
-import { useEffect, useState } from "react"
+} from "../../style/style";
+import { userStore } from "../../model/store";
+import { useEffect, useState } from "react";
+import { DeleteUserModal } from "./DeleteModal";
 
 export const UserList = () => {
-  const [searchTerm, setSearchTerm] = useState("")
-  const navigate = useNavigate()
+  const [searchTerm, setSearchTerm] = useState("");
+  const [openDeleteModal, setOpenDeleteModal] = useState(false); // Управление состоянием модального окна
+  const [userToDelete, setUserToDelete] = useState<{ id: number; name: string } | null>(null); // Данные пользователя для удаления
+  const navigate = useNavigate();
   const { user, isLoading, fetchUser, deleteUser } = userStore((state) => ({
     user: state.user,
     isLoading: state.isLoading,
     fetchUser: state.fetchUser,
     deleteUser: state.deleteUser,
-  }))
+  }));
 
   useEffect(() => {
-    fetchUser()
-  }, [fetchUser])
+    fetchUser();
+  }, [fetchUser]);
 
   if (isLoading) {
     return (
       <Circular>
         <CircularProgress />
       </Circular>
-    )
+    );
   }
 
-  const handleDeleteUSer = async (id: number) => {
-    await deleteUser(id)
-    await fetchUser()
-  }
+  const confirmDeleteUser = async () => {
+    if (userToDelete) {
+      await deleteUser(userToDelete.id);
+      await fetchUser(); // Обновляем список пользователей после удаления
+      setOpenDeleteModal(false); // Закрываем модальное окно
+    }
+  };
+
+  const handleDeleteUserClick = (id: number, name: string) => {
+    setUserToDelete({ id, name }); // Устанавливаем пользователя для удаления
+    setOpenDeleteModal(true); // Открываем модальное окно
+  };
+
   const handleUserClick = (id: number) => {
-    navigate(`/admin/users/${id}`)
-  }
+    navigate(`/admin/users/${id}`);
+  };
 
   const filteredUsers = user?.filter(
     (u) =>
       u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      u.email.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+      u.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <UserBox>
@@ -86,7 +98,7 @@ export const UserList = () => {
                 </DetailNameBlock>
                 <DeleteImage>
                   <Image
-                    onClick={() => handleDeleteUSer(user.id)}
+                    onClick={() => handleDeleteUserClick(user.id, user.name)}
                     src={deleteSVG}
                   />
                 </DeleteImage>
@@ -97,6 +109,13 @@ export const UserList = () => {
           )}
         </MainBlock>
       </SBlock>
+      {openDeleteModal && userToDelete && (
+        <DeleteUserModal
+          userName={userToDelete.name}
+          onConfirm={confirmDeleteUser}
+          onClose={() => setOpenDeleteModal(false)}
+        />
+      )}
     </UserBox>
-  )
-}
+  );
+};

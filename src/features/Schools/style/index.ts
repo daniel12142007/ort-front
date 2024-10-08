@@ -61,7 +61,8 @@ export const School = styled("div")`
     flex-direction: column;
     gap: 20px;
     overflow-y: scroll;
-    height: 500px;
+    max-height: 450px;
+    height: 100%;
 
     scrollbar-width: thin; /* тонкий скроллбар для Firefox */
     scrollbar-color: #c4c4c4 transparent; /* цвет для Firefox */
@@ -79,7 +80,7 @@ export const School = styled("div")`
         background: transparent; /* прозрачный фон для трека скроллбара */
     }
     @media (max-width: 1300px) and (min-width: 808px) {
-    height: 400px; /* уменьшенная высота для планшетов */
+    height: 390px; /* уменьшенная высота для планшетов */
     }
 `
 export const Name = styled("div")`
@@ -198,3 +199,65 @@ export const Button = styled.button<{ primary?: boolean }>`
         background-color: #ff8a53";
     }
 `;
+
+
+export const ModalContainer2 = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  text-align: center;
+`;
+
+export const ModalButtons = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+`;
+
+export const ModalButton = styled.button`
+  font-size: 16px;
+  background-color: #d32f2f;
+  color: white;
+  padding: 7px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #c62828;
+  }
+`;
+export const ModalButton2 = styled.button`
+  font-size: 16px;
+  background: #FF621E;
+  color: white;
+  padding: 7px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ff8a53;
+  }
+`;
+export const Span = styled.span`
+    color: #7FC7FF;
+`
+export const Text = styled.div`
+    font-size: 20px;
+    font-weight: 400;
+    font-family: Montserrat;
+    border-bottom: 1px solid #c4c4c4;
+    padding-bottom: 5px;
+`
