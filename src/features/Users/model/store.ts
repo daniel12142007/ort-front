@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { api } from "../api";
 import { UserRes,UserDetailRes } from "../type";
+import { toast } from "react-toastify";
 
 interface UserState {
   deleteUser: any;
@@ -33,6 +34,7 @@ export const userStore = create<UserState>((set) => ({
   deleteUser: async (id: number) => {
     try{
       await api.deleteUser(id);
+      toast.success("Пользователь успешно удален");
     } catch (error) {
       console.error("Error deleting user:", error);
     }

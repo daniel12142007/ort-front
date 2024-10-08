@@ -4,6 +4,7 @@ export const MainBlock = styled("div")`
     display: flex;
     flex-direction: column;
     gap: 20px;
+    height: 100%;
 `
 export const Flexing = styled("div")`
     display: flex;
@@ -61,8 +62,7 @@ export const School = styled("div")`
     flex-direction: column;
     gap: 20px;
     overflow-y: scroll;
-    max-height: 450px;
-    height: 100%;
+    max-height: calc(100vh - 400px);
 
     scrollbar-width: thin; /* тонкий скроллбар для Firefox */
     scrollbar-color: #c4c4c4 transparent; /* цвет для Firefox */
@@ -78,9 +78,6 @@ export const School = styled("div")`
 
     &::-webkit-scrollbar-track {
         background: transparent; /* прозрачный фон для трека скроллбара */
-    }
-    @media (max-width: 1300px) and (min-width: 808px) {
-    height: 390px; /* уменьшенная высота для планшетов */
     }
 `
 export const Name = styled("div")`

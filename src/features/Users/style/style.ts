@@ -35,6 +35,7 @@ export const SBlock = styled("div")`
     background-color: #ffffff;
     border-radius: 8px;
     padding: 30px;
+    height: 100%;
 `
 
 export const NavBlock = styled("div")`
@@ -107,12 +108,12 @@ export const DeleteImage = styled("div")`
 
 export const MainBlock = styled("div")`
     overflow-y: scroll;
-    max-height: 450px;
-    height: 100%;
+    max-height: calc(100vh - 400px);
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
+
     scrollbar-width: thin; /* тонкий скроллбар для Firefox */
     scrollbar-color: #c4c4c4 transparent; /* цвет для Firefox */
 
@@ -127,10 +128,6 @@ export const MainBlock = styled("div")`
 
     &::-webkit-scrollbar-track {
         background: transparent; /* прозрачный фон для трека скроллбара */
-    }
-
-    @media (max-width: 1300px) and (min-width: 808px) {
-        max-height: 390px; 
     }
 `
 export const DetailBlocks = styled("div")`

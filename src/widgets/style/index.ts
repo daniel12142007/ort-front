@@ -31,7 +31,7 @@ export const GridContainer = styled("div")`
 export const Content = styled("div")`
   margin: 40px;
   grid-area: main;
-  // flex-grow: 1;
+  max-heigth: 100vh;
 `;
 
 export const StyledListItemButton = styled(ListItemButton)<{ selected: boolean }>`
