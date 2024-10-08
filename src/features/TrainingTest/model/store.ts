@@ -1,27 +1,35 @@
-import { QuestionState, SubjectReq } from "@/features/trial-testing/types";
 import { create } from "zustand";
 import { api } from "../api";
+import { QuestionState, SubjectReq } from "@/features/trial-testing/types";
 
-interface storeState {
+interface StoreState {
   questions: QuestionState[];
   count: number;
   loading: boolean;
   subjects: SubjectReq[];
-
-  getQuestions: (subjectId: number, limit: number) => Promise<void>;
+  questionsLoaded: boolean;
+  questionsPerPage: number; // Добавлено сюда
+  getQuestions: (subjectId: number, page: number) => Promise<void>;
 }
 
-export const useTrainingTestStore = create<storeState>((set) => ({
+export const useTrainingTestStore = create<StoreState>((set) => ({
   questions: [],
   count: 0,
   loading: false,
   subjects: [],
+  questionsLoaded: false,
+  questionsPerPage: 15, // Установите значение здесь
 
-  getQuestions: async (subjectId: number, limit: number) => {
+  getQuestions: async (subjectId: number, page: number) => {
     set({ loading: true });
     try {
-      const res = await api.getQuestionBySubject(subjectId, limit);
-      set({ questions: res.data, count: res.data.length });
+      const res = await api.getQuestionBySubject(subjectId, page);
+      set(() => ({
+        questions: res.data, // добавляем новые вопросы к существующим
+        count: res.data.length, // Обновляем количество вопросов
+        questionsLoaded: true,
+      }));
+      console.log(res);
     } catch (err) {
       console.log(err);
     } finally {

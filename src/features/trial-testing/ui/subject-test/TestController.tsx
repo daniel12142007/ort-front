@@ -44,7 +44,7 @@ const TestController = () => {
   }
   function replaceUrl(imageUrl: string | null | undefined): string {
     const oldUrlPart = "http://"
-    const newUrlPart = "https://ort-365ceab257f6.herokuapp.com/"
+    const newUrlPart = "http://ec2-54-173-142-201.compute-1.amazonaws.com/"
 
     if (typeof imageUrl === "string" && imageUrl.includes(oldUrlPart)) {
       return imageUrl.replace(oldUrlPart, newUrlPart)

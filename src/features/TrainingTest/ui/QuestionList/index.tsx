@@ -1,24 +1,169 @@
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Container } from "@/shared/ui/Container";
 import { useTrainingTestStore } from "../../model/store";
+import AiSVG from '../../../../shared/assets/svg/ai.svg';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { useLocation } from "react-router-dom";
+import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+
 
 export const QuestionComponent = () => {
-  const { questions, loading } = useTrainingTestStore();
-  console.log(questions)
+  const { subjectName } = useParams();
+  const location = useLocation();
+  const {id:subjectId, totalCount} = location.state;
+  
+  const { questions, loading, getQuestions, count, questionsLoaded } = useTrainingTestStore();
+  const [currentPage, setCurrentPage] = useState(1);
+  const questionsPerPage = 15;
+  const maxPage = Math.ceil(totalCount / 15)
+  const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: number | null }>({});
+
+  const handleOptionSelect = (questionId: number, selectedOptionId: number, correct: boolean) => {
+    setSelectedAnswers(prev => ({
+      ...prev,
+      [questionId]: selectedOptionId
+    }));
+    if (!correct) {
+      navigator.vibrate(200);
+    }
+  };
+
+
+  useEffect(() => {
+    if (subjectId) {
+      getQuestions(Number(subjectId), currentPage);
+    }
+  }, [subjectId, currentPage]);
+
+  const variants = ["А", "Б", "В", "Г"];
+
+  const totalPages = Math.ceil(count / questionsPerPage);
+
 
   if (loading) {
     return <div>Загрузка вопросов...</div>;
   }
 
-  if (questions.length === 0) {
+  if (!loading && !questionsLoaded) {
     return <div>Нет вопросов для данного предмета</div>;
   }
-
   return (
-    <div className="flex flex-col gap-4 mt-5">
-      {questions.map((question, index) => (
-        <div key={index} className="p-4 bg-white shadow-md rounded-lg">
-          <p className="font-semibold">{question.description}</p>
+    <Container>
+      <div className="flex flex-col mt-5 bg-white rounded-lg">
+        {questions.map((question, index) => (
+          <motion.div
+            key={question.questionId}
+            className="py-4 px-2 border-b border-[#D9D9D9]"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}
+          >
+            <div className="flex">
+              <p className="p-2">{index + 1 + (currentPage - 1) * questionsPerPage}.</p>
+              <div className="flex gap-3 w-[95.5%]">
+                {question.image && (
+                  <img src={question.image} alt="Question" className="w-[100px] h-[100px] object-cover" />
+                )}
+                <p className="text-[20px] font-montserrat font-normal p-2 rounded-md bg-[#F7F7F7] w-full">
+                  {question.description}
+                </p>
+              </div>
+            </div>
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 px-7">
+            {question.optionsResponse.map((item, optionIndex) => {
+              const selectedOption = selectedAnswers[question.questionId];
+              const isCorrect = item.correct;
+              const isSelected = selectedOption === item.id;
+
+              return (
+                <motion.div
+                  key={item.id}
+                  className="flex items-center mb-2 transition-all duration-300"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <input
+                    type="radio"
+                    id={`option-${index}-${optionIndex}`}
+                    name={`question-${index}`}
+                    onChange={() => handleOptionSelect(question.questionId, item.id, isCorrect)}
+                    disabled={!!selectedOption}
+                    className="hidden"
+                  />
+                  <span className="flex items-center justify-center w-6 h-6 border rounded-full cursor-pointer mr-2">
+                    {isSelected && (
+                      isCorrect ? (
+                        <FaCheckCircle className="text-green-500" />
+                      ) : (
+                        <FaTimesCircle className="text-red-500" />
+                      )
+                    )}
+                  </span>
+                  <label
+                    htmlFor={`option-${index}-${optionIndex}`}
+                    className="ml-2 flex gap-2 w-full items-center"
+                  >
+                    {item.image && (
+                      <img src={item.image} alt="Option" className="w-[80px] h-[80px] object-cover" />
+                    )}
+                    <p className="p-2">{variants[optionIndex]}.</p>
+                    <p
+                      className={`p-2 w-[100%] rounded-md text-[16px] font-montserrat font-normal bg-[#F7F7F7] transition-all ${
+                        isSelected && !isCorrect
+                          ? "border border-red-500"
+                          : isSelected && isCorrect
+                          ? "border border-green-500"
+                          : ""
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                  </label>
+                </motion.div>
+              );
+            })}
+
+            </div>
+            {selectedAnswers[question.questionId] && (
+              <motion.div
+                className="mt-4 text-sm px-7 flex items-center gap-2"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                {question.optionsResponse.some(option => option.correct && option.id === selectedAnswers[question.questionId]) ? (
+                  <p className="text-green-600">Правильный ответ!</p>
+                ) : (
+                  <p className="text-red-600">
+                    Неправильный ответ. Правильный ответ будет: {variants[question.optionsResponse.findIndex(option => option.correct)]}.
+                  </p>
+                )}
+              </motion.div>
+            )}
+            <div className="flex justify-end px-7">
+              <div className="flex gap-3 justify-center p-1 items-center text-[#3E5ECF] w-[150px] md:w-[240px] border border-[#3E5ECF] rounded-md text-[16px] md:text-[20px] font-roboto font-medium mt-2">
+                <button>Помощь от AI</button>
+                <img src={AiSVG} alt="AiSVG" className="w-[25px] h-[25px]" />
+              </div>
+            </div>
+          </motion.div>
+        ))}
+        <div className="flex justify-around mt-4">
+          <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>
+            <NavigateBefore/>
+          </button>
+          <div>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <span
+                key={i}
+                className={`mx-1 cursor-pointer ${currentPage === i + 1 ? 'border-b-2 border-[#3E5ECF]' : ""} `}
+              >
+                {currentPage}
+              </span>
+            ))}
+          </div>
+          <button disabled={currentPage === maxPage} onClick={() => setCurrentPage(currentPage + 1)}><NavigateNext/></button>
         </div>
-      ))}
-    </div>
+      </div>
+    </Container>
   );
 };
