@@ -4,7 +4,7 @@ import { FullImageView } from "@/shared/ui";
 import { ActionButtons, TestBlockStyle, QuestionBlock, OptionContainer, OptionStyle, TestQuest } from "../../style/style";
 import { useStore } from "../../model/store";
 import UpdateModal from "./UpdateModal";
-import { DeleteModal } from "@/widgets/modal/ModalDelete";
+import { DeleteModal } from "@/widgets/DeleteModal/ModalDelete";
 
 interface Props {
   data: QuestionReq;

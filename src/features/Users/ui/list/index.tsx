@@ -21,7 +21,7 @@ import {
 } from "../../style/style";
 import { userStore } from "../../model/store";
 import { useEffect, useState } from "react";
-import { DeleteModal } from "@/widgets/modal/ModalDelete";
+import { DeleteModal } from "@/widgets/DeleteModal/ModalDelete";
 
 export const UserList = () => {
   const [searchTerm, setSearchTerm] = useState("");
