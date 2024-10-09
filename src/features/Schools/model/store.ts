@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { api } from "../api";
 import { SchoolRes } from "../type";
+import { toast } from "react-toastify";
 
 interface SchoolsState {
     schools: SchoolRes[];
@@ -30,8 +31,10 @@ export const useSchoolsStore = create<SchoolsState>((set) => ({
             set((state) => ({
                 schools: [...state.schools, res.data],
             }))
+            toast.success("Школа успешно добавлена.");
         } catch (err) {
             console.log(err);
+            toast.error("Ошибка при добавлении школы.");
         }
     },
     deleteSchool: async (id) => {
@@ -40,8 +43,10 @@ export const useSchoolsStore = create<SchoolsState>((set) => ({
             set((state) => ({
                 schools: state.schools.filter((school) => school.id !== id),
             }))
+            toast.success("Школа успешно удалена.");
         } catch (err) {
             console.log(err);
+            toast.error("Ошибка при удалении школы.");
         }
     },
     updateSchool: async (data: SchoolRes) => {
@@ -52,8 +57,10 @@ export const useSchoolsStore = create<SchoolsState>((set) => ({
                     school.id === data.id ? res.data : school 
                 ),
             }));
+            toast.success("Школа успешно обновлена.");
         } catch (err) {
             console.log(err);
+            toast.error("Ошибка при обновлении школы.");
         }
     },
     

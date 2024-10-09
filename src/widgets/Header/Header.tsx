@@ -12,7 +12,8 @@ export const Header = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   return (
-    <div className="bg-[#407BFF] w-full h-[79px] flex justify-center items-center sticky top-0 z-50">
+
+    <div className="bg-[#407BFF] w-full h-[79px] flex justify-center items-center sticky top-0 z-10">
       <Container>
         <div className="flex justify-between w-full">
           <div className="flex items-center w-[100%] md:w-[40%] ">

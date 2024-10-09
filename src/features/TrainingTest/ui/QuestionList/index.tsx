@@ -43,11 +43,11 @@ export const QuestionComponent = () => {
 
 
   if (loading) {
-    return <div>Загрузка вопросов...</div>;
+    return <Container>Загрузка вопросов...</Container>;
   }
 
   if (!loading && !questionsLoaded) {
-    return <div>Нет вопросов для данного предмета</div>;
+    return <Container>Нет вопросов для данного предмета</Container>;
   }
   return (
     <Container>
@@ -76,46 +76,46 @@ export const QuestionComponent = () => {
               const isSelected = selectedOption === item.id;
 
               return (
-<motion.div
-  key={item.id}
-  className="flex items-center mb-2 transition-all duration-300"
-  whileTap={{ scale: 0.95 }}
->
-  <label htmlFor={`option-${index}-${optionIndex}`} className="flex items-center cursor-pointer gap-2 w-full">
-    <input
-      type="radio"
-      id={`option-${index}-${optionIndex}`}
-      name={`question-${index}`}
-      onChange={() => handleOptionSelect(question.questionId, item.id, isCorrect)}
-      disabled={!!selectedOption}
-      className="hidden"
-    />
-    <span className="flex items-center justify-center w-6 h-6 border rounded-full">
-      {isSelected && (
-        isCorrect ? (
-          <FaCheckCircle className="text-green-500" />
-        ) : (
-          <FaTimesCircle className="text-red-500" />
-        )
-      )}
-    </span>
-    {item.image && (
-      <img src={item.image} alt="Option" className="w-[80px] h-[80px] object-cover" />
-    )}
-    <p className="p-2">{variants[optionIndex]}.</p>
-    <p
-      className={`p-2 w-[100%] rounded-md text-[16px] font-montserrat font-normal bg-[#F7F7F7] transition-all ${
-        isSelected && !isCorrect
-          ? "border border-red-500"
-          : isSelected && isCorrect
-          ? "border border-green-500"
-          : ""
-      }`}
-    >
-      {item.description}
-    </p>
-  </label>
-</motion.div>
+                <motion.div
+                  key={item.id}
+                  className="flex items-center mb-2 transition-all duration-300"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <label htmlFor={`option-${index}-${optionIndex}`} className="flex items-center cursor-pointer gap-2 w-full">
+                    <input
+                      type="radio"
+                      id={`option-${index}-${optionIndex}`}
+                      name={`question-${index}`}
+                      onChange={() => handleOptionSelect(question.questionId, item.id, isCorrect)}
+                      disabled={!!selectedOption}
+                      className="hidden"
+                    />
+                    <span className="flex items-center justify-center w-6 h-6 border rounded-full">
+                      {isSelected && (
+                        isCorrect ? (
+                          <FaCheckCircle className="text-green-500" />
+                        ) : (
+                          <FaTimesCircle className="text-red-500" />
+                        )
+                      )}
+                    </span>
+                    {item.image && (
+                      <img src={item.image} alt="Option" className="w-[80px] h-[80px] object-cover" />
+                    )}
+                    <p className="p-2">{variants[optionIndex]}.</p>
+                    <p
+                      className={`p-2 w-[100%] rounded-md text-[16px] font-montserrat font-normal bg-[#F7F7F7] transition-all ${
+                        isSelected && !isCorrect
+                          ? "border border-red-500"
+                          : isSelected && isCorrect
+                          ? "border border-green-500"
+                          : ""
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                  </label>
+                </motion.div>
 
               );
             })}
@@ -147,7 +147,7 @@ export const QuestionComponent = () => {
         ))}
         <div className="flex justify-around mt-4">
           <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>
-            <NavigateBefore/>
+            <NavigateBefore sx={{color: currentPage === 1 ? "gray" : "blue"}}/>
           </button>
           <div>
             {Array.from({ length: totalPages }, (_, i) => (
@@ -159,7 +159,9 @@ export const QuestionComponent = () => {
               </span>
             ))}
           </div>
-          <button disabled={currentPage === maxPage} onClick={() => setCurrentPage(currentPage + 1)}><NavigateNext/></button>
+          <button disabled={currentPage === maxPage} onClick={() => setCurrentPage(currentPage + 1)}>
+            <NavigateNext sx={{color: currentPage === maxPage ? "gray" : "blue"}}/>
+          </button>
         </div>
       </div>
     </Container>
