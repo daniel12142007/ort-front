@@ -24,7 +24,28 @@ export const TrainingTest = () => {
     navigate(`/main/training-test/${subject.subjectName}`, { state: { id: subject.id, totalCount: subject.questionCount } }); 
   };
 
-  const subjectList = subjects.map((subject, i) => (
+  const subjectsWithQuestions = subjects.filter(subject => subject.questionCount > 0);
+  const subjectsWithoutQuestions = subjects.filter(subject => subject.questionCount === 0);
+  const text = subjects.length === 0 ? "" : "Эти предметы пока не доступны";
+
+
+  const subjectListWithQuestions = subjectsWithQuestions.map((subject, i) => (
+    <ItemButton
+      key={i}
+      title={subject.subjectName}
+      icon={mathematicIcon}
+      iconColor="#9cc5e4"
+      active={active?.id === subject.id}
+      onClick={(e) => {
+        setActive(subject === active ? undefined : subject);
+        handleSubjectSelect(subject); 
+      }}
+      disabled={subject.questionCount === 0}
+    />
+  ));
+
+
+  const subjectListWithoutQuestions = subjectsWithoutQuestions.map((subject, i) => (
     <ItemButton
       key={i}
       title={subject.subjectName}
@@ -42,8 +63,13 @@ export const TrainingTest = () => {
   return (
     <Container>
       <div className="flex mt-5 flex-col gap-4 items-center">
-        <div className="flex flex-wrap gap-2 md:gap-5 lg:gap-4">
-            {subjectList}
+        <div className="flex flex-wrap gap-2 md:gap-5 w-full lg:gap-4">
+          {subjectListWithQuestions}
+        </div>
+        
+        <p className="text-red-600">{text}</p>
+        <div className="flex flex-wrap gap-2 md:gap-5 w-full lg:gap-4 mt-6">
+          {subjectListWithoutQuestions}
         </div>
       </div>
     </Container>
@@ -55,7 +81,7 @@ const ItemButton: React.FC<{
   icon: string;
   iconColor: string;
   active: boolean;
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void; // Изменен тип на правильный
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled: boolean;
 }> = ({ title, icon, iconColor, active, onClick, disabled }) => {
   return (

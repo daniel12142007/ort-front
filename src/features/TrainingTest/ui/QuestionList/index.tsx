@@ -76,49 +76,47 @@ export const QuestionComponent = () => {
               const isSelected = selectedOption === item.id;
 
               return (
-                <motion.div
-                  key={item.id}
-                  className="flex items-center mb-2 transition-all duration-300"
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <input
-                    type="radio"
-                    id={`option-${index}-${optionIndex}`}
-                    name={`question-${index}`}
-                    onChange={() => handleOptionSelect(question.questionId, item.id, isCorrect)}
-                    disabled={!!selectedOption}
-                    className="hidden"
-                  />
-                  <span className="flex items-center justify-center w-6 h-6 border rounded-full cursor-pointer mr-2">
-                    {isSelected && (
-                      isCorrect ? (
-                        <FaCheckCircle className="text-green-500" />
-                      ) : (
-                        <FaTimesCircle className="text-red-500" />
-                      )
-                    )}
-                  </span>
-                  <label
-                    htmlFor={`option-${index}-${optionIndex}`}
-                    className="ml-2 flex gap-2 w-full items-center"
-                  >
-                    {item.image && (
-                      <img src={item.image} alt="Option" className="w-[80px] h-[80px] object-cover" />
-                    )}
-                    <p className="p-2">{variants[optionIndex]}.</p>
-                    <p
-                      className={`p-2 w-[100%] rounded-md text-[16px] font-montserrat font-normal bg-[#F7F7F7] transition-all ${
-                        isSelected && !isCorrect
-                          ? "border border-red-500"
-                          : isSelected && isCorrect
-                          ? "border border-green-500"
-                          : ""
-                      }`}
-                    >
-                      {item.description}
-                    </p>
-                  </label>
-                </motion.div>
+<motion.div
+  key={item.id}
+  className="flex items-center mb-2 transition-all duration-300"
+  whileTap={{ scale: 0.95 }}
+>
+  <label htmlFor={`option-${index}-${optionIndex}`} className="flex items-center cursor-pointer gap-2 w-full">
+    <input
+      type="radio"
+      id={`option-${index}-${optionIndex}`}
+      name={`question-${index}`}
+      onChange={() => handleOptionSelect(question.questionId, item.id, isCorrect)}
+      disabled={!!selectedOption}
+      className="hidden"
+    />
+    <span className="flex items-center justify-center w-6 h-6 border rounded-full">
+      {isSelected && (
+        isCorrect ? (
+          <FaCheckCircle className="text-green-500" />
+        ) : (
+          <FaTimesCircle className="text-red-500" />
+        )
+      )}
+    </span>
+    {item.image && (
+      <img src={item.image} alt="Option" className="w-[80px] h-[80px] object-cover" />
+    )}
+    <p className="p-2">{variants[optionIndex]}.</p>
+    <p
+      className={`p-2 w-[100%] rounded-md text-[16px] font-montserrat font-normal bg-[#F7F7F7] transition-all ${
+        isSelected && !isCorrect
+          ? "border border-red-500"
+          : isSelected && isCorrect
+          ? "border border-green-500"
+          : ""
+      }`}
+    >
+      {item.description}
+    </p>
+  </label>
+</motion.div>
+
               );
             })}
 
