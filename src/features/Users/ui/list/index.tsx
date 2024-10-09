@@ -21,12 +21,12 @@ import {
 } from "../../style/style";
 import { userStore } from "../../model/store";
 import { useEffect, useState } from "react";
-import { DeleteUserModal } from "./DeleteModal";
+import { DeleteModal } from "@/shared/ui/modalSideBar/ModalDelete";
 
 export const UserList = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [openDeleteModal, setOpenDeleteModal] = useState(false); // Управление состоянием модального окна
-  const [userToDelete, setUserToDelete] = useState<{ id: number; name: string } | null>(null); // Данные пользователя для удаления
+  const [openDeleteModal, setOpenDeleteModal] = useState(false); 
+  const [userToDelete, setUserToDelete] = useState<{ id: number; name: string } | null>(null); 
   const navigate = useNavigate();
   const { user, isLoading, fetchUser, deleteUser } = userStore((state) => ({
     user: state.user,
@@ -50,14 +50,14 @@ export const UserList = () => {
   const confirmDeleteUser = async () => {
     if (userToDelete) {
       await deleteUser(userToDelete.id);
-      await fetchUser(); // Обновляем список пользователей после удаления
-      setOpenDeleteModal(false); // Закрываем модальное окно
+      await fetchUser(); 
+      setOpenDeleteModal(false); 
     }
   };
 
   const handleDeleteUserClick = (id: number, name: string) => {
-    setUserToDelete({ id, name }); // Устанавливаем пользователя для удаления
-    setOpenDeleteModal(true); // Открываем модальное окно
+    setUserToDelete({ id, name });
+    setOpenDeleteModal(true);
   };
 
   const handleUserClick = (id: number) => {
@@ -110,8 +110,8 @@ export const UserList = () => {
         </MainBlock>
       </SBlock>
       {openDeleteModal && userToDelete && (
-        <DeleteUserModal
-          userName={userToDelete.name}
+        <DeleteModal
+          title={userToDelete.name} 
           onConfirm={confirmDeleteUser}
           onClose={() => setOpenDeleteModal(false)}
         />

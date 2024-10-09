@@ -4,7 +4,7 @@ import { FullImageView } from "@/shared/ui";
 import { ActionButtons, TestBlockStyle, QuestionBlock, OptionContainer, OptionStyle, TestQuest } from "../../style/style";
 import { useStore } from "../../model/store";
 import UpdateModal from "./UpdateModal";
-import { ModalDelete } from "@/shared/ui/modalSideBar/ModalDelete";
+import { DeleteModal } from "@/shared/ui/modalSideBar/ModalDelete";
 
 interface Props {
   data: QuestionReq;
@@ -15,13 +15,13 @@ interface Props {
 const TestBlock: React.FC<Props> = ({ data, index, refreshQuestions }) => {
   const [edit, setEdit] = useState(false);
   const [hover, setHover] = useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false); // Состояние для модального окна удаления
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false); 
   const { deleteQuestion } = useStore();
 
   const onDelete = async () => {
     await deleteQuestion(data.questionId);
     refreshQuestions();
-    setDeleteModalOpen(false); // Закрываем модальное окно после удаления
+    setDeleteModalOpen(false); 
   };
 
   const onEdit = () => {
@@ -68,11 +68,13 @@ const TestBlock: React.FC<Props> = ({ data, index, refreshQuestions }) => {
       )}
 
       {deleteModalOpen && (
-        <ModalDelete
+        <DeleteModal
+          title="вопрос" 
           onConfirm={onDelete}
           onClose={() => setDeleteModalOpen(false)}
         />
       )}
+
     </>
   );
 };

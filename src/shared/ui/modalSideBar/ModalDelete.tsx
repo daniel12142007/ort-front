@@ -1,16 +1,15 @@
 import React, { useEffect, useRef } from "react";
-import { Modal, ModalContent, Flexing, Line, Span, Logo, Liner, DeleteBtn } from "./style";
-import logo from "../../../shared/assets/svg/logos.svg";
+import { Modal, ModalContent, Flexing, Line, Span, DeleteBtn } from "./style";
 
 interface ModalDeleteProps {
+  title: string; 
   onConfirm: () => void;
-  onClose: () => void;
+  onClose: () => void; 
 }
 
-export const ModalDelete: React.FC<ModalDeleteProps> = ({ onConfirm, onClose }) => {
+export const DeleteModal: React.FC<ModalDeleteProps> = ({ title, onConfirm, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Закрытие модального окна при клике вне его
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -27,15 +26,9 @@ export const ModalDelete: React.FC<ModalDeleteProps> = ({ onConfirm, onClose }) 
   return (
     <Modal>
       <ModalContent ref={modalRef}>
-        <Logo>
-          <img src={logo} alt="logo" />
-        </Logo>
         <Line>
-            <Liner>
-                <span>Вы действительно хотите </span>
-                <Span>удалить</Span>
-            </Liner>
-            <span>этот вопрос?</span>
+          <span>Вы действительно хотите удалить</span>
+          <Span>{title}?</Span>
         </Line>
         <Flexing>
           <DeleteBtn onClick={onConfirm}>Удалить</DeleteBtn>

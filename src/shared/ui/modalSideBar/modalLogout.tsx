@@ -14,7 +14,6 @@ export const ModalLogout = ({ onClose }: { onClose: () => void }) => {
     onClose();
   };
 
-  // Закрытие модального окна при клике вне его
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {

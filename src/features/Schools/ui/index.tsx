@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSchoolsStore } from "../model/store";
 import { SchoolRes } from "../type";
 import { Modal } from "./modal";
-import { DeleteModal } from "./modal/Delete";
+import { DeleteModal } from "@/shared/ui/modalSideBar/ModalDelete";
 import searchSVG from "../../../shared/assets/svg/search.svg";
 import PenSVG from "../../../shared/assets/svg/pen.svg";
 import DeleteSVG from "../../../shared/assets/svg/delete.svg";
@@ -14,7 +14,7 @@ export const Schools = () => {
     const [modal, setModal] = useState(false);
     const [open, setOpen] = useState(false);
     const [schoolToUpdate, setSchoolToUpdate] = useState<SchoolRes | null>(null);
-    const [schoolToDelete, setSchoolToDelete] = useState<SchoolRes | null>(null); // Состояние для удаления
+    const [schoolToDelete, setSchoolToDelete] = useState<SchoolRes | null>(null); 
 
     const handleOpen = () => setOpen(true);
     const handleUpdate = (school: SchoolRes) => {
@@ -23,8 +23,16 @@ export const Schools = () => {
     };
 
     const handleDeleteModalOpen = (school: SchoolRes) => {
-        setSchoolToDelete(school); // Устанавливаем школу для удаления
-        setModal(true); // Открываем модальное окно удаления
+        setSchoolToDelete(school);
+        setModal(true); 
+    };
+
+    const confirmDeleteSchool = async () => {
+        if (schoolToDelete) {
+            await deleteSchool(schoolToDelete.id); 
+            await fetchSchools();
+            setModal(false);
+        }
     };
 
     useEffect(() => {
@@ -61,7 +69,13 @@ export const Schools = () => {
                     ))}
                 </School>
             </Dashboard>
-            {modal && <DeleteModal school={schoolToDelete} onClose={() => setModal(false)} />}
+            {modal && schoolToDelete && (
+                <DeleteModal
+                    title={schoolToDelete.name} 
+                    onConfirm={confirmDeleteSchool} 
+                    onClose={() => setModal(false)} 
+                />
+            )}
             {open && <Modal setSchool={setSchoolToUpdate} schoolToUpdate={schoolToUpdate} setOpen={setOpen} />}
         </MainBlock>
     );
