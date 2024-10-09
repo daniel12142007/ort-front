@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSchoolsStore } from "../model/store";
 import { SchoolRes } from "../type";
 import { Modal } from "./modal";
-import { DeleteModal } from "@/shared/ui/modalSideBar/ModalDelete";
+import { DeleteModal } from "@/widgets/modal/ModalDelete";
 import searchSVG from "../../../shared/assets/svg/search.svg";
 import PenSVG from "../../../shared/assets/svg/pen.svg";
 import DeleteSVG from "../../../shared/assets/svg/delete.svg";

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Modal, ModalContent, Flexing, Line, Span, DeleteBtn } from "./style";
+import { Modal, ModalContent, Flexing, Line, Span, DeleteBtn } from "../../shared/ui/modalSideBar/style";
 
 interface ModalDeleteProps {
   title: string; 
