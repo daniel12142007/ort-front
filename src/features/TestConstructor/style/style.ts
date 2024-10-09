@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { Button, Container } from "@mui/material";
+import { KeyboardBackspace } from "@mui/icons-material";
+import { Button, Container, TextField } from "@mui/material";
 
 export const TitleHead = styled.div`
   display: flex;
@@ -86,13 +87,16 @@ export const AddButton = styled(Button)`
 `;
 
 export const ItemsList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 1200px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 15px;
-  padding: 10px 0px;
 `;
+export const Circular = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  margin-top: 200px;
+`
 export const Grid = styled.div`
   width: auto;
   display: grid;
@@ -101,7 +105,7 @@ export const Grid = styled.div`
 `
 
 export const ItemBox = styled.div`
-width: 550px;
+  width: 100%;
   padding: 13px 13px;
   border-radius: 5px;
   display: flex;
@@ -120,7 +124,7 @@ export const Paragraph = styled.p`
 `;
 export const BoxQuestion = styled.div`
   display: flex;
-  width: 160px;
+  width: 35%;
   justify-content: space-between;
   align-items: center;
   color: #949494;
@@ -284,3 +288,121 @@ export const NotQuestion = styled.div`
     text-align: center;
   }
 `;
+export const TestBlockStyle = styled("div")({
+  userSelect: "none",
+  display: "flex",
+  flexDirection: "column",
+  backgroundColor: "#fff",
+  borderRadius: "10px",
+  padding: "10px",
+});
+
+export const QuestionBlock = styled("div")({
+  backgroundColor: "#eee",
+  padding: "10px",
+  borderRadius: "10px",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+export const TestQuest = styled("div")({
+  display: "flex",
+});
+export const ImageVisible = styled("div")<{ visible: boolean }>(({ visible }) => ({
+  transition: "all 0.5s",
+  width: visible ? "40px" : 0,
+  height: visible ? "40px" : 0,
+  marginRight: visible ? "10px" : 0,
+  overflow: "hidden",
+  fontSize: "10px",
+}));
+
+export const OptionContainer = styled("div")<{ hover: boolean }>(({ hover }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  gap: "10px",
+  overflow: "hidden",
+  transition: "all 0.5s",
+
+  marginTop: hover ? "10px" : "0",
+  height: hover ? "70px" : 0,
+}));
+
+export const OptionStyle = styled("div")<{ active: boolean }>(({ active }) => ({
+  backgroundColor: active ? "#4285b4" : "#eee",
+  color: active ? "#fff" : "#000",
+  borderRadius: "10px",
+  padding: "10px",
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  flex: 1,
+
+  p: {
+    fontSize: "20px",
+    fontWeight: active ? "bold" : "normal",
+  },
+}));
+
+export const ActionButtons = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  gap: "20px",
+  button: {
+    border: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    transition: "all 0.5s",
+    opacity: 0.8,
+
+    "&:hover": {
+      opacity: 1,
+      transform: "scale(1.3)",
+    },
+  },
+});
+
+export const Flexing = styled("div")({
+  display: "flex",
+  gap: "20px",
+  alignItems: "center",
+})
+export const Ending = styled("div")({
+  display: "flex",
+  justifyContent: "flex-end",
+})
+export const Box = styled("div")({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "800px",
+  bgcolor: "background.paper",
+  borderRadius: "8px",
+  boxShadow: "24px",
+  padding: "30px",
+  background: "white"
+})
+export const TextFieldd = styled(TextField)({
+  width: "100%",
+  background: "#F4F4F4",
+})
+export const Buttonn = styled(Button)({
+  width: "50%",
+  background: "#7FC7FF",
+  color: "white",
+  "&:hover": {
+    background: "#5FC7FF"
+  },
+  marginTop: "20px"
+
+})
+export const KeyBoard = styled(KeyboardBackspace)({
+  width: "40px",
+  height: "40px",
+  cursor: "pointer",
+  transition: "all 0.3s",
+  "&:hover": {
+    opacity: 0.5
+  }
+})

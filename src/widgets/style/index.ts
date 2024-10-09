@@ -31,7 +31,7 @@ export const GridContainer = styled("div")`
 export const Content = styled("div")`
   margin: 40px;
   grid-area: main;
-  flex-grow: 1;
+  max-heigth: 100vh;
 `;
 
 export const StyledListItemButton = styled(ListItemButton)<{ selected: boolean }>`
@@ -44,6 +44,22 @@ export const StyledListItemButton = styled(ListItemButton)<{ selected: boolean }
     background-color: ${({ selected }) => (selected ? "#4285B4" : "#e0e0e0")};
   }
 `;
+export const StyledLogout = styled(ListItemButton)<{ selected: boolean }>`
+  border-radius: 8px;
+  margin-bottom: ${({ theme }) => theme.spacing(1)};
+  text-decoration: none;
+  display: flex;
+  align-items: end;
+    &:hover {
+    background-color: transparent; // Или любой другой стиль, который вы хотите использовать
+    cursor: pointer; // Если хотите, чтобы курсор указывал на элемент
+  }
+`;
+export const FlexBox = styled("div")`
+  display: flex;
+  align-items: center;
+  width: 100%;
+`
 export const Icon = styled("img")<{ selected: boolean }>`
   filter: ${({ selected }) => (selected ? "invert(1)" : "none")}; /* Инвертирует цвет для белого при selected */
   width: 24px; /* Установите размеры по вашему усмотрению */

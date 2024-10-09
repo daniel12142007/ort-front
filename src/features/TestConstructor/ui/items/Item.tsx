@@ -14,7 +14,7 @@ const Item: React.FC<SubjectReq> = ({ subjectName, id, questionCount }) => {
     <ItemBox onClick={create}>
       <Paragraph>{subjectName}</Paragraph>
       <BoxQuestion>
-        <Question>({questionCount}вопр.)</Question>
+        <Question>({questionCount} вопр.)</Question>
         <img src={nextSVG} alt="next" />
       </BoxQuestion>
     </ItemBox>
