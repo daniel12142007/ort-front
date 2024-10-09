@@ -9,7 +9,7 @@ export const UserRoute = {
   path: "main",
   element: (
     <div className="flex flex-col min-h-screen items-center gap-2 bg-gradient-to-br from-[#cee8ff] via-[#e0f6ff] to-[#ffffff]">
-      {/* <Header /> */}
+      <Header />
       <BreadCrumbs />
       <div className="flex-grow w-full">
         <Outlet />

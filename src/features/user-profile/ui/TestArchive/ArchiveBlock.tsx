@@ -3,9 +3,10 @@ import arrow from "@/shared/assets/svg/next.svg"
 
 interface Props {
   navigation: (path: string) => void
+  name: string
 }
 
-const ArchiveBlock: React.FC<Props> = ({ navigation }) => {
+const ArchiveBlock: React.FC<Props> = ({ navigation, name }) => {
   return (
     <div
       onClick={() => navigation("mathematic")}
@@ -19,7 +20,7 @@ const ArchiveBlock: React.FC<Props> = ({ navigation }) => {
         />
       </div>
       <div className="flex justify-between w-full px-2 sm:text-[12px] font-[500] text-lg">
-        <p>Математика</p>
+        <p>{name}</p>
         <p className="text-blue-600">10.10.2022</p>
         <button className="flex items-center">
           Перейти

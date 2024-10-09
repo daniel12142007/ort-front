@@ -14,6 +14,29 @@ class TokenService {
   static hasToken(): boolean {
     return !!this.getToken()
   }
+
+  static setUser(token: string, id: number) {
+    const user = JSON.stringify({ token, id })
+    localStorage.setItem("ort_user", user)
+  }
+
+  static getUser() {
+    const user = localStorage.getItem("ort_user")
+    if (!user) return null
+    return JSON.parse(user)
+  }
+
+  static removeUser() {
+    localStorage.removeItem("ort_user")
+  }
+
+  static hasUser(): boolean {
+    return !!this.getUser()
+  }
+
+  static clearLS() {
+    localStorage.clear()
+  }
 }
 
 export default TokenService

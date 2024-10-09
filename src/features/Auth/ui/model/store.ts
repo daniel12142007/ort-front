@@ -26,13 +26,14 @@ export const useAuthStore = create<AuthStoreState>(() => ({
 
   signIn: async (data, navigate) => {
     try {
-      TokenService.removeToken()
+      TokenService.clearLS()
       const res = await api.signIn(data)
       if (res.status === 200) {
-        TokenService.setToken(res.data.token)
         if (res.data.role === "ADMIN") {
+          TokenService.setToken(res.data.token)
           navigate("/admin")
         } else if (res.data.role === "USER") {
+          TokenService.setUser(res.data.token, res.data.id)
           navigate("/main")
         }
         return { status: "success", message: "Аутентификация прошла успешно" }

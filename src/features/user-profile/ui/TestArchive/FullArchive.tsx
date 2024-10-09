@@ -1,4 +1,7 @@
 import { CircleProgressBar } from "@/shared/ui"
+import { useLocation } from "react-router-dom"
+import { useTrialTestStore } from "@/features/trial-testing/models/store"
+import React from "react"
 
 const fullTest = {
   description: "Тест на знание английского языка",
@@ -26,14 +29,14 @@ const fullTest = {
   ],
 }
 
-const testResult = {
-  correct: 0,
-  notCorrect: 0,
-  percent: 0,
-  sumQuestion: 0,
-}
-
 const FullArchive = () => {
+  const { state } = useLocation()
+  const { getTestResult, testResult } = useTrialTestStore()
+  console.log(testResult)
+  React.useEffect(() => {
+    getTestResult(Number(state))
+  }, [])
+
   return (
     <div className="flex flex-col gap-8 rounded-xl items-center bg-white w-10/12 mx-auto my-5 p-5">
       <CircleProgressBar

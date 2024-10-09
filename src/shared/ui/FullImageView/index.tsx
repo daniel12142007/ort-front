@@ -1,25 +1,25 @@
-import { styled } from "@mui/material";
-import React from "react";
+import { styled } from "@mui/material"
+import React from "react"
 
 interface Props {
-  src: string;
-  width: number;
-  height: number;
+  src: string
+  width: number
+  height: number
 }
 
 export const FullImageView: React.FC<Props> = ({ src, width, height }) => {
-  const [active, setActive] = React.useState(false);
+  const [active, setActive] = React.useState(false)
   function replaceUrl(imageUrl: string | null | undefined): string {
-    const oldUrlPart = "http://";
-    const newUrlPart = "https://ort-365ceab257f6.herokuapp.com/";
+    const oldUrlPart = "http://"
+    const newUrlPart = "http://ec2-54-173-142-201.compute-1.amazonaws.com/"
 
     if (typeof imageUrl === "string" && imageUrl.includes(oldUrlPart)) {
-      return imageUrl.replace(oldUrlPart, newUrlPart);
+      return imageUrl.replace(oldUrlPart, newUrlPart)
     }
 
-    return imageUrl || "";
+    return imageUrl || ""
   }
-  src = replaceUrl(src);
+  src = replaceUrl(src)
   return (
     <>
       <ImageBlcok width={width} height={height}>
@@ -33,8 +33,8 @@ export const FullImageView: React.FC<Props> = ({ src, width, height }) => {
         </ImageControl>
       )}
     </>
-  );
-};
+  )
+}
 
 const ImageControl = styled("div")({
   width: "100%",
@@ -63,17 +63,19 @@ const ImageControl = styled("div")({
     width: "600px",
     height: "100%",
   },
-});
-const ImageBlcok = styled("div")<{ width: number; height: number }>(({ width, height }) => ({
-  width: width,
-  height: height,
-  position: "relative",
-  overflow: "hidden",
-  cursor: "pointer",
-}));
+})
+const ImageBlcok = styled("div")<{ width: number; height: number }>(
+  ({ width, height }) => ({
+    width: width,
+    height: height,
+    position: "relative",
+    overflow: "hidden",
+    cursor: "pointer",
+  }),
+)
 
 const Image = styled("img")({
   width: "100%",
   height: "100%",
   objectFit: "cover",
-});
+})

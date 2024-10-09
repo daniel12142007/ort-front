@@ -1,7 +1,7 @@
 import TokenService from "@/utils"
 import axios from "axios"
 
-const base_url = "http://ec2-54-173-142-201.compute-1.amazonaws.com/"
+const base_url = "http://ec2-54-173-142-201.compute-1.amazonaws.com:8080/"
 
 export const apiRoot = axios.create({
   baseURL: base_url,
@@ -12,8 +12,9 @@ export const apiRoot = axios.create({
 apiRoot.interceptors.request.use(
   (config) => {
     const token = TokenService.getToken()
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+    const userToken = TokenService.getUser()
+    if (token || userToken?.token) {
+      config.headers.Authorization = `Bearer ${token || userToken?.token}`
     }
     return config
   },

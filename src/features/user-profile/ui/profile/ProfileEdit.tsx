@@ -1,7 +1,10 @@
-import { Avatar } from "@/shared/ui/AvatarImage"
-import { PersonState } from "../../type"
-import { useForm } from "react-hook-form"
 import React from "react"
+
+import { Avatar } from "@/shared/ui"
+import { PersonState } from "../../types"
+import { useForm } from "react-hook-form"
+import { useProfileStore } from "../../models/store"
+import { useNavigate } from "react-router-dom"
 
 interface Props {
   setEdit: (e: boolean) => void
@@ -9,14 +12,29 @@ interface Props {
 }
 
 const ProfileEdit: React.FC<Props> = ({ setEdit, person }) => {
-  const { handleSubmit, register } = useForm<PersonState>({
+  const navigate = useNavigate()
+  const { updatePerson } = useProfileStore()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<PersonState>({
     defaultValues: person,
   })
   const [image, setImage] = React.useState<string>(person.image)
 
   const onSubmit = (data: PersonState) => {
-    console.log(data)
-    setEdit(false)
+    updatePerson(
+      person.userId,
+      {
+        surname: data.surname,
+        name: data.name,
+        age: data.age,
+        email: data.email,
+        image,
+      },
+      navigate,
+    )
   }
 
   return (
@@ -25,7 +43,7 @@ const ProfileEdit: React.FC<Props> = ({ setEdit, person }) => {
       className="flex flex-col items-center"
     >
       <div className="flex flex-col items-center p-4 gap-1">
-        <Avatar name="Асанов Али Жанарович" size={100} photoUrl={image} />
+        <Avatar name={person.name} size={100} photoUrl={image} />
         <label
           className="text-lg text-[#007aff] font-medium cursor-pointer"
           htmlFor="avatar"
@@ -44,15 +62,18 @@ const ProfileEdit: React.FC<Props> = ({ setEdit, person }) => {
       <div className="flex flex-col items-center gap-1 sm:p-1 p-5 w-full">
         <h1 className="text-xl text-center">Персональные информация</h1>
         <div className="flex flex-col sm:w-10/12 md:w-8/12 w-1/2">
-          <label htmlFor="fullName" className="text-zinc-500 font-semibold">
+          <label htmlFor="name" className="text-zinc-500 font-semibold">
             ФИО
           </label>
           <input
-            id="fullName"
+            id="name"
             type="text"
             {...register("name")}
             className="border-2 border-gray-500 rounded-md px-3 py-1 outline-blue-500"
           />
+          {errors.name && (
+            <p className="text-red-500 text-sm">{errors.name.message}</p>
+          )}
         </div>
         <div className="flex flex-col sm:w-10/12 md:w-8/12 w-1/2">
           <label htmlFor="age" className="text-zinc-500 font-semibold">
@@ -60,10 +81,13 @@ const ProfileEdit: React.FC<Props> = ({ setEdit, person }) => {
           </label>
           <input
             id="age"
-            type="text"
+            type="number"
             {...register("age")}
             className="border-2 border-gray-500 rounded-md px-3 py-1 outline-blue-500"
           />
+          {errors.age && (
+            <p className="text-red-500 text-sm">{errors.age.message}</p>
+          )}
         </div>
         <div className="flex flex-col sm:w-10/12 md:w-8/12 w-1/2">
           <label htmlFor="school" className="text-zinc-500 font-semibold">
@@ -71,7 +95,7 @@ const ProfileEdit: React.FC<Props> = ({ setEdit, person }) => {
           </label>
           <select
             id="school"
-            {...register("school")}
+            {...register("schoolName")}
             className="border-2 border-gray-500 rounded-md px-3 py-1 outline-blue-500"
           >
             <option value={"Лицеи №1 имени Ленина"}>
@@ -92,10 +116,13 @@ const ProfileEdit: React.FC<Props> = ({ setEdit, person }) => {
           <input
             id="phone_number"
             type="text"
-            {...register("phone_number")}
+            {...register("phoneNumber")}
             placeholder="+996 (700) 000 000"
             className="border-2 border-gray-500 rounded-md px-3 py-1 outline-blue-500"
           />
+          {errors.phoneNumber && (
+            <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>
+          )}
         </div>
       </div>
       <div className="flex justify-center gap-10 p-5">
