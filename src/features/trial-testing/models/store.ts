@@ -17,6 +17,9 @@ interface storeState {
   setMyAnswer: (answer: AnswerState) => Promise<string>
   getTestResult: (resultTestId: number) => Promise<void>
 
+  fullTestResult: QuestionState[]
+  fetchFullTestResult: (testId: number) => Promise<void>
+
   subjects: SubjectReq[]
   loadingSub: boolean
   countSub: number
@@ -34,7 +37,6 @@ export const useTrialTestStore = create<storeState>((set) => ({
       const response = await api.getQuestions(subjectId, limit)
       if (Array.isArray(response.data)) {
         set({ questions: response.data, count: response.data.length })
-        console.log(response)
         return response.data.length
       }
       return 0
@@ -65,6 +67,19 @@ export const useTrialTestStore = create<storeState>((set) => ({
       const response = await api.getResult(resultTestId)
       if (response.status === 200) {
         set({ testResult: response.data })
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  },
+
+  fullTestResult: [],
+  fetchFullTestResult: async (testId) => {
+    try {
+      console.log(testId)
+      const response = await api.getFullResult(testId)
+      if (response.status === 200) {
+        set({ fullTestResult: response.data })
       }
     } catch (err) {
       console.log(err)

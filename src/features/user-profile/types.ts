@@ -10,11 +10,11 @@ export interface PersonState {
 }
 
 export interface UpdatePersonState {
-  name: string
-  surname: string
-  email: string
   image: string
+  name: string
   age: number
+  schoolId: number
+  phoneNumber: string
 }
 
 export interface ArchiveState {

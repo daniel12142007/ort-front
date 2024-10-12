@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { TitleHead, ItemsList } from "../style/style"
+import { TitleHead, ItemsList,} from "../style/style"
 import Item from "./items/Item"
 import { useTrialTestStore } from "@/features/trial-testing/models/store"
 
@@ -10,7 +10,10 @@ const ItemList = () => {
     fetchSubjects()
   }, [])
 
-  const subjectList = subjects.map((obj, i) => <Item {...obj} key={i} />)
+  const subjectList = subjects.map((obj, i) => {
+    const { questionCount, ...rest } = obj; 
+    return <Item key={i} {...rest} questionCount={questionCount} />;
+  });
   return (
     <div>
       <TitleHead>

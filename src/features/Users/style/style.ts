@@ -4,7 +4,7 @@ import { AccountCircle } from "@mui/icons-material";
 export const UserBox = styled(Box)`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap:17px;
     height: 100%;
     flex-grow: 1;
 `
@@ -26,13 +26,16 @@ export const SearchInput = styled("input")`
     border: none;
     outline: none;
     background-color: #ffffff;
+    font-size: 15px;
 `
 export const SBlock = styled("div")`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     background-color: #ffffff;
     border-radius: 8px;
     padding: 30px;
-    flex-grow: 1;
-    margin-top: 17px;
+    height: 100%;
 `
 
 export const NavBlock = styled("div")`
@@ -46,7 +49,6 @@ export const NavBlock = styled("div")`
 `
 export const DetailBlock = styled("div")`
     width: 100%;
-    // margin: 30px;
     height: 50px;
     display: flex;
     justify-content: space-between;
@@ -106,11 +108,12 @@ export const DeleteImage = styled("div")`
 
 export const MainBlock = styled("div")`
     overflow-y: scroll;
+    max-height: calc(100vh - 400px);
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
-      /* Стили для прокрутки */
+
     scrollbar-width: thin; /* тонкий скроллбар для Firefox */
     scrollbar-color: #c4c4c4 transparent; /* цвет для Firefox */
 

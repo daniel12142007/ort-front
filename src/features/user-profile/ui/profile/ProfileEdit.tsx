@@ -1,9 +1,10 @@
 import React from "react"
 
 import { Avatar } from "@/shared/ui"
-import { PersonState } from "../../types"
+import { PersonState, UpdatePersonState } from "../../types"
 import { useForm } from "react-hook-form"
 import { useProfileStore } from "../../models/store"
+import { useSchoolsStore } from "@/features/Schools/model/store"
 import { useNavigate } from "react-router-dom"
 
 interface Props {
@@ -13,29 +14,34 @@ interface Props {
 
 const ProfileEdit: React.FC<Props> = ({ setEdit, person }) => {
   const navigate = useNavigate()
+  const { fetchSchools, schools } = useSchoolsStore()
   const { updatePerson } = useProfileStore()
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<PersonState>({
+  } = useForm<UpdatePersonState>({
     defaultValues: person,
   })
   const [image, setImage] = React.useState<string>(person.image)
 
-  const onSubmit = (data: PersonState) => {
+  const onSubmit = (data: UpdatePersonState) => {
     updatePerson(
       person.userId,
       {
-        surname: data.surname,
+        schoolId: data.schoolId,
         name: data.name,
         age: data.age,
-        email: data.email,
+        phoneNumber: data.phoneNumber,
         image,
       },
       navigate,
     )
   }
+
+  React.useEffect(() => {
+    fetchSchools()
+  }, [])
 
   return (
     <form
@@ -95,18 +101,14 @@ const ProfileEdit: React.FC<Props> = ({ setEdit, person }) => {
           </label>
           <select
             id="school"
-            {...register("schoolName")}
+            {...register("schoolId")}
             className="border-2 border-gray-500 rounded-md px-3 py-1 outline-blue-500"
           >
-            <option value={"Лицеи №1 имени Ленина"}>
-              Лицеи №1 имени Ленина
-            </option>
-            <option value={"Лицеи №2 имени Ленина"}>
-              Лицеи №2 имени Ленина
-            </option>
-            <option value={"Лицеи №3 имени Ленина"}>
-              Лицеи №3 имени Ленина
-            </option>
+            {schools.map((school, index) => (
+              <option key={index} value={school.id}>
+                {school.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className="flex flex-col sm:w-10/12 md:w-8/12 w-1/2">

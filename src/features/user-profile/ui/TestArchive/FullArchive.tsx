@@ -3,38 +3,14 @@ import { useLocation } from "react-router-dom"
 import { useTrialTestStore } from "@/features/trial-testing/models/store"
 import React from "react"
 
-const fullTest = {
-  description: "Тест на знание английского языка",
-  optionsResponse: [
-    {
-      description: "Тест на знание английского языка",
-      correct: true,
-      chose: true,
-    },
-    {
-      description: "Тест на знание английского языка",
-      correct: false,
-      chose: false,
-    },
-    {
-      description: "Тест на знание английского языка",
-      correct: false,
-      chose: false,
-    },
-    {
-      description: "Тест на знание английского языка",
-      correct: false,
-      chose: false,
-    },
-  ],
-}
-
 const FullArchive = () => {
   const { state } = useLocation()
-  const { getTestResult, testResult } = useTrialTestStore()
-  console.log(testResult)
+  const { getTestResult, testResult, fetchFullTestResult, fullTestResult } =
+    useTrialTestStore()
+  console.log(testResult, fullTestResult)
   React.useEffect(() => {
     getTestResult(Number(state))
+    fetchFullTestResult(Number(state))
   }, [])
 
   return (
@@ -54,7 +30,7 @@ const FullArchive = () => {
           <p>Неправильные ответы: {testResult?.notCorrect}</p>
         </div>
       </div>
-      {[...new Array(10)].fill(fullTest).map((obj, index) => (
+      {fullTestResult.map((obj, index) => (
         <div
           className={`flex sm:gap-1 gap-5 w-full ${
             index > 0 && "border-t-2 border-dashed border-indigo-800 pt-5"
@@ -89,7 +65,7 @@ const FullArchive = () => {
                     </span>
                   </div>
                   <p
-                    className={`border border-gray-300 py-1 px-3 rounded-xl w-full ${
+                    className={`border border-gray-300 py-1 px-3 rounded-xl  w-full ${
                       option.correct && (option.chose || !option.chose)
                         ? "border-2 border-green-500"
                         : option.chose && !option.correct
