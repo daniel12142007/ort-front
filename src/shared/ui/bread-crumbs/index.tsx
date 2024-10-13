@@ -10,6 +10,7 @@ const routeName: Record<string, string> = {
   "information-block": "Общая информация",
   testing: "Пробный тест",
   finish: "Результат",
+  "training-test": "Подготовка к ОРТ",
 }
 
 export function BreadCrumbs() {
