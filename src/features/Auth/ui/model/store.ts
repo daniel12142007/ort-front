@@ -4,6 +4,7 @@ import TokenService from "@/utils"
 import { NavigateFunction } from "react-router-dom"
 import { LoginReq, NewPasswordState, RegisterReq } from "../../type"
 import { api } from "../../api"
+import { toast } from "react-toastify"
 
 interface AuthStoreState {
   token: string

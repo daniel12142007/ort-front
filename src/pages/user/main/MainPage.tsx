@@ -8,7 +8,7 @@ export const MainPage = () => {
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-2xl font-semibold text-center">Добро пожаловать</h1>
-      <div className="flex gap-4 p-5 md:flex-col">
+      <div className="flex gap-4 p-5 flex-col md:flex-row">
         <button
           disabled
           className="bg-blue-500 w-52 text-white px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-500"

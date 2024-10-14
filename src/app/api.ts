@@ -1,9 +1,13 @@
 import TokenService from "@/utils"
 import axios from "axios"
 
+<<<<<<< HEAD
 if (!import.meta.env.VITE_BASE_URL) {
   throw new Error("VITE_BASE_URL is not defined in .env file")
 }
+=======
+const base_url = "http://ec2-54-173-142-201.compute-1.amazonaws.com:8080/";
+>>>>>>> 9d708ffa548061b32f6561f7d84636262d46ad0d
 
 const base_url = import.meta.env.VITE_BASE_URL
 

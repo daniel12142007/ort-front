@@ -10,8 +10,13 @@ interface Props {
 export const FullImageView: React.FC<Props> = ({ src, width, height }) => {
   const [active, setActive] = React.useState(false)
   function replaceUrl(imageUrl: string | null | undefined): string {
+<<<<<<< HEAD
     const oldUrlPart = "http://"
     const newUrlPart = "http://ec2-54-173-142-201.compute-1.amazonaws.com/"
+=======
+    const oldUrlPart = "http://";
+    const newUrlPart = "http://ec2-54-173-142-201.compute-1.amazonaws.com/";
+>>>>>>> 9d708ffa548061b32f6561f7d84636262d46ad0d
 
     if (typeof imageUrl === "string" && imageUrl.includes(oldUrlPart)) {
       return imageUrl.replace(oldUrlPart, newUrlPart)
