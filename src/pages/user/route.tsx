@@ -23,10 +23,7 @@ export const UserRoute = {
       element: <MainPage />,
     },
     TrialTestingRoute,
-<<<<<<< HEAD
     UserProfileRouter,
-=======
     TrainingTestRoute,
->>>>>>> 9d708ffa548061b32f6561f7d84636262d46ad0d
   ],
 }

@@ -10,12 +10,9 @@ const routeName: Record<string, string> = {
   "information-block": "Общая информация",
   testing: "Пробный тест",
   finish: "Результат",
-<<<<<<< HEAD
   profile: "Профиль",
   archive: "Архив",
-=======
   "training-test": "Подготовка к ОРТ",
->>>>>>> 9d708ffa548061b32f6561f7d84636262d46ad0d
 }
 
 export function BreadCrumbs() {
