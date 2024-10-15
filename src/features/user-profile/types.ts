@@ -10,6 +10,14 @@ export interface PersonState {
 }
 
 export interface UpdatePersonState {
+  image: File | undefined | string
+  name: string
+  age: number
+  schoolId: number
+  phoneNumber: string
+}
+
+export interface UpdatePersonStateImage {
   image: string
   name: string
   age: number
