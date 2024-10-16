@@ -1,9 +1,9 @@
-import mathematicIcon from "@/shared/assets/icon/mathematic.svg";
-import React from "react";
-import { useTrialTestStore } from "@/features/trial-testing/models/store";
-import { useNavigate } from "react-router-dom";
-import { useTrainingTestStore } from "../model/store";
-import { Container } from "@/shared/ui/Container";
+import mathematicIcon from "@/shared/assets/icon/mathematic.svg"
+import React from "react"
+import { useTrialTestStore } from "@/features/trial-testing/models/store"
+import { useNavigate } from "react-router-dom"
+import { useTrainingTestStore } from "../model/store"
+import { Container } from "@/shared/ui/Container"
 
 export const TrainingTest = () => {
   const [active, setActive] = React.useState<{
@@ -36,7 +36,7 @@ export const TrainingTest = () => {
       icon={mathematicIcon}
       iconColor="#9cc5e4"
       active={active?.id === subject.id}
-      onClick={(e) => {
+      onClick={() => {
         setActive(subject === active ? undefined : subject);
         handleSubjectSelect(subject); 
       }}
@@ -52,7 +52,7 @@ export const TrainingTest = () => {
       icon={mathematicIcon}
       iconColor="#9cc5e4"
       active={active?.id === subject.id}
-      onClick={(e) => {
+      onClick={() => {
         setActive(subject === active ? undefined : subject);
         handleSubjectSelect(subject); 
       }}
@@ -87,9 +87,9 @@ const ItemButton: React.FC<{
   return (
     <button
       disabled={disabled}
-      className={`flex flex-col md:flex-row w-[48.5%] lg:w-[32.4%] items-center bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer md:gap-4 disabled:opacity-50 ${
-        active ? "transform scale-105 shadow-[0_0_15px_0px_#407bff]" : ""
-      }`}
+      className={`flex flex-col md:flex-row w-[48.5%] lg:w-[32.4%] items-center bg-white shadow-lg 
+        rounded-lg overflow-hidden cursor-pointer md:gap-4 disabled:opacity-50 
+        ${active ? "transform scale-105 shadow-[0_0_15px_0px_#407bff]" : ""}`}
       onClick={onClick} 
     >
       <div className={`bg-[${iconColor}] flex justify-center items-center bg-[#9AB6FF] w-full md:w-[30%] h-20`}>

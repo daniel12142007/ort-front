@@ -82,7 +82,7 @@ const Payment = () => {
       <h1 className="text-3xl font-semibold text-center">
         Выберите период оплаты
       </h1>
-      <div className="flex justify-between gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
         {periodPayment.map((period, i) => (
           <div
             key={i}
@@ -99,7 +99,7 @@ const Payment = () => {
         ))}
       </div>
       <div>
-        <div className="flex justify-between items-start mt-5 gap-5">
+        <div className="flex flex-col sm:flex-row justify-between items-start mt-5 gap-5">
           <div className="flex-1">
             <h5 className="text-2xl font-semibold mb-2">Итого к оплате</h5>
             <div className="bg-white rounded-xl p-2 px-4 h-24 w-full flex flex-col justify-evenly">
@@ -126,7 +126,7 @@ const Payment = () => {
           </div>
           <div className="flex-1">
             <h5 className="text-2xl font-semibold  mb-2">Итого к оплате</h5>
-            <div className="flex gap-5 items-end">
+            <div className="flex flex-col md:flex-row gap-5 items-end">
               <div className="bg-white rounded-xl p-2 px-4 h-24 w-full">
                 {confirmed >= 1 ? (
                   <div className="flex flex-col justify-evenly h-full">
@@ -163,14 +163,14 @@ const Payment = () => {
         <h5 className="text-2xl font-semibold text-center mb-2">
           Способы оплаты
         </h5>
-        <div className="grid grid-cols-3 gap-5 py-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 py-10">
           {methodPayment.map((method, i) => (
             <div
               onClick={() => setActivePaymentMethod({id: method.id, method: method.name})}
-              className={`cursor-pointer flex items-center bg-white rounded-xl p-2 px-4 justify-center gap-5 
+              className={`cursor-pointer flex items-center rounded-xl p-2 px-4 justify-center gap-5 
                 h-28 shadow-[0px_0px_10px_0px_rgba(0,0,0,0.2)] 
                 ${method.vertical && "flex-col"}
-                ${activePaymentMethod.id == method.id && "bg-green-400"}
+                ${activePaymentMethod.id == method.id ? "bg-green-400" : "bg-white"}
                 `}
               key={i}
             >
@@ -185,7 +185,7 @@ const Payment = () => {
         </div>
         <div className="flex justify-center items-start gap-3">
           <button
-            className="bg-blue-500 py-3 px-7 text-2xl text-white rounded-xl w-2/6 disabled:bg-amber-200"
+            className="bg-blue-500 py-3 px-7 text-2xl text-white rounded-xl w-5/6 sm:w-2/6 disabled:bg-amber-200"
             disabled={!activePaymentMethod.id}
             onClick={() => navigate("cart")}
           >

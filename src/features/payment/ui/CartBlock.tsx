@@ -5,7 +5,7 @@ const CartBlock = () => {
 
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 w-full flex justify-center items-center">
-      <div className="bg-white p-5 rounded-2xl shadow-lg">
+      <div className="bg-white w-10/12 p-5 rounded-2xl shadow-lg">
         <h1 className="text-xl font-bold">
           Оплата картой
         </h1>
@@ -14,7 +14,7 @@ const CartBlock = () => {
             type="number"
             className="w-full p-4 bg-[#edf2f8] rounded-[10px]"
             placeholder="Номер карты" />
-          <div className="flex gap-4 relative">
+          <div className="flex flex-col sm:flex-row gap-4 relative">
             <input placeholder="MM/YY" className="p-4 bg-[#edf2f8] rounded-[10px]" />
             <input placeholder="CVC/CVV" className="p-4 bg-[#edf2f8] rounded-[10px]" />
             <span

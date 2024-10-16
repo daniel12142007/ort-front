@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Modal, Checkbox } from "@mui/material";
-import { QuestionReq, QuestionUpdateState } from "../../type";
-import {Box,Buttonn,DeleteImage,Flexing,TextFieldd,Ending,} from "../../style/style";
-import { useStore } from "../../model/store";
-import { AddPhotoAlternate } from "@mui/icons-material";
+import React, { useState } from "react"
+import { Checkbox, Modal } from "@mui/material"
+import { QuestionReq, QuestionUpdateState } from "../../type"
+import { Box, Buttonn, DeleteImage, Ending, Flexing, TextFieldd } from "../../style/style"
+import { useStore } from "../../model/store"
+import { AddPhotoAlternate } from "@mui/icons-material"
 
 interface UpdateModalProps {
   questionData: QuestionReq;
@@ -31,7 +31,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
   });
 
   const { updateTest } = useStore();
-  const [uploadedQuestionImage, setUploadedQuestionImage] = useState<File | null>(null);
   const [uploadedOptionImages, setUploadedOptionImages] = useState<(File | null)[]>(Array(4).fill(null));
 
   const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +63,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
   const handleQuestionImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadedQuestionImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setTestData((prevData) => ({
@@ -115,7 +113,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
 
   const onSave = async () => {
     try {
-      await updateTest(testData);
+      updateTest(testData);
       onClose();
       refreshQuestions();
     } catch (error) {
@@ -131,7 +129,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
             <input type="file" accept="image/*" onChange={handleQuestionImageUpload} style={{ display: "none" }} />
             {testData.questionUpdateRequest.image ? (
               <div style={{ position: "relative" }}>
-                <img src={testData.questionUpdateRequest.image} width="100px" height="100px" />
+                <img src={testData.questionUpdateRequest.image} width="100px" height="100px" alt="file" />
                 <DeleteImage onClick={() => setTestData((prevData) => ({
                   ...prevData,
                   questionUpdateRequest: { ...prevData.questionUpdateRequest, image: "" },
@@ -165,7 +163,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                 <input type="file" accept="image/*" onChange={handleOptionImageUpload(index)} style={{ display: "none" }} />
                 {option.image ? (
                   <div style={{ position: "relative" }}>
-                    <img src={option.image} width="100px" height="100px" />
+                    <img src={option.image} width="100px" height="100px" alt="file"/>
                     <DeleteImage onClick={() => handleRemoveImage(index)}>
                       +
                     </DeleteImage>
