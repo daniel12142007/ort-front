@@ -1,5 +1,5 @@
 import { apiRoot } from "@/app/api"
-import { TestFileState } from "./type"
+import { QuestionUpdateState, TestFileState } from "./type"
 import { uploadImageAndGetUrl, notImage } from "./model/image.service"
 
 export const api = {
@@ -14,6 +14,16 @@ export const api = {
 
   getQuestions: (subjectId: number) => {
     return apiRoot.get(`api/question/getAllQuestionsBySubject/${subjectId}`)
+  },
+
+  getQuestionById: (questionId: number) => {
+    return apiRoot.get(`api/question/find/by/question/${questionId}`)
+  },
+  deleteQuestion: (questionId: number) => {
+    return apiRoot.delete(`api/question/delete/${questionId}`)
+  },
+  updateQuestionById: (question: QuestionUpdateState) => {
+    return apiRoot.put("api/question/update/question", question)
   },
 
   upload: (file: File) => {

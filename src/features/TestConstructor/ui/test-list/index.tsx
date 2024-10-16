@@ -5,6 +5,8 @@ import {
   TitleHead,
   TestListStyle,
   NotQuestion,
+  KeyBoard,
+  Flexing,
 } from "../../style/style"
 import { AddIcon } from "@/shared/ui/icon"
 import TestBlock from "./TestBlock"
@@ -23,8 +25,10 @@ const TestList = () => {
   const { subjects, fetchSubjects } = useTrialTestStore()
 
   const subject = subjects.find((subject) => subject.id === Number(itemId))
+
+  // Вынесем рендеринг вопросов в функцию
   const questionList = questionsList.map((item, i) => (
-    <TestBlock key={i} data={item} index={i + 1} />
+    <TestBlock key={i} data={item} index={i + 1} refreshQuestions={() => getItem(Number(itemId))} />
   ))
 
   useEffect(() => {
@@ -40,7 +44,10 @@ const TestList = () => {
   return (
     <div>
       <TitleHead>
-        <h1>{subject?.subjectName}</h1>
+        <Flexing>
+          <KeyBoard  onClick={() => navigate(-1)}/>
+          <h1>{subject?.subjectName}</h1>
+        </Flexing>
         <CreateButton onClick={() => navigate(`create-test`)}>
           <span>Добавить</span>
           <AddIcon color="black" size={18} />
@@ -52,7 +59,7 @@ const TestList = () => {
             <h1>{status.message}</h1>
             <p>
               Похоже вы еще не добавили ни одного тестового вопроса, для этого
-              добавте вопрос
+              добавьте вопрос
             </p>
           </NotQuestion>
         ) : (
