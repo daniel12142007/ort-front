@@ -1,0 +1,1 @@
+export { UserProfileRouter } from "./route"

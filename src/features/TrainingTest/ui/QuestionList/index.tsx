@@ -1,17 +1,17 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"; // From feature/chatGpt
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/shared/ui/Container";
 import { useTrainingTestStore } from "../../model/store";
-import AiSVG from '../../../../shared/assets/svg/ai.svg';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import AiSVG from "../../../../shared/assets/svg/ai.svg";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
-import { ChatUI } from "@/features/Ai";
+import { ChatUI } from "@/features/Ai"; // Keep this if needed
+
 
 
 export const QuestionComponent = () => {
-  const { subjectName } = useParams();
   const location = useLocation();
   const { id: subjectId, totalCount } = location.state;
   const { questions, loading, getQuestions, count, questionsLoaded } = useTrainingTestStore();
@@ -126,6 +126,27 @@ export const QuestionComponent = () => {
                       </span>
                       {item.image && (
                         <img src={item.image} alt="Option" className="w-[80px] h-[80px] object-cover" />
+                    <motion.div
+                  key={item.id}
+                  className="flex items-center mb-2 transition-all duration-300"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <label htmlFor={`option-${index}-${optionIndex}`} className="flex items-center cursor-pointer gap-2 w-full">
+                    <input
+                      type="radio"
+                      id={`option-${index}-${optionIndex}`}
+                      name={`question-${index}`}
+                      onChange={() => handleOptionSelect(question.questionId, item.id, isCorrect)}
+                      disabled={!!selectedOption}
+                      className="hidden"
+                    />
+                    <span className="flex items-center justify-center w-6 h-6 border rounded-full">
+                      {isSelected && (
+                        isCorrect ? (
+                          <FaCheckCircle className="text-green-500" />
+                        ) : (
+                          <FaTimesCircle className="text-red-500" />
+                        )
                       )}
                       <p className="p-2">{variants[optionIndex]}.</p>
                       <p

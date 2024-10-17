@@ -10,6 +10,8 @@ const routeName: Record<string, string> = {
   "information-block": "Общая информация",
   testing: "Пробный тест",
   finish: "Результат",
+  profile: "Профиль",
+  archive: "Архив",
   "training-test": "Подготовка к ОРТ",
 }
 
