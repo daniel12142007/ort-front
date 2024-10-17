@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom"; // From feature/chatGpt
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Container } from "@/shared/ui/Container";
@@ -7,9 +6,7 @@ import AiSVG from "../../../../shared/assets/svg/ai.svg";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
-import { ChatUI } from "@/features/Ai"; // Keep this if needed
-
-
+import { ChatUI } from "@/features/Ai";
 
 export const QuestionComponent = () => {
   const location = useLocation();
@@ -17,7 +14,7 @@ export const QuestionComponent = () => {
   const { questions, loading, getQuestions, count, questionsLoaded } = useTrainingTestStore();
   const [currentPage, setCurrentPage] = useState(1);
   const questionsPerPage = 15;
-  const maxPage = Math.ceil(totalCount / 15)
+  const maxPage = Math.ceil(totalCount / questionsPerPage);
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: number | null }>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [aiHelpData, setAiHelpData] = useState<any>(null);
@@ -55,7 +52,6 @@ export const QuestionComponent = () => {
     setIsModalOpen(false);
   };
 
-
   useEffect(() => {
     if (subjectId) {
       getQuestions(Number(subjectId), currentPage);
@@ -63,9 +59,7 @@ export const QuestionComponent = () => {
   }, [subjectId, currentPage]);
 
   const variants = ["А", "Б", "В", "Г"];
-
   const totalPages = Math.ceil(count / questionsPerPage);
-
 
   if (loading) {
     return <Container>Загрузка вопросов...</Container>;
@@ -74,6 +68,7 @@ export const QuestionComponent = () => {
   if (!loading && !questionsLoaded) {
     return <Container>Нет вопросов для данного предмета</Container>;
   }
+
   return (
     <Container>
       <div className="flex flex-col mt-5 bg-white rounded-lg">
@@ -126,27 +121,6 @@ export const QuestionComponent = () => {
                       </span>
                       {item.image && (
                         <img src={item.image} alt="Option" className="w-[80px] h-[80px] object-cover" />
-                    <motion.div
-                  key={item.id}
-                  className="flex items-center mb-2 transition-all duration-300"
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <label htmlFor={`option-${index}-${optionIndex}`} className="flex items-center cursor-pointer gap-2 w-full">
-                    <input
-                      type="radio"
-                      id={`option-${index}-${optionIndex}`}
-                      name={`question-${index}`}
-                      onChange={() => handleOptionSelect(question.questionId, item.id, isCorrect)}
-                      disabled={!!selectedOption}
-                      className="hidden"
-                    />
-                    <span className="flex items-center justify-center w-6 h-6 border rounded-full">
-                      {isSelected && (
-                        isCorrect ? (
-                          <FaCheckCircle className="text-green-500" />
-                        ) : (
-                          <FaTimesCircle className="text-red-500" />
-                        )
                       )}
                       <p className="p-2">{variants[optionIndex]}.</p>
                       <p
@@ -161,10 +135,8 @@ export const QuestionComponent = () => {
                       </p>
                     </label>
                   </motion.div>
-
                 );
               })}
-
             </div>
             {selectedAnswers[question.questionId] && (
               <motion.div
@@ -200,7 +172,7 @@ export const QuestionComponent = () => {
                 key={i}
                 className={`mx-1 cursor-pointer ${currentPage === i + 1 ? 'border-b-2 border-[#3E5ECF]' : ""} `}
               >
-                {currentPage}
+                {i + 1}
               </span>
             ))}
           </div>
@@ -210,11 +182,10 @@ export const QuestionComponent = () => {
         </div>
       </div>
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30" >
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
           <ChatUI aiHelpData={aiHelpData} handleClose={handleCloseModal} />
         </div>
-      )
-      }
+      )}
     </Container>
   );
 };

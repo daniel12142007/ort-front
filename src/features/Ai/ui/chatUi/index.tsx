@@ -30,7 +30,7 @@ export const ChatUI = ({ aiHelpData, handleClose }: ChatUIProps) => {
 
 
     return (
-        <div className="flex pl-16 max-h-[520px] h-[520px] relative">
+        <div className="flex max-h-[520px] h-[520px] relative">
             <div className="absolute top-[20px] right-[20px] cursor-pointer" onClick={handleClose}>
                 <CloseIcon />
             </div>
