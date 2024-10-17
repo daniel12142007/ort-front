@@ -8,7 +8,7 @@ export const MainPage = () => {
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-2xl font-semibold text-center">Добро пожаловать</h1>
-      <div className="flex gap-4 p-5 flex-col md:flex-row">
+      <div className="flex gap-4 p-5 flex-col md:flex-row flex-wrap">
         <button
           onClick={() => navigate("/main/training-test")}
           className="bg-blue-500 w-52 text-white px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-500"
@@ -27,6 +27,12 @@ export const MainPage = () => {
           onClick={() => navigate("profile")}
         >
           Профиль
+        </button>
+        <button
+          className="bg-blue-500 w-52 text-white px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-500"
+          onClick={() => navigate("profile/archive")}
+        >
+          Мои архивы
         </button>
         <button
           className="bg-blue-500 w-52 text-white px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-gray-500"
