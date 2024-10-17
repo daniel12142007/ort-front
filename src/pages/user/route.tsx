@@ -5,6 +5,7 @@ import { MainPage } from "./main/MainPage"
 import { BreadCrumbs } from "@/shared/ui"
 import { Header } from "@/widgets/Header/Header"
 import { TrainingTestRoute } from "@/features/TrainingTest"
+import { PaymentRoute } from "@/features/payment"
 
 export const UserRoute = {
   path: "/main",
@@ -25,5 +26,6 @@ export const UserRoute = {
     TrialTestingRoute,
     UserProfileRouter,
     TrainingTestRoute,
+    PaymentRoute,
   ],
 }
