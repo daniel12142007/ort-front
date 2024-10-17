@@ -1,8 +1,10 @@
 import TokenService from "@/utils"
 import axios from "axios"
 
-const base_url = "http://ec2-54-173-142-201.compute-1.amazonaws.com:8080/";
-
+if (!import.meta.env.VITE_BASE_URL) {
+  throw new Error("VITE_BASE_URL is not defined in .env file")
+}
+const base_url = import.meta.env.VITE_BASE_URL
 
 export const apiRoot = axios.create({
   baseURL: base_url,
@@ -13,8 +15,9 @@ export const apiRoot = axios.create({
 apiRoot.interceptors.request.use(
   (config) => {
     const token = TokenService.getToken()
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+    const userToken = TokenService.getUser()
+    if (token || userToken?.token) {
+      config.headers.Authorization = `Bearer ${token || userToken?.token}`
     }
     return config
   },

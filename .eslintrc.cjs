@@ -32,7 +32,7 @@ module.exports = {
 		'react/jsx-uses-react': 'off',
 		semi: 0,
 		'linebreak-style': 'off',
-		indent: ['error', 2, { SwitchCase: 1 }],
+		indent: ['error', 4, { SwitchCase: 1 }],
 		'new-cap': 'off',
 		'one-var': 'off', // на одно создание let указать несколько переменных
 		camelcase: 'off', // проверка на camelcase

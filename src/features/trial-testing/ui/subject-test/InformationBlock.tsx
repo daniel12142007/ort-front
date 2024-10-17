@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const InformationBlock = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const nav = () => {
-    const id = location.state?.id
+    const id = location.state
+    console.log(id)
     navigate("testing", { state: { id } })
   }
 

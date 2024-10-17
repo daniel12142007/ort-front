@@ -31,7 +31,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
   });
 
   const { updateTest } = useStore();
-  const [uploadedQuestionImage, setUploadedQuestionImage] = useState<File | null>(null);
   const [uploadedOptionImages, setUploadedOptionImages] = useState<(File | null)[]>(Array(4).fill(null));
 
   const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +63,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
   const handleQuestionImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setUploadedQuestionImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setTestData((prevData) => ({

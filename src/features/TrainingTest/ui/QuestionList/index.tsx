@@ -1,16 +1,14 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Container } from "@/shared/ui/Container";
-import { useTrainingTestStore } from "../../model/store";
-import AiSVG from '../../../../shared/assets/svg/ai.svg';
-import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
-import { useLocation } from "react-router-dom";
-import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
+import { Container } from "@/shared/ui/Container"
+import { useTrainingTestStore } from "../../model/store"
+import AiSVG from "../../../../shared/assets/svg/ai.svg"
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa"
+import { useLocation } from "react-router-dom"
+import { NavigateBefore, NavigateNext } from "@mui/icons-material"
 
 
 export const QuestionComponent = () => {
-  const { subjectName } = useParams();
   const location = useLocation();
   const {id:subjectId, totalCount} = location.state;
   
@@ -70,13 +68,13 @@ export const QuestionComponent = () => {
               </div>
             </div>
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 px-7">
-            {question.optionsResponse.map((item, optionIndex) => {
-              const selectedOption = selectedAnswers[question.questionId];
-              const isCorrect = item.correct;
-              const isSelected = selectedOption === item.id;
+              {question.optionsResponse.map((item, optionIndex) => {
+                const selectedOption = selectedAnswers[question.questionId];
+                const isCorrect = item.correct;
+                const isSelected = selectedOption === item.id;
 
-              return (
-                <motion.div
+                return (
+                    <motion.div
                   key={item.id}
                   className="flex items-center mb-2 transition-all duration-300"
                   whileTap={{ scale: 0.95 }}

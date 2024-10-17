@@ -1,16 +1,20 @@
 import mathematicIcon from "@/shared/assets/icon/mathematic.svg"
 import React from "react"
 import { useTrialTestStore } from "../models/store"
+import { Container } from "@/shared/ui/Container"
+
 
 import { useNavigateLogic } from "@/hooks/crossLogic"
+import { useNavigate } from "react-router-dom"
 
 export const TrialTesting = () => {
+  const navigate = useNavigate()
   const [active, setActive] = React.useState<{
     id: number
     subjectName: string
   }>()
   const { subjects, countSub } = useTrialTestStore()
-  const { navigateWithFetch, loading, testNavigate, testLoading } =
+  const { navigateWithFetch, loading, testLoading } =
     useNavigateLogic()
 
   React.useEffect(() => {
@@ -21,7 +25,7 @@ export const TrialTesting = () => {
 
   const nav = () => {
     if (!active) return
-    testNavigate("prev", active.id, 10, active.subjectName)
+    navigate(`${active.subjectName}`, { state: active.id})
   }
 
   const subjectList = subjects.map((subject, i) => (
@@ -37,8 +41,9 @@ export const TrialTesting = () => {
   ))
 
   return (
-    <div className="flex flex-col gap-4 items-center p-5">
-      <div className="grid grid-cols-3 gap-4 md:grid-cols-2">
+      <Container>
+        <div className="flex mt-5 flex-col gap-4 items-center">
+          <div className="flex flex-wrap gap-2 md:gap-5 w-full lg:gap-4">
         {loading ? (
           <div>Loading...</div>
         ) : countSub === 0 ? (
@@ -46,41 +51,43 @@ export const TrialTesting = () => {
         ) : (
           subjectList
         )}
+          </div>
       </div>
+        <div className="flex justify-center mt-5">
       <button
-        className="bg-blue-500 text-white px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-blue-300"
+        className="bg-blue-500 text-white mx-auto w-1/3 px-4 py-2 text-lg rounded-lg shadow-sm hover:bg-blue-600 disabled:bg-blue-300"
         disabled={!active || testLoading}
         onClick={nav}
       >
-        {testLoading ? "Загрузка..." : "Пройти тест"}
+        Пройти тест
       </button>
-    </div>
+        </div>
+      </Container>
   )
 }
 
 const ItemButton: React.FC<{
-  title: string
-  icon: string
-  iconColor: string
-  active: boolean
-  onClick: (e: string) => void
-  disabled: boolean
+  title: string;
+  icon: string;
+  iconColor: string;
+  active: boolean;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled: boolean;
 }> = ({ title, icon, iconColor, active, onClick, disabled }) => {
   return (
-    <button
-      disabled={disabled}
-      className={`flex items-center bg-white shadow-xl rounded-lg overflow-hidden cursor-pointer gap-3 disabled:shadow-none disabled:bg-zinc-300 relative ${
-        active &&
-        "transform translate-y-[1px] shadow-[2px_2px_10px_0px_#407bff]"
-      }`}
-      onClick={() => onClick(title)}
-    >
-      <div className={`bg-[${iconColor}] w-[30%] h-full`}>
-        <img src={icon} alt="itemIcon" className="w-full h-full" />
-      </div>
-      <div>
-        <p className="font-semibold h-full">{title}</p>
-      </div>
-    </button>
-  )
-}
+      <button
+          disabled={disabled}
+          className={`flex flex-col md:flex-row w-[48.5%] lg:w-[32.4%] items-center bg-white shadow-lg rounded-lg 
+      overflow-hidden cursor-pointer md:gap-4 disabled:opacity-50 
+      ${ active ? "transform scale-105 shadow-[0_0_15px_0px_#407bff]" : ""}`}
+          onClick={onClick}
+      >
+        <div className={`bg-[${iconColor}] flex justify-center items-center bg-[#9AB6FF] w-full md:w-[30%] h-20`}>
+          <img src={icon} alt="itemIcon" className="w-full h-full flex items-center m-2 justify-center" />
+        </div>
+        <div>
+          <p className="font-semibold text-gray-800 text-[16px] m-3 md:m-0 md:text-[20px]">{title}</p>
+        </div>
+      </button>
+  );
+};

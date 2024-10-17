@@ -40,10 +40,12 @@ export const useSchoolsStore = create<SchoolsState>((set) => ({
     deleteSchool: async (id) => {
         try {
             const res = await api.deleteSchool(id);
+            if (res.status === 200) {
             set((state) => ({
                 schools: state.schools.filter((school) => school.id !== id),
             }))
             toast.success("Школа успешно удалена.");
+            }
         } catch (err) {
             console.log(err);
             toast.error("Ошибка при удалении школы.");
