@@ -21,7 +21,6 @@ const ArchiveBlock: React.FC<Props> = ({ navigation, name }) => {
       </div>
       <div className="flex justify-between w-full px-2 sm:text-[12px] font-[500] text-lg">
         <p>{name}</p>
-        <p className="text-blue-600">10.10.2022</p>
         <button className="flex items-center">
           Перейти
           <img
