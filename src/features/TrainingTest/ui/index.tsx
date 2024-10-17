@@ -38,7 +38,7 @@ export const TrainingTest = () => {
       active={active?.id === subject.id}
       onClick={() => {
         setActive(subject === active ? undefined : subject);
-        handleSubjectSelect(subject); 
+        handleSubjectSelect(subject);
       }}
       disabled={subject.questionCount === 0}
     />
@@ -54,7 +54,7 @@ export const TrainingTest = () => {
       active={active?.id === subject.id}
       onClick={() => {
         setActive(subject === active ? undefined : subject);
-        handleSubjectSelect(subject); 
+        handleSubjectSelect(subject);
       }}
       disabled={subject.questionCount === 0}
     />
@@ -87,9 +87,9 @@ const ItemButton: React.FC<{
   return (
     <button
       disabled={disabled}
-      className={`flex flex-col md:flex-row w-[48.5%] lg:w-[32.4%] items-center bg-white shadow-lg 
-        rounded-lg overflow-hidden cursor-pointer md:gap-4 disabled:opacity-50 
-        ${active ? "transform scale-105 shadow-[0_0_15px_0px_#407bff]" : ""}`}
+      className={`flex flex-col md:flex-row w-[48.5%] lg:w-[32.4%] items-center bg-white shadow-lg rounded-lg 
+      overflow-hidden cursor-pointer md:gap-4 disabled:opacity-50 
+      ${ active ? "transform scale-105 shadow-[0_0_15px_0px_#407bff]" : ""}`}
       onClick={onClick} 
     >
       <div className={`bg-[${iconColor}] flex justify-center items-center bg-[#9AB6FF] w-full md:w-[30%] h-20`}>

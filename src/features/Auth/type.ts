@@ -4,6 +4,7 @@ export interface LoginReq {
 }
 
 export interface LoginRes {
+  id: number
   token: string
   role: "ADMIN" | "USER"
 }

@@ -15,8 +15,9 @@ export const apiRoot = axios.create({
 apiRoot.interceptors.request.use(
   (config) => {
     const token = TokenService.getToken()
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+    const userToken = TokenService.getUser()
+    if (token || userToken?.token) {
+      config.headers.Authorization = `Bearer ${token || userToken?.token}`
     }
     return config
   },
