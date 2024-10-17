@@ -3,7 +3,7 @@ version: 2.1
 parameters:
     docker-container:
         type: string
-        default: 'kochkor-ata-frontend'
+        default: 'ort-frontend'
         description: 'Docker container name for DentApp Prod'
 
 jobs:
