@@ -1,9 +1,15 @@
 version: "3.9"
+
 services:
-  fronted:
-    image: ort-frontend
-    container_name: fronted
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Убедитесь, что здесь указан правильный Dockerfile
+    container_name: frontend
     ports:
       - 80:80
     environment:
-      REACT_APP_BACKEND_URL: ec2-54-173-142-201.compute-1.amazonaws.com
+      REACT_APP_BACKEND_URL: ec2-54-173-142-201.compute-1.amazonaws.com:8080
+    volumes:
+      - .:/app  # Обеспечивает синхронизацию файлов между хостом и контейнером (если это нужно для разработки)
+    restart: always  # Перезапускает контейнер в случае сбоя
