@@ -1,17 +1,17 @@
-FROM node:16-alpine as build
+# Этап разработки
+FROM node:16-alpine
 
+# Установка рабочей директории
 WORKDIR /app
-ENV NODE_OPTIONS="--max_old_space_size=4096"
 
+# Копируем файлы конфигурации для установки зависимостей
 COPY package*.json ./
-COPY package-lock.json ./
+
+# Установка зависимостей
 RUN npm install
 
+# Копируем остальные файлы приложения
 COPY . .
 
-RUN npm run build
-
-FROM nginx
-COPY --from=build /app/build /usr/share/nginx/html
-COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
-CMD [ "nginx", "-g", "daemon off;" ]
+# Запускаем сервер разработки
+CMD ["npm", "run", "dev"]
